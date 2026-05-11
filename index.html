@@ -1,0 +1,2076 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Proyectos de Electronica - Fisica 3</title><meta name="description" content="Documentacion de proyectos de electronica con ESP32 - Fisica 3">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="chatbot.css">
+<link rel="stylesheet" href="styles.css">
+</head><body><canvas id="circuitCanvas"></canvas>
+<header class="header">
+<div class="header-logo" onclick="showSection('inicio')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg><span>Electronica ESP32</span></div>
+<div class="search-wrap"><i class="fas fa-search search-icon"></i><input type="text" id="searchInput" class="search-input" placeholder="Buscar proyecto..."><div id="searchResults" class="search-results"></div></div>
+<button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</header>
+<div class="nav-overlay" id="navOverlay"></div>
+<nav class="nav-sidebar" id="navSidebar">
+<div class="nav-section-title">Navegacion</div>
+<a class="nav-link" data-nav="inicio"><i class="fas fa-home"></i> Inicio</a>
+<div class="nav-section-title">Proyectos</div><a class="nav-link" data-nav="onoff-rep"><i class="fas fa-microchip"></i> On/Off Repetitivo</a>
+<a class="nav-link" data-nav="onoff-key"><i class="fas fa-microchip"></i> On/Off por Teclado</a>
+<a class="nav-link" data-nav="pot"><i class="fas fa-microchip"></i> Potenciometro</a>
+<a class="nav-link" data-nav="pot-bt"><i class="fas fa-microchip"></i> Potenciometro con Bluetooth</a>
+<a class="nav-link" data-nav="pot-wifi"><i class="fas fa-microchip"></i> Potenciometro con WiFi</a>
+<a class="nav-link" data-nav="pot-ts"><i class="fas fa-microchip"></i> Potenciometro con ThingSpeak</a>
+<a class="nav-link" data-nav="temp-sin"><i class="fas fa-microchip"></i> Temperatura sin Termometro</a>
+<a class="nav-link" data-nav="temp-con"><i class="fas fa-microchip"></i> Temperatura con Termometro</a>
+<a class="nav-link" data-nav="armonico"><i class="fas fa-microchip"></i> Movimiento Armonico Simple</a>
+<a class="nav-link" data-nav="dist-pantalla"><i class="fas fa-microchip"></i> Sensor de Distancia con Pantalla</a>
+<div class="nav-section-title">Recursos</div>
+<a class="nav-link" data-nav="material"><i class="fas fa-box"></i> Material</a>
+<hr style="border: 0; border-top: 1px solid rgba(148,163,184,0.1); margin: 12px 0;">
+<div class="nav-section-title">Informacion</div>
+<a class="nav-link" data-nav="sobre-nosotros"><i class="fas fa-users"></i> Sobre Nosotros</a>
+</nav><div class="main-content">
+<section id="inicio" class="section active">
+<div class="hero">
+<h1 class="hero-title">Proyectos de Electronica</h1>
+<p class="hero-subtitle">Documentacion tecnica de los proyectos ESP32 realizados en la clase de Fisica 3 — Universidad Tecnologica de Pereira</p>
+<div class="hero-intro"><div class="glass-card" style="padding:28px">
+<h2 style="color:var(--accent-cyan);font-size:1.1rem;margin-bottom:12px">Fisica 3: Oscilaciones, Ondas y Termodinamica</h2>
+<p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:10px">Aunque desarrollado en el marco de la asignatura de Física 3, este portafolio se enfoca principalmente en el aprendizaje práctico de cómo diseñar, ensamblar y programar proyectos de electrónica utilizando el microcontrolador <strong style="color:var(--accent-green)">ESP32</strong>. Más allá de los conceptos teóricos, el objetivo central es comprender el funcionamiento interno y el flujo de trabajo real necesario para crear sistemas electrónicos funcionales.</p>
+<p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:10px">Los montajes documentados abarcan desde el control básico de componentes y lectura de sensores, hasta la implementación de interfaces gráficas (OLED), comunicación inalámbrica (Bluetooth y WiFi) y telemetría IoT en la nube. A través de estos retos, desarrollamos las habilidades técnicas esenciales requeridas en la ingeniería electrónica moderna.</p>
+<p style="color:var(--text-secondary);font-size:0.9rem">Cada seccion incluye el desarrollo teorico, las ecuaciones caracteristicas del sistema, esquemas de conexion, codigo de control e interfaces de simulacion interactivas para una comprension integral.</p>
+</div></div>
+<div class="quick-links-container" style="margin-top:40px; width:100%; max-width:900px; margin-left:auto; margin-right:auto;">
+<h3 style="color:var(--accent-gold);font-size:1.05rem;margin-bottom:20px;text-align:center;text-transform:uppercase;letter-spacing:1px;">Explorar Proyectos</h3>
+<div class="quick-links-grid">
+<div class="glass-card quick-link-card" onclick="showSection('onoff-rep')"><i class="fas fa-power-off"></i><span>On/Off Repetitivo</span></div>
+<div class="glass-card quick-link-card" onclick="showSection('onoff-key')"><i class="fas fa-keyboard"></i><span>On/Off Teclado</span></div>
+<div class="glass-card quick-link-card" onclick="showSection('pot')"><i class="fas fa-sliders-h"></i><span>Potenciómetro</span></div>
+<div class="glass-card quick-link-card" onclick="showSection('pot-bt')"><i class="fab fa-bluetooth-b"></i><span>Potenciómetro BT</span></div>
+<div class="glass-card quick-link-card" onclick="showSection('pot-wifi')"><i class="fas fa-wifi"></i><span>Potenciómetro WiFi</span></div>
+<div class="glass-card quick-link-card" onclick="showSection('pot-ts')"><i class="fas fa-cloud"></i><span>Potenciómetro Cloud</span></div>
+<div class="glass-card quick-link-card" onclick="showSection('temp-sin')"><i class="fas fa-temperature-low"></i><span>Temp. DHT22</span></div>
+<div class="glass-card quick-link-card" onclick="showSection('temp-con')"><i class="fas fa-desktop"></i><span>Temp. OLED</span></div>
+<div class="glass-card quick-link-card" onclick="showSection('armonico')"><i class="fas fa-wave-square"></i><span>Mov. Armónico</span></div>
+<div class="glass-card quick-link-card" onclick="showSection('dist-pantalla')"><i class="fas fa-ruler"></i><span>Sensor de Distancia</span></div>
+</div></div>
+</div>
+</section><section id="onoff-rep" class="section" data-project-name="On/Off Repetitivo"><div class="project-layout"><aside class="project-sidebar"><div class="project-sidebar-title">Contenido</div><a href="#onoff-rep-intro">Introducción</a><a href="#onoff-rep-obj">Objetivo</a><a href="#onoff-rep-mat">Materiales</a><a href="#onoff-rep-esq">Esquema</a><a href="#onoff-rep-code">Código</a><a href="#onoff-rep-func">Funcionamiento</a><a href="#onoff-rep-vid">Video</a><a href="#onoff-rep-conc">Conclusiones</a><a href="#onoff-rep-eqs">Ecuaciones</a></aside><div class="project-content"><div class="project-header"><h1>On/Off Repetitivo</h1><div class="project-meta"><span>Plataforma: ESP32 Dev Module</span><span>Profesor: Msc. Nestor Fabio Montoya Palacios</span></div></div>
+<div id="onoff-rep-intro" class="ieee-content">
+<h2>I. Introducción</h2>
+<p>Este proyecto consiste en hacer parpadear un LED conectado al pin GPIO 4 del ESP32, alternando entre estados de encendido y apagado con intervalos de 1 segundo. Es el punto de partida para comprender conceptos clave como la configuración de pines GPIO, el uso de funciones de tiempo (delay), la comunicación serial para depuración y el flujo básico de un programa Arduino (setup/loop).</p>
+<p>El ESP32 es un microcontrolador de bajo costo y alto rendimiento desarrollado por Espressif Systems, con conectividad Wi-Fi y Bluetooth integrada, ideal para proyectos educativos y aplicaciones IoT profesionales.</p>
+</div>
+<div id="onoff-rep-obj" class="ieee-content">
+<h2>II. Objetivo</h2>
+<p>Implementar un sistema de parpadeo automático de un LED utilizando el microcontrolador ESP32, demostrando el uso correcto de salidas digitales, la estructura de un programa Arduino y la comunicación serial como herramienta de monitoreo.</p>
+</div>
+<div id="onoff-rep-mat" class="ieee-content">
+<h2>III. Materiales</h2>
+<div class="table-wrap"><table class="data-table"><thead><tr><th style="text-align:center; width:60px">Aspecto</th><th>Cant.</th><th>Componente</th><th>Especificación</th></tr></thead><tbody>
+<tr><td style="text-align:center"><i class="fas fa-microchip" style="font-size:1.5em; color:var(--accent-cyan)"></i></td><td>1</td><td>ESP32 Dev Module</td><td>Microcontrolador con Wi-Fi/Bluetooth</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-lightbulb" style="font-size:1.5em; color:#ff4444"></i></td><td>1</td><td>LED rojo (5mm)</td><td>LED difuso, $V_f \approx 2V$, $I_f \approx 20mA$</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-wave-square" style="font-size:1.5em; color:#eab308"></i></td><td>1</td><td>Resistencia 220 $\Omega$</td><td>1/4W, tolerancia 5%</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-border-all" style="font-size:1.5em; color:#ccc"></i></td><td>1</td><td>Protoboard</td><td>Placa de pruebas de 830 puntos</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-random" style="font-size:1.5em; color:var(--accent-green)"></i></td><td>2</td><td>Cables jumper</td><td>Macho-macho para conexiones</td></tr>
+<tr><td style="text-align:center"><i class="fab fa-usb" style="font-size:1.5em; color:#999"></i></td><td>1</td><td>Cable USB Micro-B</td><td>Para programación y alimentación</td></tr>
+</tbody></table></div>
+</div>
+<div id="onoff-rep-esq" class="ieee-content">
+<h2>IV. Esquema de Conexión</h2>
+<p>El siguiente esquema muestra las conexiones físicas del circuito. El LED rojo está conectado al pin D4 (GPIO4) del ESP32 a través de una resistencia limitadora de corriente de 220 $\Omega$. El cátodo del LED se conecta a la línea de tierra (GND) del ESP32.</p>
+<div class="figure"><img src="Esquemas/On_Off_Repetitivo_esq.jpeg" alt="Esquema" loading="lazy"><div class="figure-caption">Esquema de conexión del circuito On/Off Repetitivo (Fritzing)</div></div>
+<h3>Descripción de las Conexiones</h3>
+<ol>
+    <li>Pin D4 (GPIO4) del ESP32 se conecta al ánodo (+) del LED mediante un cable jumper.</li>
+    <li>El cátodo (-) del LED se conecta a un extremo de la resistencia de 220 $\Omega$.</li>
+    <li>El otro extremo de la resistencia se conecta al bus de tierra (GND) de la protoboard.</li>
+    <li>El pin GND del ESP32 se conecta al bus de tierra de la protoboard.</li>
+</ol>
+</div>
+<div id="onoff-rep-code" class="ieee-content">
+<h2>V. Código Fuente</h2>
+<p>A continuación se presenta el código completo del proyecto con explicación detallada de cada sección:</p>
+<div class="code-block"><span class="code-title">On_Off_Repetitivo.ino</span><code><span class="com">// -- Configuración ----------------------------------</span>
+<span class="kw">const int</span> <span class="type">PIN_LED</span> = <span class="num">4</span>;       <span class="com">// Pin GPIO donde está el LED</span>
+<span class="kw">const int</span> <span class="type">TIEMPO_ENCENDIDO</span> = <span class="num">1000</span>; <span class="com">// Tiempo encendido (ms)</span>
+<span class="kw">const int</span> <span class="type">TIEMPO_APAGADO</span> = <span class="num">1000</span>;   <span class="com">// Tiempo apagado (ms)</span>
+
+<span class="com">// -- Setup -------------------------------------------</span>
+<span class="kw">void</span> <span class="fn">setup</span>() {
+  Serial.<span class="fn">begin</span>(<span class="num">115200</span>);
+  Serial.<span class="fn">println</span>(<span class="str">"=================================="</span>);
+  Serial.<span class="fn">println</span>(<span class="str">"  Parpadeo de LED con el ESP32    "</span>);
+  Serial.<span class="fn">println</span>(<span class="str">"=================================="</span>);
+
+  <span class="com">// Establecemos el pin del LED como salida</span>
+  <span class="fn">pinMode</span>(PIN_LED, <span class="type">OUTPUT</span>);
+
+  <span class="com">// Apagamos el LED al iniciar</span>
+  <span class="fn">digitalWrite</span>(PIN_LED, <span class="type">LOW</span>);
+  Serial.<span class="fn">println</span>(<span class="str">"> Sistema listo. Iniciando parpadeo..."</span>);
+}
+
+<span class="com">// -- Loop --------------------------------------------</span>
+<span class="kw">void</span> <span class="fn">loop</span>() {
+  <span class="com">// Encendemos el LED</span>
+  <span class="fn">digitalWrite</span>(PIN_LED, <span class="type">HIGH</span>);
+  Serial.<span class="fn">println</span>(<span class="str">"LED: ENCENDIDO"</span>);
+  <span class="fn">delay</span>(TIEMPO_ENCENDIDO);
+
+  <span class="com">// Apagamos el LED</span>
+  <span class="fn">digitalWrite</span>(PIN_LED, <span class="type">LOW</span>);
+  Serial.<span class="fn">println</span>(<span class="str">"LED: APAGADO"</span>);
+  <span class="fn">delay</span>(TIEMPO_APAGADO);
+}</code></div>
+<h3>Análisis del Código</h3>
+<ul>
+    <li><strong>Configuración:</strong> Se definen tres constantes (<code>PIN_LED</code>, <code>TIEMPO_ENCENDIDO</code> y <code>TIEMPO_APAGADO</code>) que parametrizan el comportamiento del circuito de forma modular.</li>
+    <li><strong>setup():</strong> Inicializa la comunicación serial a 115200 baudios, configura el pin GPIO4 como salida (<code>OUTPUT</code>) y asegura que el LED inicie apagado.</li>
+    <li><strong>loop():</strong> Se ejecuta infinitamente encendiendo el LED enviando 3.3V al pin, imprimiendo su estado en el Monitor Serial, y pausando la ejecución por 1 segundo usando <code>delay()</code>, para luego repetir el proceso apagando el LED (0V).</li>
+</ul>
+</div>
+<div id="onoff-rep-func" class="ieee-content">
+<h2>VI. Principio de Funcionamiento</h2>
+<p>El circuito opera bajo el principio básico de control digital de un GPIO (General Purpose Input/Output). Cuando el ESP32 escribe un valor HIGH en el pin GPIO4, este entrega aproximadamente 3.3V, permitiendo que la corriente fluya a través del LED y la resistencia. La resistencia de 220 $\Omega$ limita la corriente para evitar dañar el componente:</p>
+<div class="equation-block"><span class="equation-label">(1)</span>$$I = \frac{V_{gpio} - V_{led}}{R} = \frac{3.3\text{ V} - 2.0\text{ V}}{220\,\Omega} \approx 5.9\text{ mA}$$</div>
+<p>Este valor está dentro del rango seguro de operación tanto para el LED (máx 20mA) como para el pin del ESP32 (máx 40mA por pin).</p>
+<div class="sim-container" id="simLedBlink"><div class="sim-title">Simulación: LED Parpadeante</div><div class="sim-canvas"><canvas></canvas></div></div>
+</div>
+<div id="onoff-rep-vid" class="ieee-content">
+<h2>VII. Video de Funcionamiento</h2>
+<div class="video-wrap"><video controls preload="none"><source src="Videos/On_Off_Repetitivo_vid/On_Off_Repetitivo_Funcionamiento.mp4" type="video/mp4"></video><div class="video-caption">Demostración del circuito parpadeando cíclicamente cada segundo.</div></div>
+</div>
+<div id="onoff-rep-conc" class="ieee-content">
+<h2>VIII. Conclusiones</h2>
+<ul>
+<li>El proyecto demuestra el uso correcto de los pines GPIO del ESP32 como salidas digitales para controlar dispositivos externos.</li>
+<li>La comunicación serial permite monitorear en tiempo real el estado del sistema, facilitando la depuración.</li>
+<li>El uso de constantes para definir pines y tiempos hace el código modular y fácil de modificar.</li>
+<li>La resistencia limitadora es esencial para proteger tanto el LED como el microcontrolador.</li>
+<li>Este proyecto constituye la base para circuitos más complejos como semáforos, indicadores de estado, y sistemas de alerta visual.</li>
+</ul>
+</div>
+<div id="onoff-rep-eqs" class="ieee-content">
+<h2>IX. Tabla de Ecuaciones</h2>
+<div class="table-wrap"><table class="data-table eq-summary-table"><thead><tr><th>Ecuación</th><th>Descripción</th><th>Enlace</th></tr></thead><tbody>
+<tr><td>$I = \frac{V_{gpio}-V_{led}}{R}$</td><td>Corriente a través del LED</td><td><a href="#onoff-rep-func">Ir a sección</a></td></tr>
+</tbody></table></div>
+</div></div></div></section>
+<section id="onoff-key" class="section" data-project-name="On/Off por Teclado"><div class="project-layout"><aside class="project-sidebar"><div class="project-sidebar-title">Contenido</div><a href="#onoff-key-intro">Introducción</a><a href="#onoff-key-obj">Objetivo</a><a href="#onoff-key-mat">Materiales</a><a href="#onoff-key-esq">Esquema</a><a href="#onoff-key-code">Código</a><a href="#onoff-key-func">Funcionamiento</a><a href="#onoff-key-comp">Comparación</a><a href="#onoff-key-fotos">Fotografías</a><a href="#onoff-key-vid">Video</a><a href="#onoff-key-proc">Proceso</a><a href="#onoff-key-conc">Conclusiones</a><a href="#onoff-key-eqs">Ecuaciones</a></aside><div class="project-content"><div class="project-header"><h1>On/Off por Teclado</h1><div class="project-meta"><span>Plataforma: ESP32 Dev Module</span><span>Profesor: Msc. Nestor Fabio Montoya Palacios</span></div></div>
+<div id="onoff-key-intro" class="ieee-content"><h2>I. Introducción</h2>
+<p>Este proyecto describe de manera detallada el circuito interactivo "On/Off Keyboard", que permite al usuario controlar el encendido y apagado de un LED conectado al ESP32 mediante comandos de teclado enviados a través del Monitor Serial del Arduino IDE.</p>
+<p>A diferencia del proyecto "On/Off Repetitivo" —donde el LED parpadea automáticamente—, en este proyecto el usuario tiene el control total: al presionar la tecla <code>a</code> el LED se enciende, y al presionar la tecla <code>b</code> el LED se apaga. Esto introduce conceptos fundamentales de <strong>comunicación serial</strong>, <strong>lectura de datos de entrada</strong> y <strong>toma de decisiones condicionales</strong> en la programación de microcontroladores.</p>
+<p>Este proyecto sirve como segundo paso en el aprendizaje de Arduino, consolidando los conceptos de GPIO y comunicación serial mientras introduce la interacción usuario-microcontrolador en tiempo real.</p>
+</div>
+<div id="onoff-key-obj" class="ieee-content"><h2>II. Objetivo</h2>
+<p>Implementar un sistema de control manual de un LED utilizando el microcontrolador ESP32, donde el usuario envía comandos desde el teclado del computador a través del Monitor Serial, demostrando el uso de:</p>
+<ul>
+    <li>Salidas digitales (GPIO) para controlar un actuador (LED).</li>
+    <li>Comunicación serial bidireccional (lectura y escritura).</li>
+    <li>Estructuras condicionales (<code>if / else if</code>) para la toma de decisiones.</li>
+    <li>Lectura de caracteres individuales desde el buffer serial.</li>
+</ul>
+</div>
+<div id="onoff-key-mat" class="ieee-content"><h2>III. Materiales</h2>
+<div class="table-wrap"><table class="data-table"><thead><tr><th style="text-align:center; width:60px">Aspecto</th><th>Cant.</th><th>Componente</th><th>Especificación</th></tr></thead><tbody>
+<tr><td style="text-align:center"><i class="fas fa-microchip" style="font-size:1.5em; color:var(--accent-cyan)"></i></td><td>1</td><td>ESP32 Dev Module</td><td>Microcontrolador con Wi-Fi/Bluetooth</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-lightbulb" style="font-size:1.5em; color:#ff4444"></i></td><td>1</td><td>LED (5mm)</td><td>LED difuso, $V_f \approx 2V$, $I_f \approx 20mA$</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-wave-square" style="font-size:1.5em; color:#eab308"></i></td><td>1</td><td>Resistencia 220 $\Omega$</td><td>1/4W, tolerancia 5%</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-border-all" style="font-size:1.5em; color:#ccc"></i></td><td>1</td><td>Protoboard</td><td>Placa de pruebas de 830 puntos</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-random" style="font-size:1.5em; color:var(--accent-green)"></i></td><td>2</td><td>Cables jumper</td><td>Macho-macho para conexiones</td></tr>
+<tr><td style="text-align:center"><i class="fab fa-usb" style="font-size:1.5em; color:#999"></i></td><td>1</td><td>Cable USB Micro-B</td><td>Para programación y alimentación</td></tr>
+</tbody></table></div></div>
+<div id="onoff-key-esq" class="ieee-content"><h2>IV. Esquema de Conexión</h2>
+<p>El esquema de conexión es el mismo utilizado en el proyecto "On/Off Repetitivo", ya que el hardware es idéntico; la diferencia radica exclusivamente en el software (firmware) cargado en el ESP32. El LED está conectado al pin D4 (GPIO4) del ESP32 a través de una resistencia limitadora de corriente de 220 $\Omega$.</p>
+<div class="figure"><img src="Esquemas/On_Off_Repetitivo_esq.jpeg" alt="Esquema" loading="lazy"><div class="figure-caption">Esquema de conexión (Fritzing)</div></div>
+<h3>Descripción de las Conexiones</h3>
+<ol>
+    <li><strong>Pin D4 (GPIO4)</strong> del ESP32 se conecta al ánodo (+) del LED mediante un cable jumper.</li>
+    <li>El <strong>cátodo (-)</strong> del LED se conecta a un extremo de la resistencia de 220 $\Omega$.</li>
+    <li>El otro extremo de la resistencia se conecta al <strong>bus de tierra (GND)</strong> de la protoboard.</li>
+    <li>El <strong>pin GND</strong> del ESP32 se conecta al bus de tierra de la protoboard.</li>
+</ol>
+<p>El diagrama esquemático simplificado es: <code>ESP32 GPIO4 &rarr; LED &rarr; R = 220 &Omega; &rarr; GND</code>.</p>
+</div>
+<div id="onoff-key-code" class="ieee-content"><h2>V. Código Fuente</h2>
+<div class="code-block"><span class="code-title">On_Off_Keyboard.ino</span><code><span class="com">// -- Configuración ----------------------------------</span>
+<span class="kw">const int</span> <span class="type">PIN_LED</span> = <span class="num">4</span>;
+
+<span class="kw">void</span> <span class="fn">setup</span>() {
+  Serial.<span class="fn">begin</span>(<span class="num">115200</span>);
+  <span class="fn">pinMode</span>(PIN_LED, <span class="type">OUTPUT</span>);
+  <span class="fn">digitalWrite</span>(PIN_LED, <span class="type">LOW</span>);
+
+  Serial.<span class="fn">println</span>(<span class="str">"Presiona 'a' para encender el LED"</span>);
+  Serial.<span class="fn">println</span>(<span class="str">"Presiona 'b' para apagar el LED"</span>);
+}
+
+<span class="kw">void</span> <span class="fn">loop</span>() {
+  <span class="kw">if</span> (Serial.<span class="fn">available</span>() > <span class="num">0</span>) {
+    <span class="kw">char</span> tecla = Serial.<span class="fn">read</span>();
+
+    <span class="kw">if</span> (tecla == <span class="str">'a'</span> || tecla == <span class="str">'A'</span>) {
+      <span class="fn">digitalWrite</span>(PIN_LED, <span class="type">HIGH</span>);
+      Serial.<span class="fn">println</span>(<span class="str">"LED ENCENDIDO"</span>);
+
+    } <span class="kw">else if</span> (tecla == <span class="str">'b'</span> || tecla == <span class="str">'B'</span>) {
+      <span class="fn">digitalWrite</span>(PIN_LED, <span class="type">LOW</span>);
+      Serial.<span class="fn">println</span>(<span class="str">"LED APAGADO"</span>);
+    }
+  }
+}</code></div>
+<h3>Análisis del Código</h3>
+<ul>
+    <li><strong>Encabezado y Constantes:</strong> Se define una única constante <code>PIN_LED = 4</code>. Usar una constante permite cambiar fácilmente el pin sin modificar múltiples líneas de código.</li>
+    <li><strong>setup():</strong> Inicializa la comunicación serial a 115200 baudios, configura el pin como salida y asegura que inicie apagado. Además, envía un par de mensajes de instrucciones al usuario.</li>
+    <li><strong>loop():</strong> Utiliza un modelo <strong>basado en eventos</strong>. Solo actúa cuando <code>Serial.available() &gt; 0</code>. La función <code>Serial.read()</code> lee el byte enviado, y una estructura condicional <code>if/else if</code> evalúa la tecla. La aceptación de mayúsculas y minúsculas (<code>'a'</code> y <code>'A'</code>) hace el programa más robusto.</li>
+</ul>
+</div>
+<div id="onoff-key-func" class="ieee-content"><h2>VI. Funcionamiento</h2>
+<p>El proyecto se basa en la comunicación <strong>UART</strong> (Universal Asynchronous Receiver-Transmitter) entre el ESP32 y el computador a través del cable USB. El flujo de datos es el siguiente:</p>
+<ol>
+    <li>El usuario escribe un carácter en el Monitor Serial y al enviarlo se transmite como un byte ASCII.</li>
+    <li>El chip USB-UART del ESP32 lo deposita en el buffer de recepción serial.</li>
+    <li><code>Serial.available()</code> detecta datos pendientes y <code>Serial.read()</code> lee el byte.</li>
+    <li>El programa evalúa el carácter y activa o desactiva el GPIO, enviando la respuesta de vuelta al computador.</li>
+</ol>
+<p>La corriente del LED se calcula igual que en el proyecto anterior:</p>
+<div class="equation-block"><span class="equation-label">(1)</span>$$I = \frac{V_{gpio} - V_{led}}{R} = \frac{3.3\text{ V} - 2.0\text{ V}}{220\,\Omega} \approx 5.9\text{ mA}$$</div>
+<div class="sim-container" id="simLedKeyboard"><div class="sim-title">Simulación: Control por Teclado</div><div class="sim-canvas"><canvas></canvas></div>
+<div class="sim-controls"><button class="sim-btn btn-a" style="background:#1a3322;color:#00ff88">Tecla A (Encender)</button><button class="sim-btn btn-b" style="background:#331a1a;color:#ff4444">Tecla B (Apagar)</button></div></div></div>
+<div id="onoff-key-comp" class="ieee-content"><h2>VII. Comparación con On/Off Repetitivo</h2>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>Característica</th><th>On/Off Repetitivo</th><th>On/Off Keyboard</th></tr></thead><tbody>
+<tr><td>Tipo de control</td><td>Automático</td><td>Manual (usuario)</td></tr>
+<tr><td>Uso de <code>delay()</code></td><td>Sí (bloquea ejecución)</td><td>No</td></tr>
+<tr><td>Comunicación serial</td><td>Solo escritura</td><td>Lectura y escritura</td></tr>
+<tr><td>Interacción del usuario</td><td>Ninguna</td><td>Envía comandos por teclado</td></tr>
+<tr><td>Modelo de ejecución</td><td>Secuencial con pausas</td><td>Basado en eventos</td></tr>
+<tr><td>Circuito (hardware)</td><td>Idéntico</td><td>Idéntico</td></tr>
+</tbody></table></div></div>
+<div id="onoff-key-fotos" class="ieee-content"><h2>VIII. Fotografías</h2><div class="figure-grid"><div class="figure"><img src="Imagenes/On_Off_keyboard_imgs/On_Off_keyboard_img1.jpeg" alt="Comandos seriales" loading="lazy"><div class="figure-caption">Envío de comando 'a' por monitor serial</div></div><div class="figure"><img src="Imagenes/On_Off_keyboard_imgs/On_Off_keyboard_img2.jpeg" alt="LED encendido" loading="lazy"><div class="figure-caption">LED encendido tras comando 'a'</div></div><div class="figure"><img src="Imagenes/On_Off_keyboard_imgs/On_Off_keyboard_img3.jpeg" alt="Comando de apagado" loading="lazy"><div class="figure-caption">Envío de comando 'b' por monitor serial</div></div><div class="figure"><img src="Imagenes/On_Off_keyboard_imgs/On_Off_keyboard_img4.jpeg" alt="LED apagado" loading="lazy"><div class="figure-caption">LED apagado tras comando 'b'</div></div></div></div>
+<div id="onoff-key-vid" class="ieee-content"><h2>IX. Video</h2><div class="video-wrap"><video controls preload="none"><source src="Videos/On_Off_Keyboard_vid/On_Off_Keyboard_Funcionamiento.mp4" type="video/mp4"></video><div class="video-caption">Demostración del control manual del LED mediante teclado y monitor serial.</div></div></div>
+<div id="onoff-key-proc" class="ieee-content"><h2>X. Proceso de Creación</h2>
+<ul>
+    <li><strong>Diseño del circuito:</strong> Se reutilizó el esquema del proyecto "On/Off Repetitivo" (LED + resistencia en GPIO4).</li>
+    <li><strong>Desarrollo del firmware:</strong> Se escribió el código utilizando <code>Serial.available()</code> y <code>Serial.read()</code>.</li>
+    <li><strong>Configuración del IDE:</strong> Se seleccionó la placa <em>ESP32 Dev Module</em> y se configuró la velocidad a 115200 baudios.</li>
+    <li><strong>Pruebas:</strong> Se comprobó la recepción enviando <code>a</code> y <code>b</code> desde el Monitor Serial.</li>
+</ul></div>
+<div id="onoff-key-conc" class="ieee-content"><h2>XI. Conclusiones</h2><ul>
+<li>El proyecto demuestra cómo utilizar la comunicación serial bidireccional para crear una interfaz de control básica entre el usuario y el microcontrolador.</li>
+<li>La función <code>Serial.available()</code> permite implementar un modelo de programación basado en eventos, evitando el uso de <code>delay()</code> que bloquea la ejecución.</li>
+<li>La lectura de caracteres con <code>Serial.read()</code> y su evaluación con estructuras condicionales es el fundamento de protocolos de comunicación más complejos.</li>
+<li>El circuito físico (hardware) es idéntico al del proyecto "On/Off Repetitivo", lo que demuestra que un mismo montaje puede tener comportamientos completamente diferentes según el software.</li>
+<li>La aceptación de mayúsculas y minúsculas mejora la experiencia del usuario y es una buena práctica de programación defensiva.</li>
+</ul></div>
+<div id="onoff-key-eqs" class="ieee-content"><h2>XII. Tabla de Ecuaciones</h2>
+<div class="table-wrap"><table class="data-table eq-summary-table"><thead><tr><th>Ecuación</th><th>Descripción</th><th>Enlace</th></tr></thead><tbody>
+<tr><td>$I = \frac{V_{gpio}-V_{led}}{R}$</td><td>Corriente a través del LED</td><td><a href="#onoff-key-func">Ir a sección</a></td></tr>
+</tbody></table></div></div></div></div></section>
+<section id="pot" class="section" data-project-name="Control con Potenciómetro"><div class="project-layout"><aside class="project-sidebar"><div class="project-sidebar-title">Contenido</div><a href="#pot-intro">Introducción</a><a href="#pot-obj">Objetivo</a><a href="#pot-mat">Materiales</a><a href="#pot-esq">Esquema</a><a href="#pot-code">Código</a><a href="#pot-func">Funcionamiento</a><a href="#pot-concept">Conceptos Clave</a><a href="#pot-fotos">Fotografías</a><a href="#pot-vid">Video</a><a href="#pot-sim">Simulación</a><a href="#pot-proc">Proceso</a><a href="#pot-conc">Conclusiones</a><a href="#pot-eqs">Ecuaciones</a></aside><div class="project-content"><div class="project-header"><h1>Control con Potenciómetro</h1><div class="project-meta"><span>Plataforma: ESP32 Dev Module</span><span>Profesor: Msc. Nestor Fabio Montoya Palacios</span></div></div>
+<div id="pot-intro" class="ieee-content"><h2>I. Introducción</h2>
+<p>Este proyecto describe de manera detallada una práctica introductoria de electrónica analógica y digital con el microcontrolador ESP32. El sistema lee la posición angular de un <strong>potenciómetro</strong> mediante el conversor analógico-digital (ADC) del ESP32, convierte el valor leído en voltaje y en un ciclo de trabajo PWM, y utiliza este último para controlar el <strong>brillo de un LED</strong> de forma continua y proporcional.</p>
+<p>El proyecto introduce conceptos fundamentales de <strong>lectura analógica con ADC de 12 bits</strong>, <strong>conversión de valores digitales a magnitudes físicas (voltaje)</strong>, <strong>modulación por ancho de pulso (PWM)</strong> para el control de actuadores, y <strong>comunicación serial</strong> para la depuración y monitoreo de datos en tiempo real.</p>
+<p>Se trata de una práctica ideal como primer acercamiento a la interacción entre sensores analógicos y actuadores controlados digitalmente, sentando las bases para proyectos más complejos.</p></div>
+<div id="pot-obj" class="ieee-content"><h2>II. Objetivo</h2>
+<p>Implementar un sistema de control analógico-digital utilizando el microcontrolador ESP32 que lea la posición de un potenciómetro y controle proporcionalmente el brillo de un LED, demostrando el uso de:</p>
+<ul>
+    <li>Lectura de señales analógicas mediante el ADC de 12 bits del ESP32 (rango 0-4095).</li>
+    <li>Conversión de valores digitales crudos a magnitudes físicas (voltaje en el rango 0-3.3V).</li>
+    <li>Modulación por ancho de pulso (PWM) con la API moderna del ESP32.</li>
+    <li>Mapeo lineal entre rangos numéricos distintos con la función <code>map()</code>.</li>
+    <li>Protección de valores con la función <code>constrain()</code>.</li>
+    <li>Comunicación serial para monitoreo en tiempo real de las variables del sistema.</li>
+</ul></div>
+<div id="pot-mat" class="ieee-content"><h2>III. Materiales</h2>
+<div class="table-wrap"><table class="data-table"><thead><tr><th style="text-align:center; width:60px">Aspecto</th><th>Cant.</th><th>Componente</th><th>Especificación</th></tr></thead><tbody>
+<tr><td style="text-align:center"><i class="fas fa-microchip" style="font-size:1.5em; color:var(--accent-cyan)"></i></td><td>1</td><td>ESP32 Dev Module</td><td>Microcontrolador dual-core con Wi-Fi/Bluetooth</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-box" style="font-size:1.5em; color:#777"></i></td><td>1</td><td>Potenciómetro</td><td>10 k$\Omega$ lineal, 3 terminales</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-lightbulb" style="font-size:1.5em; color:#ff4444"></i></td><td>1</td><td>LED rojo (5mm)</td><td>Diodo emisor de luz, $V_f \approx 2V$</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-wave-square" style="font-size:1.5em; color:#eab308"></i></td><td>1</td><td>Resistencia 220 $\Omega$</td><td>Limitadora de corriente para el LED</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-border-all" style="font-size:1.5em; color:#ccc"></i></td><td>1</td><td>Protoboard</td><td>Placa de pruebas de 830 puntos</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-random" style="font-size:1.5em; color:var(--accent-green)"></i></td><td>Varios</td><td>Cables jumper</td><td>Macho-macho para conexiones</td></tr>
+<tr><td style="text-align:center"><i class="fab fa-usb" style="font-size:1.5em; color:#999"></i></td><td>1</td><td>Cable USB</td><td>Para programación y alimentación</td></tr>
+</tbody></table></div></div>
+<div id="pot-esq" class="ieee-content"><h2>IV. Esquema de Conexión</h2>
+<p>El potenciómetro se conecta entre 3.3V y GND, con su terminal central (cursor) conectado a GPIO34 del ESP32. El LED se conecta a GPIO4 a través de una resistencia limitadora de 220 $\Omega$.</p>
+<div class="figure"><img src="Esquemas/Potenciometro_esq.jpeg" alt="Esquema" loading="lazy"><div class="figure-caption">Esquema de conexión del circuito (Fritzing)</div></div>
+<h3>Diagrama de Conexiones</h3>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>Componente</th><th>Pin</th><th>ESP32 GPIO</th></tr></thead><tbody>
+<tr><td>Potenciómetro</td><td>Terminal 1</td><td>3.3V</td></tr>
+<tr><td>Potenciómetro</td><td>Terminal 2 (cursor)</td><td>GPIO34 (ADC1_CH6)</td></tr>
+<tr><td>Potenciómetro</td><td>Terminal 3</td><td>GND</td></tr>
+<tr><td>Resistencia 220 $\Omega$</td><td>Terminal 1</td><td>GPIO4</td></tr>
+<tr><td>LED rojo</td><td>Ánodo (+)</td><td>Resistencia 220 $\Omega$ (Terminal 2)</td></tr>
+<tr><td>LED rojo</td><td>Cátodo (-)</td><td>GND</td></tr>
+</tbody></table></div>
+<p><strong>Nota:</strong> El GPIO34 del ESP32 es un pin de <em>solo entrada</em> (input-only), lo que lo hace ideal para lectura analógica ya que no requiere funcionalidad de salida.</p>
+</div>
+<div id="pot-code" class="ieee-content"><h2>V. Código Fuente</h2>
+<div class="code-block"><span class="code-title">Potenciometro.ino</span><code><span class="com">// -- Configuración de pines --</span>
+<span class="kw">const int</span> pinPot = <span class="num">34</span>;
+<span class="kw">const int</span> pinLed = <span class="num">4</span>;
+
+<span class="com">// -- Configuración PWM --</span>
+<span class="kw">const int</span> pwmChannel = <span class="num">0</span>;
+<span class="kw">const int</span> pwmFreq = <span class="num">5000</span>;
+<span class="kw">const int</span> pwmRes = <span class="num">8</span>;
+
+<span class="kw">void</span> <span class="fn">setup</span>() {
+  Serial.<span class="fn">begin</span>(<span class="num">115200</span>);
+  <span class="com">// Configuración de la API moderna PWM</span>
+  <span class="fn">ledcSetup</span>(pwmChannel, pwmFreq, pwmRes);
+  <span class="fn">ledcAttachPin</span>(pinLed, pwmChannel);
+}
+
+<span class="kw">void</span> <span class="fn">loop</span>() {
+  <span class="com">// PASO 1: Lectura ADC (0-4095)</span>
+  <span class="kw">int</span> val = <span class="fn">analogRead</span>(pinPot);
+  
+  <span class="com">// PASO 2: Mapeo a rango PWM (0-255)</span>
+  <span class="kw">int</span> brightness = <span class="fn">map</span>(val, <span class="num">0</span>, <span class="num">4095</span>, <span class="num">0</span>, <span class="num">255</span>);
+  brightness = <span class="fn">constrain</span>(brightness, <span class="num">0</span>, <span class="num">255</span>);
+  
+  <span class="com">// PASO 3: Escritura PWM</span>
+  <span class="fn">ledcWrite</span>(pwmChannel, brightness);
+  
+  <span class="com">// PASO 4: Monitoreo Serial</span>
+  Serial.<span class="fn">printf</span>(<span class="str">"ADC:%d PWM:%d\n"</span>, val, brightness);
+  <span class="fn">delay</span>(<span class="num">100</span>);
+}</code></div>
+<h3>Análisis del Código</h3>
+<ul>
+    <li><strong>Declaración de Pines:</strong> GPIO34 como entrada analógica y GPIO4 como salida PWM.</li>
+    <li><strong>Configuración PWM:</strong> Frecuencia a 5 kHz (suficiente para evitar <em>flicker</em> visible) y resolución de 8 bits (256 niveles).</li>
+    <li><strong>setup():</strong> Inicializa el serial, y configura el canal PWM asociándolo al pin del LED usando <code>ledcAttachPin()</code>.</li>
+    <li><strong>loop():</strong> Ejecuta los pasos secuenciales de lectura analógica, mapeo lineal, aplicación del PWM y monitoreo serial. El retardo previene la saturación del monitor.</li>
+</ul>
+</div>
+<div id="pot-func" class="ieee-content"><h2>VI. Funcionamiento</h2>
+<p>El potenciómetro actúa como un <strong>divisor de voltaje</strong>. Al conectar sus extremos entre 3.3V y GND, el cursor entrega un voltaje proporcional al ángulo de rotación:</p>
+<div class="equation-block"><span class="equation-label">(1)</span>$$V_{\text{cursor}} = V_{CC} \times \frac{R_2}{R_1 + R_2} = V_{CC} \times \frac{\theta}{\theta_{\max}}$$</div>
+<p>El ADC de 12 bits convierte el voltaje analógico en un valor digital (0 a 4095), ofreciendo una resolución de $\Delta V = 3.3/4095 \approx 0.806\text{ mV}$ por nivel:</p>
+<div class="equation-block"><span class="equation-label">(2)</span>$$N_{ADC} = \frac{V_{in}}{V_{ref}} \times (2^{12} - 1) = \frac{V_{in}}{3.3} \times 4095$$</div>
+<p>El valor ADC se mapea linealmente al rango PWM de 8 bits y se define un ciclo de trabajo (duty cycle) $D$ para la señal cuadrada:</p>
+<div class="equation-block"><span class="equation-label">(3)</span>$$D_{PWM} = \frac{N_{ADC}}{4095} \times 255$$</div>
+<div class="equation-block"><span class="equation-label">(4)</span>$$D = \frac{t_{\text{ON}}}{T} \times 100\%$$</div>
+<p>La alta frecuencia del PWM (5kHz) hace que el encendido y apagado sea imperceptible, generando la ilusión de brillo continuo gracias a la persistencia retiniana.</p>
+</div>
+<div id="pot-concept" class="ieee-content"><h2>VII. Conceptos Técnicos Clave</h2>
+<ul>
+    <li><strong>API PWM del ESP32:</strong> Permite configurar fácilmente la frecuencia y resolución del canal PWM para señales precisas.</li>
+    <li><strong>Función map():</strong> Realiza una interpolación lineal entre dos rangos distintos, esencial para la traducción ADC-PWM.</li>
+    <li><strong>Función constrain():</strong> Limita un valor numérico a un rango seguro, sirviendo como programación defensiva para el hardware.</li>
+</ul>
+</div>
+<div id="pot-fotos" class="ieee-content"><h2>VIII. Fotografías</h2><div class="figure-grid"><div class="figure"><img src="Imagenes/Potenciometro_imgs/Potenciometro_img1.jpeg" alt="Foto 1" loading="lazy"><div class="figure-caption">Vista superior del montaje</div></div><div class="figure"><img src="Imagenes/Potenciometro_imgs/Potenciometro_img2.jpeg" alt="Foto 2" loading="lazy"><div class="figure-caption">Vista en perspectiva</div></div><div class="figure"><img src="Imagenes/Potenciometro_imgs/Potenciometro_img3.jpeg" alt="Foto 3" loading="lazy"><div class="figure-caption">Proyecto en funcionamiento</div></div></div></div>
+<div id="pot-vid" class="ieee-content"><h2>IX. Video</h2><div class="video-wrap"><video controls preload="none"><source src="Videos/Potenciometro_vid/Potenciometro_funcionamiento.mp4" type="video/mp4"></video><div class="video-caption">Demostración básica</div></div><div class="video-wrap"><video controls preload="none"><source src="Videos/Potenciometro_vid/Potenciometro_funcionamiento2.mp4" type="video/mp4"></video><div class="video-caption">Demostración extendida</div></div></div>
+<div id="pot-sim" class="ieee-content"><h2>X. Simulación</h2>
+<div class="sim-container" id="simPot"><div class="sim-title">Simulación: Potenciómetro y LED</div><div class="sim-canvas"><canvas></canvas></div>
+<div class="sim-controls"><div class="sim-control"><label>Potenciómetro (ADC)</label><input type="range" class="pot-slider" min="0" max="4095" value="2048"><span class="sim-val">2048</span></div></div></div></div>
+<div id="pot-proc" class="ieee-content"><h2>XI. Proceso de Creación</h2>
+<ol>
+    <li><strong>Selección de componentes:</strong> Se eligió un potenciómetro lineal de 10 k$\Omega$ por su respuesta proporcional. El LED rojo incluye una resistencia de 220 $\Omega$ para mantener una corriente segura ($5.9\text{mA}$).</li>
+    <li><strong>Diseño del circuito:</strong> Se diseñó el esquema asignando GPIO34 como entrada analógica y GPIO4 como salida PWM.</li>
+    <li><strong>Montaje en protoboard:</strong> Conexión física validando que el potenciómetro actúe como divisor de voltaje.</li>
+    <li><strong>Programación:</strong> Implementación del firmware incluyendo el mapeo de variables.</li>
+    <li><strong>Configuración del IDE:</strong> Se utilizó la placa <em>ESP32 Dev Module</em> a 115200 baudios.</li>
+    <li><strong>Pruebas y validación:</strong> Verificación del sistema con el monitor serial al girar la perilla.</li>
+</ol>
+</div>
+<div id="pot-conc" class="ieee-content"><h2>XII. Conclusiones</h2><ul>
+<li>El proyecto demuestra la cadena completa de procesamiento analógico-digital: desde la lectura de un sensor hasta el control PWM.</li>
+<li>El ADC de 12 bits del ESP32 proporciona una resolución de $\approx 0.8\text{ mV}$ por nivel, suficiente para aplicaciones de precisión moderada.</li>
+<li>La modulación PWM a 5 kHz con 8 bits permite 256 niveles de brillo continuos sin parpadeo visible.</li>
+<li>La función <code>map()</code> simplifica enormemente la conversión entre rangos numéricos.</li>
+<li>El uso de <code>constrain()</code> ilustra una excelente práctica defensiva antes de enviar comandos al hardware.</li>
+<li>La comunicación serial sirve como una herramienta vital de depuración.</li>
+<li>Este proyecto sienta las bases para aplicaciones más complejas como control de motores o termorregulación.</li>
+</ul></div>
+<div id="pot-eqs" class="ieee-content"><h2>XIII. Ecuaciones</h2>
+<div class="table-wrap"><table class="data-table eq-summary-table"><thead><tr><th>Ecuación</th><th>Descripción</th><th>Enlace</th></tr></thead><tbody>
+<tr><td>$V_{\text{cursor}}=V_{CC}\times \frac{\theta}{\theta_{\max}}$</td><td>Divisor de voltaje</td><td><a href="#pot-func">Ir a sección</a></td></tr>
+<tr><td>$N_{ADC}=(V_{in}/3.3)\times 4095$</td><td>Conversión ADC</td><td><a href="#pot-func">Ir a sección</a></td></tr>
+<tr><td>$D_{PWM}=N_{ADC}/4095\times 255$</td><td>Mapeo PWM</td><td><a href="#pot-func">Ir a sección</a></td></tr>
+<tr><td>$D=(t_{\text{ON}}/T)\times 100\%$</td><td>Ciclo de trabajo</td><td><a href="#pot-func">Ir a sección</a></td></tr>
+</tbody></table></div></div></div></div></section>
+<section id="pot-bt" class="section" data-project-name="Potenciómetro con Bluetooth"><div class="project-layout"><aside class="project-sidebar"><div class="project-sidebar-title">Contenido</div><a href="#pot-bt-intro">Introducción</a><a href="#pot-bt-obj">Objetivo</a><a href="#pot-bt-mat">Materiales</a><a href="#pot-bt-esq">Esquema</a><a href="#pot-bt-code">Código</a><a href="#pot-bt-func">Funcionamiento</a><a href="#pot-bt-concept">Conceptos Clave</a><a href="#pot-bt-fotos">Fotografías</a><a href="#pot-bt-vid">Video</a><a href="#pot-bt-proc">Proceso</a><a href="#pot-bt-diff">Diferencias</a><a href="#pot-bt-conc">Conclusiones</a><a href="#pot-bt-eqs">Ecuaciones</a></aside><div class="project-content"><div class="project-header"><h1>Potenciómetro con Bluetooth</h1><div class="project-meta"><span>Plataforma: ESP32 Dev Module</span><span>Profesor: Msc. Nestor Fabio Montoya Palacios</span></div></div>
+<div id="pot-bt-intro" class="ieee-content"><h2>I. Introducción</h2>
+<p>Este proyecto describe de manera detallada una extensión del proyecto básico de potenciómetro que incorpora <strong>comunicación inalámbrica Bluetooth Classic</strong> mediante el perfil SPP (<em>Serial Port Profile</em>) del ESP32. El sistema lee la posición angular de un potenciómetro mediante el ADC del ESP32, controla el brillo de un LED proporcionalmente mediante PWM, y <strong>transmite los datos en tiempo real a un dispositivo móvil</strong> a través de Bluetooth, utilizando la aplicación <em>Serial Bluetooth Terminal</em>.</p>
+<p>Este proyecto añade una capa de comunicación inalámbrica al control analógico-digital básico, permitiendo al usuario monitorear remotamente los valores del sensor desde un teléfono celular sin necesidad de estar conectado físicamente al computador. Se introducen los conceptos de <strong>Bluetooth Classic SPP</strong>, la librería <code>BluetoothSerial.h</code> del ESP32, y la <strong>transmisión dual</strong> de datos (simultáneamente por USB serial y por Bluetooth).</p></div>
+<div id="pot-bt-obj" class="ieee-content"><h2>II. Objetivo</h2>
+<p>Implementar un sistema de control analógico-digital con monitoreo inalámbrico utilizando el ESP32 que:</p>
+<ul>
+    <li>Lea la posición de un potenciómetro mediante el ADC de 12 bits (rango 0-4095).</li>
+    <li>Convierta los valores digitales a voltaje (rango 0-3.3V).</li>
+    <li>Controle proporcionalmente el brillo de un LED mediante PWM de 8 bits.</li>
+    <li>Transmita los datos simultáneamente por <strong>USB Serial</strong> (al computador) y por <strong>Bluetooth Serial</strong> (al celular).</li>
+    <li>Permita la conexión inalámbrica desde la aplicación <em>Serial Bluetooth Terminal</em> usando el nombre de dispositivo "EQUIPO_MARAVILLA".</li>
+</ul></div>
+<div id="pot-bt-mat" class="ieee-content"><h2>III. Materiales</h2>
+<div class="table-wrap"><table class="data-table"><thead><tr><th style="text-align:center; width:60px">Aspecto</th><th>Cant.</th><th>Componente</th><th>Especificación</th></tr></thead><tbody>
+<tr><td style="text-align:center"><i class="fas fa-microchip" style="font-size:1.5em; color:var(--accent-cyan)"></i></td><td>1</td><td>ESP32 Dev Module</td><td>Microcontrolador dual-core con Wi-Fi/Bluetooth</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-box" style="font-size:1.5em; color:#777"></i></td><td>1</td><td>Potenciómetro</td><td>10 k$\Omega$ lineal, 3 terminales</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-lightbulb" style="font-size:1.5em; color:#ff4444"></i></td><td>1</td><td>LED rojo</td><td>Diodo emisor de luz, 5mm</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-wave-square" style="font-size:1.5em; color:#eab308"></i></td><td>1</td><td>Resistencia 220 $\Omega$</td><td>Limitadora de corriente para el LED</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-border-all" style="font-size:1.5em; color:#ccc"></i></td><td>1</td><td>Protoboard</td><td>Placa de pruebas de 830 puntos</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-random" style="font-size:1.5em; color:var(--accent-green)"></i></td><td>Varios</td><td>Cables jumper</td><td>Macho-macho para conexiones</td></tr>
+<tr><td style="text-align:center"><i class="fab fa-usb" style="font-size:1.5em; color:#999"></i></td><td>1</td><td>Cable USB</td><td>Para programación y alimentación</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-box" style="font-size:1.5em; color:#777"></i></td><td>1</td><td>Teléfono celular</td><td>Con Bluetooth y app Serial Bluetooth Terminal</td></tr>
+</tbody></table></div></div>
+<div id="pot-bt-esq" class="ieee-content"><h2>IV. Esquema de Conexión</h2>
+<p>El circuito utiliza el mismo esquema de conexión que el proyecto básico de potenciómetro. El potenciómetro se conecta como divisor de voltaje entre 3.3V y GND, con su cursor en GPIO34. El LED se conecta a GPIO4 mediante una resistencia de 220 $\Omega$. La comunicación Bluetooth no requiere hardware adicional, ya que el ESP32 integra el módulo de radio en el propio chip.</p>
+<div class="figure"><img src="Esquemas/Potenciometro_esq.jpeg" alt="Esquema" loading="lazy"><div class="figure-caption">Esquema de conexión del circuito (el Bluetooth es interno al ESP32)</div></div>
+<h3>Diagrama de Conexiones</h3>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>Componente</th><th>Pin</th><th>ESP32 GPIO</th></tr></thead><tbody>
+<tr><td>Potenciómetro</td><td>Terminal 1</td><td>3.3V</td></tr>
+<tr><td>Potenciómetro</td><td>Terminal 2 (cursor)</td><td>GPIO34 (ADC1_CH6)</td></tr>
+<tr><td>Potenciómetro</td><td>Terminal 3</td><td>GND</td></tr>
+<tr><td>Resistencia 220 $\Omega$</td><td>Terminal 1</td><td>GPIO4</td></tr>
+<tr><td>LED rojo</td><td>Ánodo (+)</td><td>Resistencia 220 $\Omega$ (Terminal 2)</td></tr>
+<tr><td>LED rojo</td><td>Cátodo (-)</td><td>GND</td></tr>
+</tbody></table></div>
+<p><strong>Nota importante:</strong> A diferencia de módulos Bluetooth externos (como el HC-05), el ESP32 integra el controlador Bluetooth directamente en su SoC, por lo que <strong>no se requieren conexiones adicionales</strong> para la funcionalidad inalámbrica. El módulo de radio comparte la antena PCB impresa en la placa de desarrollo.</p>
+</div>
+<div id="pot-bt-code" class="ieee-content"><h2>V. Código Fuente</h2>
+<div class="code-block"><span class="code-title">Potenciometro_Bluetooth.ino</span><code><span class="com">#include "BluetoothSerial.h"</span>
+
+<span class="com">// Objeto Bluetooth</span>
+BluetoothSerial BT;
+
+<span class="kw">const int</span> pinPotenciometro = <span class="num">34</span>;
+<span class="kw">const int</span> pinLED = <span class="num">4</span>;
+
+<span class="kw">const int</span> frecuenciaPWM = <span class="num">5000</span>;
+<span class="kw">const int</span> resolucionPWM = <span class="num">8</span>;
+<span class="kw">const int</span> canalPWM = <span class="num">0</span>;
+
+<span class="kw">void</span> <span class="fn">setup</span>() {
+  Serial.<span class="fn">begin</span>(<span class="num">115200</span>);
+  BT.<span class="fn">begin</span>(<span class="str">"EQUIPO_MARAVILLA"</span>);
+
+  <span class="fn">pinMode</span>(pinPotenciometro, <span class="type">INPUT</span>);
+
+  <span class="fn">ledcSetup</span>(canalPWM, frecuenciaPWM, resolucionPWM);
+  <span class="fn">ledcAttachPin</span>(pinLED, canalPWM);
+
+  Serial.<span class="fn">println</span>(<span class="str">"Bluetooth iniciado. Conectate a 'EQUIPO_MARAVILLA'"</span>);
+}
+
+<span class="kw">void</span> <span class="fn">loop</span>() {
+  <span class="kw">int</span> valor = <span class="fn">analogRead</span>(pinPotenciometro);
+  <span class="kw">float</span> voltaje = valor * (<span class="num">3.3</span> / <span class="num">4095.0</span>);
+
+  <span class="kw">int</span> brillo = <span class="fn">map</span>(valor, <span class="num">0</span>, <span class="num">4095</span>, <span class="num">0</span>, <span class="num">255</span>);
+  <span class="fn">ledcWrite</span>(canalPWM, brillo);
+
+  String mensaje = <span class="str">"Valor: "</span> + String(valor) + 
+                   <span class="str">"  Voltaje: "</span> + String(voltaje, <span class="num">2</span>) + <span class="str">" V"</span> +
+                   <span class="str">"  Brillo: "</span> + String(brillo);
+
+  <span class="com">// Transmision dual de datos</span>
+  Serial.<span class="fn">println</span>(mensaje);
+  BT.<span class="fn">println</span>(mensaje);
+
+  <span class="fn">delay</span>(<span class="num">300</span>);
+}</code></div>
+<h3>Análisis del Código</h3>
+<ul>
+    <li><strong>Inclusión de la Librería Bluetooth:</strong> Se incluye <code>BluetoothSerial.h</code> y se crea la instancia <code>BT</code> para manejar la comunicación de forma idéntica a <code>Serial</code>.</li>
+    <li><strong>setup():</strong> Además de inicializar el ADC y PWM, se ejecuta <code>BT.begin("EQUIPO_MARAVILLA")</code>, haciendo visible el ESP32 para el emparejamiento.</li>
+    <li><strong>loop():</strong> Se ejecutan los pasos básicos de lectura (ADC), conversión a voltaje, mapeo (PWM) y construcción de un mensaje <code>String</code>.</li>
+    <li><strong>Transmisión Dual:</strong> El mensaje se envía mediante <code>Serial.println()</code> y <code>BT.println()</code>, transmitiendo la información simultáneamente al PC y al celular.</li>
+</ul>
+</div>
+<div id="pot-bt-func" class="ieee-content"><h2>VI. Funcionamiento</h2>
+<p>El proyecto implementa una <strong>transmisión dual</strong>. Los datos fluyen desde el potenciómetro hasta el PWM y en paralelo hacia los canales de monitoreo:</p>
+<pre style="background:var(--card-bg);padding:1rem;border-radius:12px;font-family:monospace;overflow-x:auto;">
+  Potenciómetro       ADC 12-bit       Mapeo         PWM 8-bit
+  (ángulo)    ─────>  (0 - 4095) ─────> map() ─────> (0 - 255)
+  0° - 270°            voltaje          brillo        duty cycle
+                      0 - 3.3 V                      0% - 100%
+                                                         │
+                            ┌────────────────────────────┤
+                            v                            v
+                      Bluetooth SPP                Brillo del LED
+                   (al celular vía app)
+                            │
+                            v
+                      USB Serial
+                (al monitor del Arduino IDE)
+</pre>
+<p>El potenciómetro actúa como un <strong>divisor de voltaje</strong>:</p>
+<div class="equation-block"><span class="equation-label">(1)</span>$$V_{\text{cursor}} = V_{CC} \times \frac{\theta}{\theta_{\max}} = 3.3 \times \frac{\theta}{270^\circ}$$</div>
+<p>El ciclo de trabajo controla el brillo percibido del LED:</p>
+<div class="equation-block"><span class="equation-label">(2)</span>$$D = \frac{t_{\text{ON}}}{T} \times 100\%$$</div>
+</div>
+<div id="pot-bt-concept" class="ieee-content"><h2>VII. Conceptos Técnicos Clave</h2>
+<ul>
+    <li><strong>Bluetooth Classic vs BLE:</strong> Este proyecto usa Bluetooth Classic con el perfil SPP (Serial Port Profile). Aunque consume más energía que BLE (Bluetooth Low Energy), su API (<code>BluetoothSerial.h</code>) es idéntica a la clase <code>Serial</code>, lo que facilita enormemente la implementación.</li>
+    <li><strong>Impacto en Memoria Flash:</strong> El stack de Bluetooth Classic es pesado. Incluir la librería consume cerca de 1.8MB de Flash (aprox. 98% del espacio de programa estándar disponible en la partición por defecto del ESP32).</li>
+</ul>
+</div>
+<div id="pot-bt-fotos" class="ieee-content"><h2>VIII. Fotografías</h2><div class="figure-grid"><div class="figure"><img src="Imagenes/Potenciometro_bluetoot_imgs/Potenciometro_bluetooth_img1.jpeg" alt="Foto 1" loading="lazy"><div class="figure-caption">Recepción de datos en celular</div></div><div class="figure"><img src="Imagenes/Potenciometro_bluetoot_imgs/Potenciometro_bluetooth_img2.jpeg" alt="Foto 2" loading="lazy"><div class="figure-caption">Detalle de app Bluetooth Terminal</div></div><div class="figure"><img src="Imagenes/Potenciometro_bluetoot_imgs/Potenciometro_bluetooth_img3.jpeg" alt="Foto 3" loading="lazy"><div class="figure-caption">Timestamps en app Bluetooth</div></div><div class="figure"><img src="Imagenes/Potenciometro_bluetoot_imgs/Potenciometro_bluetooth_img4.jpeg" alt="Foto 4" loading="lazy"><div class="figure-caption">Arduino IDE con carga exitosa</div></div><div class="figure"><img src="Imagenes/Potenciometro_bluetoot_imgs/Potenciometro_bluetooth_img5.jpeg" alt="Foto 5" loading="lazy"><div class="figure-caption">Setup con laptop, celular y circuito</div></div><div class="figure"><img src="Imagenes/Potenciometro_bluetoot_imgs/Potenciometro_bluetooth_img6.jpeg" alt="Foto 6" loading="lazy"><div class="figure-caption">LED encendido y app en tiempo real</div></div></div></div>
+<div id="pot-bt-vid" class="ieee-content"><h2>IX. Video</h2><div class="video-wrap"><video controls preload="none"><source src="Videos/Potenciometro_bluetooth_vid/Potenciometro_bluetooth_Funcionamiento1.mp4" type="video/mp4"></video><div class="video-caption">Demostración completa del sistema</div></div><div class="video-wrap"><video controls preload="none"><source src="Videos/Potenciometro_bluetooth_vid/Potenciometro_bluetooth_Funcionamiento2.mp4" type="video/mp4"></video><div class="video-caption">Actualización en tiempo real en celular</div></div></div>
+<div id="pot-bt-proc" class="ieee-content"><h2>X. Proceso de Creación</h2>
+<ol>
+    <li><strong>Punto de partida:</strong> Se tomó como base el proyecto "Control con Potenciómetro" (sin Bluetooth).</li>
+    <li><strong>Incorporación de la librería Bluetooth:</strong> Se añadió <code>#include "BluetoothSerial.h"</code> y se instanció el objeto <code>BT</code>.</li>
+    <li><strong>Inicialización del Bluetooth:</strong> En <code>setup()</code>, se definió el nombre de emparejamiento <code>EQUIPO_MARAVILLA</code>.</li>
+    <li><strong>Transmisión dual:</strong> En <code>loop()</code>, se duplicó la función <code>Serial.println()</code> con <code>BT.println()</code>.</li>
+    <li><strong>Preparación del celular:</strong> Instalación de <em>Serial Bluetooth Terminal</em>, emparejamiento con el ESP32, y conexión SPP.</li>
+    <li><strong>Pruebas y validación:</strong> Verificación de datos sincronizados entre el monitor del PC, la pantalla del celular y el brillo del LED.</li>
+</ol>
+</div>
+<div id="pot-bt-diff" class="ieee-content"><h2>XI. Diferencias con el Proyecto Base</h2>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>Característica</th><th>Proyecto Base</th><th>Con Bluetooth</th></tr></thead><tbody>
+<tr><td>Lectura ADC</td><td>Sí</td><td>Sí</td></tr>
+<tr><td>Control PWM</td><td>Sí</td><td>Sí</td></tr>
+<tr><td>Monitoreo USB Serial</td><td>Sí</td><td>Sí</td></tr>
+<tr><td>Comunicación Bluetooth</td><td>No</td><td>Sí</td></tr>
+<tr><td>Monitoreo desde celular</td><td>No</td><td>Sí</td></tr>
+<tr><td>Librería BluetoothSerial</td><td>No</td><td>Sí</td></tr>
+<tr><td>Hardware extra requerido</td><td>Ninguno</td><td>Ninguno</td></tr>
+</tbody></table></div>
+</div>
+<div id="pot-bt-conc" class="ieee-content"><h2>XII. Conclusiones</h2><ul>
+<li>El proyecto demuestra cómo extender un sistema de control analógico-digital con comunicación inalámbrica Bluetooth Classic, añadiendo apenas tres líneas de código al proyecto base.</li>
+<li>La librería <code>BluetoothSerial.h</code> del ESP32 simplifica enormemente la implementación de comunicación inalámbrica, proporcionando una API idéntica a la comunicación serial por cable.</li>
+<li>La transmisión dual (USB + Bluetooth) permite depuración local y monitoreo remoto simultáneos, una arquitectura útil en aplicaciones IoT.</li>
+<li>El ESP32 no requiere hardware Bluetooth externo, a diferencia de plataformas como Arduino UNO que necesitan módulos HC-05/HC-06.</li>
+<li>La app <em>Serial Bluetooth Terminal</em> proporciona una interfaz práctica para visualizar datos en tiempo real con timestamps.</li>
+<li>El consumo de memoria Flash es significativo ($\sim$98\%) debido al stack Bluetooth, lo que debe considerarse al planificar funcionalidades adicionales.</li>
+<li>Este proyecto sienta las bases para aplicaciones más avanzadas como control remoto bidireccional, registro de datos (<em>data logging</em>) inalámbrico y sistemas de telemetría portátiles.</li>
+</ul></div>
+<div id="pot-bt-eqs" class="ieee-content"><h2>XIII. Ecuaciones</h2>
+<div class="table-wrap"><table class="data-table eq-summary-table"><thead><tr><th>Ecuación</th><th>Descripción</th><th>Enlace</th></tr></thead><tbody>
+<tr><td>$V_{\text{cursor}}=V_{CC}\times \frac{\theta}{\theta_{\max}}$</td><td>Divisor de voltaje</td><td><a href="#pot-bt-func">Ir a sección</a></td></tr>
+<tr><td>$D=(t_{\text{ON}}/T)\times 100\%$</td><td>Ciclo de trabajo PWM</td><td><a href="#pot-bt-func">Ir a sección</a></td></tr>
+</tbody></table></div></div></div></div></section>
+<section id="pot-wifi" class="section" data-project-name="Potenciómetro con WiFi"><div class="project-layout"><aside class="project-sidebar"><div class="project-sidebar-title">Contenido</div><a href="#pot-wifi-intro">Introducción</a><a href="#pot-wifi-obj">Objetivo</a><a href="#pot-wifi-mat">Materiales</a><a href="#pot-wifi-esq">Esquema</a><a href="#pot-wifi-code">Código</a><a href="#pot-wifi-func">Funcionamiento</a><a href="#pot-wifi-concept">Conceptos Clave</a><a href="#pot-wifi-fotos">Fotografías</a><a href="#pot-wifi-vid">Video</a><a href="#pot-wifi-proc">Proceso</a><a href="#pot-wifi-diff">Diferencias</a><a href="#pot-wifi-conc">Conclusiones</a><a href="#pot-wifi-eqs">Ecuaciones</a></aside><div class="project-content"><div class="project-header"><h1>Potenciómetro con WiFi</h1><div class="project-meta"><span>Plataforma: ESP32 Dev Module</span><span>Profesor: Msc. Nestor Fabio Montoya Palacios</span></div></div>
+<div id="pot-wifi-intro" class="ieee-content"><h2>I. Introducción</h2>
+<p>Este documento describe el proyecto "Control de LED y Monitoreo de Potenciómetro vía WiFi", que convierte el ESP32 en un <strong>servidor web local</strong> capaz de servir una página HTML completa con interfaz gráfica interactiva. El sistema permite <strong>encender y apagar un LED</strong> desde el navegador mediante un interruptor estilo industrial, y simultáneamente <strong>monitorear en tiempo real el voltaje</strong> de un potenciómetro a través de un gauge (medidor tipo reloj) generado con Google Charts.</p>
+<p>A diferencia de los proyectos anteriores que utilizaban comunicación serial o Bluetooth, este proyecto introduce el paradigma de <strong>Internet de las Cosas (IoT)</strong>: el ESP32 se conecta a una red WiFi existente, obtiene una dirección IP y sirve una aplicación web completa accesible desde cualquier dispositivo conectado a la misma red. La página web se almacena en la memoria Flash del ESP32 mediante la directiva <code>PROGMEM</code> y utiliza tecnologías web modernas como CSS3, JavaScript asíncrono y la API Fetch para comunicarse con el microcontrolador.</p></div>
+<div id="pot-wifi-obj" class="ieee-content"><h2>II. Objetivo</h2>
+<p>Implementar un sistema IoT con servidor web embebido en el ESP32 que:</p>
+<ul>
+    <li>Conecte el ESP32 a una red WiFi doméstica como cliente (modo estación).</li>
+    <li>Sirva una página web completa con HTML, CSS y JavaScript desde la memoria Flash.</li>
+    <li>Permita <strong>encender y apagar un LED</strong> mediante un interruptor visual en el navegador.</li>
+    <li>Lea continuamente el potenciómetro (GPIO34) y exponga los datos como API REST en formato JSON.</li>
+    <li>Muestre un <strong>gauge de voltaje</strong> en tiempo real usando Google Charts.</li>
+    <li>Presente los valores numéricos de ADC, voltaje y porcentaje actualizados cada 500 ms.</li>
+    <li>Sea accesible desde cualquier dispositivo (computador, celular, tablet) en la misma red.</li>
+</ul></div>
+<div id="pot-wifi-mat" class="ieee-content"><h2>III. Materiales</h2>
+<div class="table-wrap"><table class="data-table"><thead><tr><th style="text-align:center; width:60px">Aspecto</th><th>Cant.</th><th>Componente</th><th>Especificación</th></tr></thead><tbody>
+<tr><td style="text-align:center"><i class="fas fa-microchip" style="font-size:1.5em; color:var(--accent-cyan)"></i></td><td>1</td><td>ESP32 Dev Module</td><td>Microcontrolador dual-core con Wi-Fi/Bluetooth</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-box" style="font-size:1.5em; color:#777"></i></td><td>1</td><td>Potenciómetro</td><td>10 k$\Omega$ lineal, 3 terminales</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-lightbulb" style="font-size:1.5em; color:#ff4444"></i></td><td>1</td><td>LED rojo</td><td>Diodo emisor de luz, 5mm</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-wave-square" style="font-size:1.5em; color:#eab308"></i></td><td>1</td><td>Resistencia 220 $\Omega$</td><td>Limitadora de corriente para el LED</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-border-all" style="font-size:1.5em; color:#ccc"></i></td><td>1</td><td>Protoboard</td><td>Placa de pruebas de 830 puntos</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-random" style="font-size:1.5em; color:var(--accent-green)"></i></td><td>Varios</td><td>Cables jumper</td><td>Macho-macho para conexiones</td></tr>
+<tr><td style="text-align:center"><i class="fab fa-usb" style="font-size:1.5em; color:#999"></i></td><td>1</td><td>Cable USB</td><td>Para programación y alimentación</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-box" style="font-size:1.5em; color:#777"></i></td><td>1</td><td>Red WiFi</td><td>Router con acceso a la red local</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-box" style="font-size:1.5em; color:#777"></i></td><td>1</td><td>Navegador web</td><td>Chrome, Firefox o cualquier navegador moderno</td></tr>
+</tbody></table></div></div>
+<div id="pot-wifi-esq" class="ieee-content"><h2>IV. Esquema de Conexión</h2>
+<p>El circuito es idéntico al de los proyectos anteriores de potenciómetro. El potenciómetro se conecta como divisor de voltaje entre 3.3V y GND, con su cursor en GPIO34 (entrada analógica). El LED se conecta a GPIO4 a través de una resistencia de 220 $\Omega$. La comunicación WiFi no requiere hardware adicional ya que el ESP32 integra el módulo de radio en el propio chip.</p>
+<div class="figure"><img src="Esquemas/Potenciometro_esq.jpeg" alt="Esquema" loading="lazy"><div class="figure-caption">Esquema de conexión del circuito (el WiFi es interno al ESP32)</div></div>
+<h3>Diagrama de Conexiones</h3>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>Componente</th><th>Pin</th><th>ESP32 GPIO</th></tr></thead><tbody>
+<tr><td>Potenciómetro</td><td>Terminal 1</td><td>3.3V</td></tr>
+<tr><td>Potenciómetro</td><td>Terminal 2 (cursor)</td><td>GPIO34 (ADC1_CH6)</td></tr>
+<tr><td>Potenciómetro</td><td>Terminal 3</td><td>GND</td></tr>
+<tr><td>Resistencia 220 $\Omega$</td><td>Terminal 1</td><td>GPIO4</td></tr>
+<tr><td>LED rojo</td><td>Ánodo (+)</td><td>Resistencia 220 $\Omega$ (Terminal 2)</td></tr>
+<tr><td>LED rojo</td><td>Cátodo (-)</td><td>GND</td></tr>
+</tbody></table></div>
+<p><strong>Nota:</strong> A diferencia de los proyectos con Bluetooth, en este caso el ESP32 utiliza su módulo WiFi integrado para crear un servidor web accesible desde la red local. No se requiere ningún componente adicional para la conectividad inalámbrica.</p>
+</div>
+<div id="pot-wifi-code" class="ieee-content"><h2>V. Código Fuente</h2>
+<p>El código fuente combina firmware C++ con HTML/CSS/JS embebido. (Se omite el string literal de la web por brevedad).</p>
+<div class="code-block"><span class="code-title">Fragmentos clave - Potenciometro_y_On_Off_Wifi.ino</span><code><span class="com">#include &lt;WiFi.h&gt;</span>
+<span class="com">#include &lt;WebServer.h&gt;</span>
+
+<span class="kw">const char</span>* miSSID = <span class="str">"WIFI_SSID"</span>;
+<span class="kw">const char</span>* miPASSWORD = <span class="str">"WIFI_PASSWORD"</span>;
+
+WebServer <span class="fn">servidor</span>(<span class="num">80</span>);
+
+<span class="kw">const int</span> pinPotenciometro = <span class="num">34</span>;
+<span class="kw">const int</span> pinLED = <span class="num">4</span>;
+<span class="kw">bool</span> ledEncendido = <span class="type">false</span>;
+
+<span class="com">// La página web se guarda en la memoria Flash (PROGMEM)</span>
+<span class="kw">const char</span> paginaWeb[] <span class="kw">PROGMEM</span> = R"=====(
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;!-- HTML, CSS y JS con Google Charts y Fetch API aquí --&gt;
+&lt;/html&gt;
+)=====";
+
+<span class="kw">void</span> <span class="fn">manejarRaiz</span>() {
+  servidor.<span class="fn">send_P</span>(<span class="num">200</span>, <span class="str">"text/html"</span>, paginaWeb);
+}
+
+<span class="kw">void</span> <span class="fn">manejarDatos</span>() {
+  <span class="kw">int</span> valorADC = <span class="fn">analogRead</span>(pinPotenciometro);
+  <span class="kw">float</span> voltaje = valorADC * (<span class="num">3.3</span> / <span class="num">4095.0</span>);
+  <span class="kw">int</span> porcentaje = <span class="fn">map</span>(valorADC, <span class="num">0</span>, <span class="num">4095</span>, <span class="num">0</span>, <span class="num">100</span>);
+  
+  String json = <span class="str">"{\"adc\":"</span> + String(valorADC) + 
+                <span class="str">", \"voltaje\":"</span> + String(voltaje, <span class="num">2</span>) + 
+                <span class="str">", \"porcentaje\":"</span> + String(porcentaje) + <span class="str">"}"</span>;
+  servidor.<span class="fn">send</span>(<span class="num">200</span>, <span class="str">"application/json"</span>, json);
+}
+
+<span class="kw">void</span> <span class="fn">manejarLED</span>() {
+  <span class="kw">if</span> (servidor.<span class="fn">hasArg</span>(<span class="str">"estado"</span>)) {
+    String estado = servidor.<span class="fn">arg</span>(<span class="str">"estado"</span>);
+    <span class="kw">if</span> (estado == <span class="str">"on"</span>) {
+      <span class="fn">digitalWrite</span>(pinLED, <span class="type">HIGH</span>);
+      ledEncendido = <span class="type">true</span>;
+    } <span class="kw">else if</span> (estado == <span class="str">"off"</span>) {
+      <span class="fn">digitalWrite</span>(pinLED, <span class="type">LOW</span>);
+      ledEncendido = <span class="type">false</span>;
+    }
+  }
+  servidor.<span class="fn">send</span>(<span class="num">200</span>, <span class="str">"text/plain"</span>, <span class="str">"OK"</span>);
+}
+
+<span class="kw">void</span> <span class="fn">setup</span>() {
+  <span class="fn">pinMode</span>(pinLED, <span class="type">OUTPUT</span>);
+  <span class="fn">pinMode</span>(pinPotenciometro, <span class="type">INPUT</span>);
+  
+  WiFi.<span class="fn">begin</span>(miSSID, miPASSWORD);
+  <span class="kw">while</span> (WiFi.<span class="fn">status</span>() != WL_CONNECTED) { <span class="fn">delay</span>(<span class="num">500</span>); }
+  
+  servidor.<span class="fn">on</span>(<span class="str">"/"</span>, manejarRaiz);
+  servidor.<span class="fn">on</span>(<span class="str">"/datos"</span>, manejarDatos);
+  servidor.<span class="fn">on</span>(<span class="str">"/led"</span>, manejarLED);
+  servidor.<span class="fn">begin</span>();
+}
+
+<span class="kw">void</span> <span class="fn">loop</span>() {
+  servidor.<span class="fn">handleClient</span>();
+}</code></div>
+
+<details class="code-details" style="margin-top: 1.5rem; background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+<summary style="cursor: pointer; color: #60A5FA; font-weight: 600; outline: none;">📄 Mostrar código completo de la página web (HTML/CSS/JS en PROGMEM)</summary>
+<div class="code-block" style="margin-top: 1rem; max-height: 500px; overflow-y: auto;"><span class="code-title">Página web embebida (string literal)</span><code style="white-space: pre;">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;ESP32 - Control y Monitor&lt;/title&gt;
+
+  &lt;!-- Cargar Google Charts (para el gauge) --&gt;
+  &lt;script src="https://www.gstatic.com/charts/loader.js"&gt;&lt;/script&gt;
+
+  &lt;style&gt;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: linear-gradient(135deg, #0A2540 0%, #1E3A8A 100%);
+      min-height: 100vh;
+      color: white;
+      padding: 20px;
+    }
+
+    .contenedor {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: #FEF3C7;
+    }
+
+    .subtitulo {
+      text-align: center;
+      font-style: italic;
+      color: #DBEAFE;
+      margin-bottom: 30px;
+    }
+
+    .paneles {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+      margin-bottom: 25px;
+    }
+
+    @media (max-width: 700px) {
+      .paneles { grid-template-columns: 1fr; }
+    }
+
+    .panel {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .panel h2 {
+      color: #D4AF37;
+      margin-bottom: 20px;
+      text-align: center;
+      font-size: 1.3rem;
+    }
+
+    /* ═══ Interruptor estilo industrial (Uiverse - Nawsome) ═══ */
+    .switch-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 0;
+    }
+
+    .switch {
+      display: block;
+      background-color: black;
+      width: 150px;
+      height: 195px;
+      box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.2),
+                  0 0 1px 2px black,
+                  inset 0 2px 2px -2px white,
+                  inset 0 0 2px 15px #47434c,
+                  inset 0 0 2px 22px black;
+      border-radius: 5px;
+      padding: 20px;
+      perspective: 700px;
+    }
+
+    .switch input { display: none; }
+
+    .switch input:checked + .button {
+      transform: translateZ(20px) rotateX(25deg);
+      box-shadow: 0 -10px 20px #ff1818;
+    }
+
+    .switch input:checked + .button .light {
+      animation: flicker 0.2s infinite 0.3s;
+    }
+
+    .switch input:checked + .button .shine { opacity: 1; }
+    .switch input:checked + .button .shadow { opacity: 0; }
+
+    .switch .button {
+      display: block;
+      transition: all 0.3s cubic-bezier(1, 0, 1, 1);
+      transform-origin: center center -20px;
+      transform: translateZ(20px) rotateX(-25deg);
+      transform-style: preserve-3d;
+      background-color: #9b0621;
+      height: 100%;
+      position: relative;
+      cursor: pointer;
+      background: linear-gradient(#980000 0%, #6f0000 30%, #6f0000 70%, #980000 100%);
+      background-repeat: no-repeat;
+    }
+
+    .switch .button::before {
+      content: "";
+      background: linear-gradient(rgba(255,255,255,0.8) 10%, rgba(255,255,255,0.3) 30%, #650000 75%, #320000) 50% 50%/97% 97%, #b10000;
+      background-repeat: no-repeat;
+      width: 100%;
+      height: 50px;
+      transform-origin: top;
+      transform: rotateX(-90deg);
+      position: absolute;
+      top: 0;
+    }
+
+    .switch .button::after {
+      content: "";
+      background-image: linear-gradient(#650000, #320000);
+      width: 100%;
+      height: 50px;
+      transform-origin: top;
+      transform: translateY(50px) rotateX(-90deg);
+      position: absolute;
+      bottom: 0;
+      box-shadow: 0 50px 8px 0px black, 0 80px 20px 0px rgba(0,0,0,0.5);
+    }
+
+    .switch .light {
+      opacity: 0;
+      animation: light-off 1s;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: radial-gradient(#ffc97e, #ff1818 40%, transparent 70%);
+    }
+
+    .switch .dots {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: radial-gradient(transparent 30%, rgba(101, 0, 0, 0.7) 70%);
+      background-size: 10px 10px;
+    }
+
+    .switch .characters {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(white, white) 50% 20%/5% 20%,
+                  radial-gradient(circle, transparent 50%, white 52%, white 70%, transparent 72%) 50% 80%/33% 25%;
+      background-repeat: no-repeat;
+    }
+
+    .switch .shine {
+      transition: all 0.3s cubic-bezier(1, 0, 1, 1);
+      opacity: 0.3;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(white, transparent 3%) 50% 50%/97% 97%,
+                  linear-gradient(rgba(255,255,255,0.5), transparent 50%, transparent 80%, rgba(255,255,255,0.5)) 50% 50%/97% 97%;
+      background-repeat: no-repeat;
+    }
+
+    .switch .shadow {
+      transition: all 0.3s cubic-bezier(1, 0, 1, 1);
+      opacity: 1;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(transparent 70%, rgba(0,0,0,0.8));
+      background-repeat: no-repeat;
+    }
+
+    @keyframes flicker {
+      0%   { opacity: 1; }
+      80%  { opacity: 0.8; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes light-off {
+      0%  { opacity: 1; }
+      80% { opacity: 0; }
+    }
+
+    /* ═══ Estado del LED (texto bajo el switch) ═══ */
+    .estado-led {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .estado-encendido { color: #FCA5A5; text-shadow: 0 0 10px #DC2626; }
+    .estado-apagado   { color: #9CA3AF; }
+
+    /* ═══ Gauge ═══ */
+    #gauge {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 200px;
+    }
+
+    /* ═══ Datos numéricos ═══ */
+    .datos {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 16px;
+      padding: 25px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .datos { grid-template-columns: 1fr; }
+    }
+
+    .dato {
+      text-align: center;
+    }
+
+    .dato .etiqueta {
+      font-size: 0.9rem;
+      color: #DBEAFE;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .dato .valor {
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: #D4AF37;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .dato .unidad {
+      font-size: 1rem;
+      color: #9CA3AF;
+      margin-left: 4px;
+    }
+
+    .pie {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class="contenedor"&gt;
+
+    &lt;h1&gt;🔌 ESP32 — Control y Monitoreo&lt;/h1&gt;
+    &lt;p class="subtitulo"&gt;Servidor web local con WiFi&lt;/p&gt;
+
+    &lt;div class="paneles"&gt;
+
+      &lt;!-- Panel del interruptor del LED --&gt;
+      &lt;div class="panel"&gt;
+        &lt;h2&gt;Control del LED&lt;/h2&gt;
+        &lt;div class="switch-wrapper"&gt;
+          &lt;label class="switch"&gt;
+            &lt;input type="checkbox" id="switchLED"&gt;
+            &lt;div class="button"&gt;
+              &lt;div class="light"&gt;&lt;/div&gt;
+              &lt;div class="dots"&gt;&lt;/div&gt;
+              &lt;div class="characters"&gt;&lt;/div&gt;
+              &lt;div class="shine"&gt;&lt;/div&gt;
+              &lt;div class="shadow"&gt;&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/label&gt;
+        &lt;/div&gt;
+        &lt;div class="estado-led estado-apagado" id="estadoLED"&gt;LED APAGADO&lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Panel del gauge --&gt;
+      &lt;div class="panel"&gt;
+        &lt;h2&gt;Lectura del Potenciómetro&lt;/h2&gt;
+        &lt;div id="gauge"&gt;&lt;/div&gt;
+      &lt;/div&gt;
+
+    &lt;/div&gt;
+
+    &lt;!-- Panel inferior con datos numéricos --&gt;
+    &lt;div class="datos"&gt;
+      &lt;div class="dato"&gt;
+        &lt;div class="etiqueta"&gt;Valor ADC&lt;/div&gt;
+        &lt;div class="valor"&gt;&lt;span id="valorADC"&gt;0&lt;/span&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class="dato"&gt;
+        &lt;div class="etiqueta"&gt;Voltaje&lt;/div&gt;
+        &lt;div class="valor"&gt;&lt;span id="valorVoltaje"&gt;0.00&lt;/span&gt;&lt;span class="unidad"&gt;V&lt;/span&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class="dato"&gt;
+        &lt;div class="etiqueta"&gt;Porcentaje&lt;/div&gt;
+        &lt;div class="valor"&gt;&lt;span id="valorPorcentaje"&gt;0&lt;/span&gt;&lt;span class="unidad"&gt;%&lt;/span&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;p class="pie"&gt;Msc. Néstor Fabio Montoya Palacios — iemauxicartago.edu.co/Fisica/&lt;/p&gt;
+
+  &lt;/div&gt;
+
+
+  &lt;script&gt;
+    // ─── Variables globales del Gauge ───
+    let gauge = null;
+    let datosGauge = null;
+
+    // ─── Inicializar Google Charts ───
+    google.charts.load('current', { packages: ['gauge'] });
+    google.charts.setOnLoadCallback(iniciarGauge);
+
+    function iniciarGauge() {
+      datosGauge = google.visualization.arrayToDataTable([
+        ['Etiqueta', 'Valor'],
+        ['Voltaje', 0]
+      ]);
+
+      const opciones = {
+        width: 320, height: 320,
+        min: 0, max: 3.3,
+        redFrom: 2.7, redTo: 3.3,
+        yellowFrom: 1.8, yellowTo: 2.7,
+        greenFrom: 0, greenTo: 1.8,
+        minorTicks: 5,
+        majorTicks: ['0', '0.66', '1.32', '1.98', '2.64', '3.3']
+      };
+
+      gauge = new google.visualization.Gauge(document.getElementById('gauge'));
+      gauge.draw(datosGauge, opciones);
+
+      // Comenzar a leer datos cada 500 ms
+      setInterval(actualizarDatos, 500);
+    }
+
+    // ─── Pedir datos al ESP32 cada 500 ms ───
+    function actualizarDatos() {
+      fetch('/datos')
+        .then(respuesta =&gt; respuesta.json())
+        .then(datos =&gt; {
+          // Actualizar el gauge con el voltaje
+          datosGauge.setValue(0, 1, datos.voltaje);
+          gauge.draw(datosGauge);
+
+          // Actualizar números
+          document.getElementById('valorADC').textContent = datos.adc;
+          document.getElementById('valorVoltaje').textContent = datos.voltaje.toFixed(2);
+          document.getElementById('valorPorcentaje').textContent = datos.porcentaje;
+        })
+        .catch(error =&gt; console.error('Error al leer datos:', error));
+    }
+
+    // ─── Manejar el interruptor del LED ───
+    document.getElementById('switchLED').addEventListener('change', function() {
+      const encendido = this.checked;
+      const estado = document.getElementById('estadoLED');
+
+      // Enviar al ESP32 el nuevo estado
+      fetch('/led?estado=' + (encendido ? 'on' : 'off'))
+        .then(respuesta =&gt; respuesta.text())
+        .then(() =&gt; {
+          if (encendido) {
+            estado.textContent = '⚡ LED ENCENDIDO';
+            estado.className = 'estado-led estado-encendido';
+          } else {
+            estado.textContent = 'LED APAGADO';
+            estado.className = 'estado-led estado-apagado';
+          }
+        })
+        .catch(error =&gt; console.error('Error al cambiar LED:', error));
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></div>
+</details>
+<h3>Análisis del Código</h3>
+<ul>
+    <li><strong>Librerías y WiFi:</strong> Usa <code>WiFi.h</code> para conectarse al router como modo Estación y <code>WebServer.h</code> para levantar el servidor en el puerto 80.</li>
+    <li><strong>Página Embebida (PROGMEM):</strong> Almacena toda la web (con CSS glassmorphism y Google Charts JS) en la Flash mediante <code>PROGMEM</code> para ahorrar RAM.</li>
+    <li><strong>API REST JSON:</strong> Expone 3 rutas: <code>/</code> para la página, <code>/datos</code> para enviar el ADC como JSON, y <code>/led</code> para leer parámetros (<code>?estado=on</code>) y cambiar el GPIO.</li>
+    <li><strong>loop():</strong> Extremadamente limpio; <code>servidor.handleClient()</code> atiende asíncronamente las solicitudes HTTP.</li>
+</ul>
+</div>
+<div id="pot-wifi-func" class="ieee-content"><h2>VI. Funcionamiento</h2>
+<p>El proyecto implementa una arquitectura <strong>cliente-servidor HTTP</strong> donde el navegador hace solicitudes asíncronas con <code>fetch()</code>:</p>
+<pre style="background:var(--card-bg);padding:1rem;border-radius:12px;font-family:monospace;overflow-x:auto;">
+    Potenciómetro        ADC 12-bit       JSON API        Navegador
+    (ángulo)    ────>   (0 - 4095)  ────> /datos  ────>  fetch() JS
+    0° - 270°            voltaje          HTTP GET        Google Charts
+                        0 - 3.3 V                        Gauge + datos
+                                                            │
+                              ┌─────────────────────────────┤
+                              v                             v
+                        Interruptor web              Gauge de voltaje
+                      (fetch /led?estado=)           + valores numéricos
+                              │
+                              v
+                        digitalWrite()
+                     (GPIO4: LED on/off)
+</pre>
+<p>Las ecuaciones involucradas en la lectura del ADC y porcentaje enviado en el JSON son:</p>
+<div class="equation-block"><span class="equation-label">(1)</span>$$V_{\text{cursor}} = \frac{N_{ADC}}{4095} \times 3.3$$</div>
+<div class="equation-block"><span class="equation-label">(2)</span>$$\text{Porcentaje} = \text{map}(N_{ADC}, 0, 4095, 0, 100)$$</div>
+<p>El gauge de Google Charts se divide visualmente en 3 zonas (Verde: 0-1.8V, Amarillo: 1.8-2.7V, Rojo: 2.7-3.3V).</p>
+</div>
+<div id="pot-wifi-concept" class="ieee-content"><h2>VII. Conceptos Técnicos Clave</h2>
+<ul>
+    <li><strong>PROGMEM y Raw String Literals:</strong> La directiva <code>PROGMEM</code> guarda el texto en la Flash y no en RAM. La sintaxis de C++ <code>R"=====(...)====="</code> permite escribir HTML puro sin escapar las comillas dobles.</li>
+    <li><strong>Comunicación Asíncrona (Fetch API):</strong> El JS usa <code>setInterval()</code> cada 500ms para llamar a <code>fetch('/datos')</code> y actualizar la aguja sin que la página sufra un "refresh" molesto.</li>
+    <li><strong>Modo Estación (STA):</strong> El ESP32 no crea una red nueva (AP), sino que se une como cliente al router local, de modo que tu PC y el ESP32 están en la misma subred.</li>
+</ul>
+</div>
+<div id="pot-wifi-fotos" class="ieee-content"><h2>VIII. Fotografías</h2><div class="figure-grid"><div class="figure"><img src="Imagenes/Potenciometro_y_On_Off_Wifi_imgs/Potenciometro_y_On_Off_Wifi_img1.jpeg" alt="Foto 1" loading="lazy"><div class="figure-caption">Interfaz web con Gauge, gráficas y switch</div></div><div class="figure"><img src="Imagenes/Potenciometro_y_On_Off_Wifi_imgs/Potenciometro_y_On_Off_Wifi_img2.jpeg" alt="Foto 2" loading="lazy"><div class="figure-caption">Montaje físico junto a la interfaz en el laptop</div></div></div></div>
+<div id="pot-wifi-vid" class="ieee-content"><h2>IX. Video</h2><div class="video-wrap"><video controls preload="none"><source src="Videos/Potenciometro_y_On_Off_Wifi_vid/Potenciometro_y_On_Off_Wifi_Funcionamiento.mp4" type="video/mp4"></video><div class="video-caption">Demostración completa del servidor web en tiempo real</div></div></div>
+<div id="pot-wifi-proc" class="ieee-content"><h2>X. Proceso de Creación</h2>
+<ol>
+    <li><strong>Punto de partida:</strong> Lectura del potenciómetro sin comunicación inalámbrica.</li>
+    <li><strong>Configuración WiFi:</strong> Importación de <code>WiFi.h</code> y conexión al router doméstico con asignación DHCP.</li>
+    <li><strong>Diseño Web Frontend:</strong> Se programó una página moderna usando glassmorphism CSS y un botón 3D realista con efectos hover/active.</li>
+    <li><strong>Integración Google Charts:</strong> Se escribió código JS para inyectar la librería de Google y dibujar el gauge en el <code>&lt;div&gt;</code> respectivo.</li>
+    <li><strong>Integración al Firmware:</strong> Uso de string literals y PROGMEM para guardar todo el código web de forma segura en C++.</li>
+    <li><strong>Backend REST:</strong> Desarrollo de las rutas <code>/datos</code> y <code>/led</code> con parseo de URL y generación de JSON.</li>
+</ol>
+</div>
+<div id="pot-wifi-diff" class="ieee-content"><h2>XI. Diferencias con Proyectos Anteriores</h2>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>Característica</th><th>Base</th><th>Bluetooth</th><th>WiFi (este)</th></tr></thead><tbody>
+<tr><td>Lectura ADC</td><td>Sí</td><td>Sí</td><td>Sí</td></tr>
+<tr><td>Control del LED</td><td>PWM</td><td>PWM</td><td>On/Off digital</td></tr>
+<tr><td>Comunicación Inalámbrica</td><td>No</td><td>Bluetooth SPP</td><td>WiFi HTTP</td></tr>
+<tr><td>Interfaz</td><td>Monitor serial</td><td>App BT Terminal</td><td>Página web HTML/JS</td></tr>
+<tr><td>Acceso</td><td>Local USB</td><td>1 dispositivo</td><td>Multi-dispositivo en LAN</td></tr>
+</tbody></table></div>
+</div>
+<div id="pot-wifi-conc" class="ieee-content"><h2>XII. Conclusiones</h2><ul>
+<li>El proyecto demuestra cómo convertir el ESP32 en un servidor web IoT completo, sirviendo una aplicación web moderna con interfaz gráfica interactiva.</li>
+<li>La combinación de <code>WiFi.h</code> y <code>WebServer.h</code> permite implementar una API REST con apenas tres rutas, suficientes para control y monitoreo.</li>
+<li>El uso de <code>PROGMEM</code> y raw string literals permite almacenar páginas web completas en la Flash del ESP32 sin consumir RAM escasa.</li>
+<li>La interfaz web con glassmorphism, interruptor 3D CSS y gauge de Google Charts ofrece una experiencia de usuario superior a las interfaces seriales.</li>
+<li>La comunicación asíncrona con <code>fetch()</code> y JSON permite actualización en tiempo real cada 500ms sin recargar la página.</li>
+<li>Este proyecto sienta las bases para aplicaciones IoT más avanzadas como domótica, monitoreo remoto y sistemas SCADA web a pequeña escala.</li>
+</ul></div>
+<div id="pot-wifi-eqs" class="ieee-content"><h2>XIII. Ecuaciones</h2>
+<div class="table-wrap"><table class="data-table eq-summary-table"><thead><tr><th>Ecuación</th><th>Descripción</th><th>Enlace</th></tr></thead><tbody>
+<tr><td>$V_{\text{cursor}}=(N_{ADC}/4095)\times 3.3$</td><td>Cálculo de voltaje</td><td><a href="#pot-wifi-func">Ir a sección</a></td></tr>
+<tr><td>$\%\text{ADC}=\text{map}(N, 0, 4095, 0, 100)$</td><td>Porcentaje para UI</td><td><a href="#pot-wifi-func">Ir a sección</a></td></tr>
+</tbody></table></div></div></div></div></section>
+<section id="pot-ts" class="section" data-project-name="Potenciómetro con ThingSpeak"><div class="project-layout"><aside class="project-sidebar"><div class="project-sidebar-title">Contenido</div><a href="#pot-ts-intro">Introducción</a><a href="#pot-ts-obj">Objetivo</a><a href="#pot-ts-mat">Materiales</a><a href="#pot-ts-esq">Esquema</a><a href="#pot-ts-code">Código</a><a href="#pot-ts-func">Funcionamiento</a><a href="#pot-ts-concept">Conceptos Clave</a><a href="#pot-ts-fotos">Fotografías</a><a href="#pot-ts-vid">Video</a><a href="#pot-ts-proc">Proceso</a><a href="#pot-ts-diff">Diferencias</a><a href="#pot-ts-conc">Conclusiones</a><a href="#pot-ts-eqs">Ecuaciones</a></aside><div class="project-content"><div class="project-header"><h1>Potenciómetro con ThingSpeak</h1><div class="project-meta"><span>Plataforma: ESP32 Dev Module</span><span>Profesor: Msc. Nestor Fabio Montoya Palacios</span></div></div>
+<div id="pot-ts-intro" class="ieee-content"><h2>I. Introducción</h2>
+<p>Este documento describe el proyecto "Monitoreo de Potenciómetro y LED vía ThingSpeak", que utiliza la plataforma de IoT en la nube <strong>ThingSpeak</strong> de MathWorks para registrar, almacenar y visualizar datos provenientes de un circuito con potenciómetro y LED controlados por el ESP32. A diferencia de los proyectos anteriores donde la visualización se realizaba localmente (monitor serial, app Bluetooth o servidor web embebido), en este proyecto los datos se envían a servidores remotos en Internet, permitiendo <strong>monitorear el comportamiento del circuito desde cualquier lugar del mundo</strong> a través de un navegador web o la aplicación móvil de ThingSpeak.</p>
+<p>El programa lee periódicamente el voltaje del potenciómetro, alterna el estado de un LED cada 20 segundos, y transmite ambos valores al canal ThingSpeak mediante peticiones HTTP. La plataforma genera automáticamente gráficas temporales, un gauge analógico de voltaje y un indicador visual tipo lámpara para el estado del LED.</p></div>
+<div id="pot-ts-obj" class="ieee-content"><h2>II. Objetivo del Proyecto</h2>
+<p>Implementar un sistema de telemetría IoT basado en la nube que:</p>
+<ul>
+    <li>Conecte el ESP32 a una red WiFi doméstica como cliente (modo estación).</li>
+    <li>Lea el valor analógico del potenciómetro (GPIO34) y lo convierta a voltaje.</li>
+    <li>Alterne automáticamente el estado de un LED (GPIO4) cada ciclo de envío.</li>
+    <li>Transmita ambos datos (<strong>voltaje</strong> y <strong>estado del LED</strong>) al servicio en la nube <strong>ThingSpeak</strong> cada 20 segundos.</li>
+    <li>Visualice los datos en tiempo real mediante los widgets de ThingSpeak: gráfica temporal, gauge analógico e indicador de lámpara.</li>
+    <li>Permita el acceso remoto a los datos desde cualquier dispositivo con conexión a Internet.</li>
+</ul></div>
+<div id="pot-ts-mat" class="ieee-content"><h2>III. Materiales Necesarios</h2>
+<div class="table-wrap"><table class="data-table"><thead><tr><th style="text-align:center; width:60px">Aspecto</th><th>Cant.</th><th>Componente</th><th>Especificación</th></tr></thead><tbody>
+<tr><td style="text-align:center"><i class="fas fa-microchip" style="font-size:1.5em; color:var(--accent-cyan)"></i></td><td>1</td><td>ESP32 Dev Module</td><td>Microcontrolador dual-core con Wi-Fi/Bluetooth</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-box" style="font-size:1.5em; color:#777"></i></td><td>1</td><td>Potenciómetro</td><td>10 k$\Omega$ lineal, 3 terminales</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-lightbulb" style="font-size:1.5em; color:#ff4444"></i></td><td>1</td><td>LED rojo</td><td>Diodo emisor de luz, 5mm</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-wave-square" style="font-size:1.5em; color:#eab308"></i></td><td>1</td><td>Resistencia 220 $\Omega$</td><td>Limitadora de corriente para el LED</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-border-all" style="font-size:1.5em; color:#ccc"></i></td><td>1</td><td>Protoboard</td><td>Placa de pruebas de 830 puntos</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-random" style="font-size:1.5em; color:var(--accent-green)"></i></td><td>Varios</td><td>Cables jumper</td><td>Macho-macho para conexiones</td></tr>
+<tr><td style="text-align:center"><i class="fab fa-usb" style="font-size:1.5em; color:#999"></i></td><td>1</td><td>Cable USB</td><td>Para programación y alimentación</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-box" style="font-size:1.5em; color:#777"></i></td><td>1</td><td>Red WiFi</td><td>Router con acceso a Internet</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-box" style="font-size:1.5em; color:#777"></i></td><td>1</td><td>Cuenta ThingSpeak</td><td>Gratuita en thingspeak.mathworks.com</td></tr>
+</tbody></table></div></div>
+<div id="pot-ts-esq" class="ieee-content"><h2>IV. Esquema de Conexión</h2>
+<p>El circuito utiliza el mismo esquema de conexión que los proyectos anteriores de potenciómetro. El potenciómetro se conecta como divisor de voltaje entre 3,3V y GND, con su cursor conectado a GPIO34 (entrada analógica del ADC1). El LED se conecta a GPIO4 a través de una resistencia de 220 $\Omega$ para limitar la corriente. La comunicación WiFi no requiere hardware adicional, ya que el ESP32 integra el módulo de radio WiFi 802.11 b/g/n en el propio chip.</p>
+<div class="figure"><img src="Esquemas/Potenciometro_esq.jpeg" alt="Esquema" loading="lazy"><div class="figure-caption">Esquema de conexión del circuito en Fritzing -- el WiFi es interno al ESP32</div></div>
+<h3>Diagrama de Conexiones</h3>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>Componente</th><th>Pin</th><th>ESP32 GPIO</th></tr></thead><tbody>
+<tr><td>Potenciómetro</td><td>Terminal 1</td><td>3.3V</td></tr>
+<tr><td>Potenciómetro</td><td>Terminal 2 (cursor)</td><td>GPIO34 (ADC1_CH6)</td></tr>
+<tr><td>Potenciómetro</td><td>Terminal 3</td><td>GND</td></tr>
+<tr><td>Resistencia 220 $\Omega$</td><td>Terminal 1</td><td>GPIO4</td></tr>
+<tr><td>LED rojo</td><td>Ánodo (+)</td><td>Resistencia 220 $\Omega$ (Terminal 2)</td></tr>
+<tr><td>LED rojo</td><td>Cátodo (-)</td><td>GND</td></tr>
+</tbody></table></div>
+<p><strong>Nota:</strong> En este proyecto, la conectividad WiFi se utiliza exclusivamente para transmitir datos a la nube de ThingSpeak; el ESP32 no funciona como servidor web local, sino como <strong>cliente HTTP</strong> que envía información periódicamente a los servidores de MathWorks.</p></div>
+<div id="pot-ts-code" class="ieee-content"><h2>V. Código Fuente</h2>
+<div class="code-block"><span class="code-title">Potenciometro_ThingSpeak.ino</span><code><span class="com">#include &lt;WiFi.h&gt;</span>
+<span class="com">#include &lt;ThingSpeak.h&gt;</span>
+
+<span class="kw">const char</span>* miSSID = <span class="str">"WIFI_SSID"</span>;
+<span class="kw">const char</span>* miPASSWORD = <span class="str">"WIFI_PASSWORD"</span>;
+
+<span class="kw">unsigned long</span> idDelCanal = <span class="num">3366319</span>;
+<span class="kw">const char</span>* claveEscritura = <span class="str">"VJ35HO8Z2Y79XEY4"</span>;
+
+<span class="kw">const int</span> pinPotenciometro = <span class="num">34</span>;
+<span class="kw">const int</span> pinLED = <span class="num">4</span>;
+
+<span class="kw">const unsigned long</span> INTERVALO_MS = <span class="num">20000</span>; <span class="com">// 20 segundos</span>
+<span class="kw">unsigned long</span> ultimoEnvio = <span class="num">0</span>;
+<span class="kw">bool</span> ledEncendido = <span class="type">false</span>;
+
+WiFiClient cliente;
+
+<span class="kw">void</span> <span class="fn">setup</span>() {
+  Serial.<span class="fn">begin</span>(<span class="num">115200</span>);
+  <span class="fn">pinMode</span>(pinPotenciometro, <span class="type">INPUT</span>);
+  <span class="fn">pinMode</span>(pinLED, <span class="type">OUTPUT</span>);
+  <span class="fn">digitalWrite</span>(pinLED, <span class="type">LOW</span>);
+
+  WiFi.<span class="fn">begin</span>(miSSID, miPASSWORD);
+  <span class="kw">while</span> (WiFi.<span class="fn">status</span>() != WL_CONNECTED) { <span class="fn">delay</span>(<span class="num">500</span>); }
+
+  ThingSpeak.<span class="fn">begin</span>(cliente);
+}
+
+<span class="kw">void</span> <span class="fn">loop</span>() {
+  <span class="kw">unsigned long</span> ahora = <span class="fn">millis</span>();
+  <span class="kw">if</span> (ahora - ultimoEnvio &lt; INTERVALO_MS) <span class="kw">return</span>;
+  ultimoEnvio = ahora;
+
+  <span class="kw">int</span> valorADC = <span class="fn">analogRead</span>(pinPotenciometro);
+  <span class="kw">float</span> voltaje = (valorADC * <span class="num">3.3</span>) / <span class="num">4095.0</span>;
+
+  ledEncendido = !ledEncendido;
+  <span class="fn">digitalWrite</span>(pinLED, ledEncendido ? <span class="type">HIGH</span> : <span class="type">LOW</span>);
+
+  ThingSpeak.<span class="fn">setField</span>(<span class="num">1</span>, voltaje);
+  ThingSpeak.<span class="fn">setField</span>(<span class="num">2</span>, ledEncendido ? <span class="num">1</span> : <span class="num">0</span>);
+
+  <span class="kw">int</span> respuesta = ThingSpeak.<span class="fn">writeFields</span>(idDelCanal, claveEscritura);
+
+  <span class="kw">if</span> (respuesta == <span class="num">200</span>) {
+    Serial.<span class="fn">println</span>(<span class="str">"OK - Enviado"</span>);
+  } <span class="kw">else</span> {
+    Serial.<span class="fn">print</span>(<span class="str">"Error: "</span>);
+    Serial.<span class="fn">println</span>(respuesta);
+  }
+}</code></div>
+<h3>Análisis del Código</h3>
+<ul>
+    <li><strong>Librerías Utilizadas:</strong> <code>WiFi.h</code> para conectar el ESP32 en modo estación (STA) y <code>ThingSpeak.h</code> para simplificar la comunicación HTTP POST con los servidores de MathWorks.</li>
+    <li><strong>Configuración:</strong> Se definen el <code>Channel ID</code> y la <code>Write API Key</code> necesarios para autorizar la escritura en la base de datos de la nube.</li>
+    <li><strong>Patrón No Bloqueante:</strong> La función <code>loop()</code> utiliza <code>millis()</code> en lugar de <code>delay()</code>, permitiendo que el procesador no quede bloqueado durante los 20 segundos de espera entre transmisiones.</li>
+    <li><strong>Campos Múltiples:</strong> Se utiliza <code>ThingSpeak.setField()</code> para preparar los datos en memoria temporal (voltaje y estado del LED), seguidos de un único <code>ThingSpeak.writeFields()</code> para enviar todo en una sola petición HTTP POST.</li>
+</ul></div>
+<div id="pot-ts-func" class="ieee-content"><h2>VI. Principio de Funcionamiento</h2>
+<p>A diferencia de los proyectos anteriores donde el ESP32 actuaba como servidor (WiFi local) o transmisor directo (Bluetooth), en este proyecto el ESP32 funciona como <strong>cliente HTTP</strong> que envía datos a un servidor externo en Internet:</p>
+<pre style="background:var(--card-bg);padding:1rem;border-radius:12px;font-family:monospace;overflow-x:auto;">
+    Potenciómetro       ESP32            Internet          ThingSpeak
+    (0 - 3.3 V)  ────> ADC 12-bit ────> HTTP POST ────> Servidor MathWorks
+                        + LED toggle     WiFi             Almacena datos
+                                                               │
+                                                               v
+                                                    Widgets de visualización:
+                                                    - Field 1 Chart (voltaje)
+                                                    - Gauge (potenciómetro)
+                                                    - Lamp (estado del LED)
+                                                               │
+                                                               v
+                                                    Navegador / App móvil
+                                                    (acceso global)
+</pre>
+<p>El código de respuesta <strong>200</strong> devuelto por la librería indica éxito. La plataforma gratuita de ThingSpeak permite máximo 1 escritura cada 15 segundos, de ahí el uso de 20s como margen de seguridad en el ESP32.</p>
+</div>
+<div id="pot-ts-concept" class="ieee-content"><h2>VII. Conceptos Técnicos Clave</h2>
+<ul>
+    <li><strong>Internet de las Cosas (IoT):</strong> Interconexión de dispositivos físicos con Internet para recolectar, transmitir y analizar datos.</li>
+    <li><strong>IoT como Servicio (IoTaaS):</strong> Plataformas como ThingSpeak abstraen la complejidad de bases de datos y visualización (backend/frontend).</li>
+    <li><strong>API REST:</strong> El ESP32 envía los datos construyendo internamente una petición <code>POST https://api.thingspeak.com/update</code> con parámetros de la API (<code>api_key</code> y valores para los campos).</li>
+</ul>
+</div>
+<div id="pot-ts-fotos" class="ieee-content"><h2>VIII. Fotografías del Montaje</h2><div class="figure-grid"><div class="figure"><img src="Imagenes/Potenciometro_ThingSpeak_imgs/Potenciometro_ThingSpeak_img1.jpeg" alt="Foto 1" loading="lazy"><div class="figure-caption">Dashboard de ThingSpeak en el navegador del computador con gráfica temporal, lámpara indicadora y gauge analógico.</div></div><div class="figure"><img src="Imagenes/Potenciometro_ThingSpeak_imgs/Potenciometro_ThingSpeak_img2.jpeg" alt="Foto 2" loading="lazy"><div class="figure-caption">Vista del montaje físico: el celular mostrando la app móvil de ThingSpeak en tiempo real junto al circuito del ESP32.</div></div></div></div>
+<div id="pot-ts-vid" class="ieee-content"><h2>IX. Videos de Funcionamiento</h2><div class="video-wrap"><video controls preload="none"><source src="Videos/Potenciometro_ThingSpeak_vid/Potenciometro_ThingSpeak_Funcionamiento.mp4" type="video/mp4"></video><div class="video-caption">Demostración del sistema: datos sincronizados en la nube actualizándose de forma inalámbrica cada 20 segundos.</div></div></div>
+<div id="pot-ts-proc" class="ieee-content"><h2>X. Proceso de Creación</h2>
+<ol>
+    <li><strong>Punto de partida:</strong> Se reutilizó el circuito analógico/digital del potenciómetro y LED de los proyectos anteriores.</li>
+    <li><strong>Creación del canal ThingSpeak:</strong> Se configuró una cuenta gratuita en MathWorks y se generó un canal con dos campos (voltaje y estado del LED), obteniendo el Channel ID y la Write API Key asociados.</li>
+    <li><strong>Instalación de la librería:</strong> Se instaló "ThingSpeak" de MathWorks desde el Library Manager del IDE de Arduino.</li>
+    <li><strong>Programación del firmware:</strong> Código estructurado para conectar al router local, muestrear el potenciómetro, invertir el estado del LED y empaquetar los datos para envío en la nube usando <code>setField()</code>.</li>
+    <li><strong>Configuración de widgets en la Nube:</strong> En el dashboard de ThingSpeak se agregaron tres widgets para los observadores humanos: gráfica de histórico, gauge analógico (0-3.3V), y lámpara indicadora para el LED.</li>
+</ol>
+</div>
+<div id="pot-ts-diff" class="ieee-content"><h2>XI. Diferencias con Proyectos Anteriores</h2>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>Característica</th><th>Base</th><th>Bluetooth</th><th>WiFi Local</th><th>ThingSpeak</th></tr></thead><tbody>
+<tr><td>Lectura ADC</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td></tr>
+<tr><td>Control del LED</td><td>PWM</td><td>PWM</td><td>On/Off web</td><td>Auto-toggle (cada 20s)</td></tr>
+<tr><td>Comunicación</td><td>USB</td><td>BT SPP</td><td>WiFi HTTP local</td><td>WiFi + nube HTTP</td></tr>
+<tr><td>Interfaz</td><td>Monitor serial</td><td>App BT</td><td>Página web local</td><td>Dashboard en nube</td></tr>
+<tr><td>Alcance</td><td>Local</td><td>10m (P2P)</td><td>LAN (Red local)</td><td>Global (Internet)</td></tr>
+<tr><td>Historial</td><td>No</td><td>No</td><td>No</td><td>Sí (Base de datos remota)</td></tr>
+</tbody></table></div>
+</div>
+<div id="pot-ts-conc" class="ieee-content"><h2>XII. Conclusiones</h2><ul>
+<li>El proyecto demuestra cómo integrar el ESP32 con la plataforma IoT ThingSpeak para enviar datos a la nube y visualizarlos remotamente desde cualquier dispositivo con acceso a Internet.</li>
+<li>La librería oficial de ThingSpeak simplifica enormemente la comunicación con la API REST, reduciendo el código de red a pocas líneas (<code>begin</code>, <code>setField</code>, <code>writeFields</code>).</li>
+<li>El uso del patrón no bloqueante con <code>millis()</code> mantiene el procesador disponible entre envíos, a diferencia de <code>delay()</code> que detiene toda ejecución.</li>
+<li>Los widgets de ThingSpeak proporcionan una visualización profesional sin necesidad de desarrollar una interfaz web propia ni gestionar servidores (Backend) o bases de datos.</li>
+<li>El almacenamiento persistente en la nube permite revisar el historial de datos incluso después de apagar el ESP32, resolviendo una de las mayores limitaciones de los proyectos anteriores.</li>
+<li>El acceso simultáneo desde el navegador web y la aplicación móvil confirma la naturaleza verdaderamente distribuida del sistema IoT.</li>
+</ul></div>
+<div id="pot-ts-eqs" class="ieee-content"><h2>XIII. Ecuaciones</h2>
+<div class="table-wrap"><table class="data-table eq-summary-table"><thead><tr><th>Ecuación</th><th>Descripción</th><th>Referencia</th></tr></thead><tbody>
+<tr><td>$V_{\text{cursor}}=(N_{ADC}/4095)\times 3.3$</td><td>Conversión ADC a voltaje</td><td><a href="#pot-ts-func">Ir a sección</a></td></tr>
+<tr><td>$\Delta V = 3.3/4095 \approx 0.806\text{mV}$</td><td>Resolución por paso del ADC</td><td><a href="#pot-ts-func">Ir a sección</a></td></tr>
+</tbody></table></div></div></div></div></section>
+<section id="temp-sin" class="section" data-project-name="Temperatura sin Termómetro (DHT22)"><div class="project-layout"><aside class="project-sidebar"><div class="project-sidebar-title">Contenido</div><a href="#temp-sin-intro">Introducción</a><a href="#temp-sin-obj">Objetivo</a><a href="#temp-sin-mat">Materiales</a><a href="#temp-sin-esq">Esquema</a><a href="#temp-sin-code">Código</a><a href="#temp-sin-func">Funcionamiento</a><a href="#temp-sin-fotos">Fotografías</a><a href="#temp-sin-sim">Simulación</a><a href="#temp-sin-proc">Proceso</a><a href="#temp-sin-conc">Conclusiones</a><a href="#temp-sin-eqs">Ecuaciones</a></aside><div class="project-content"><div class="project-header"><h1>Temperatura sin Termómetro (DHT22)</h1><div class="project-meta"><span>Plataforma: ESP32 Dev Module</span><span>Profesor: Msc. Nestor Fabio Montoya Palacios</span></div></div>
+<div id="temp-sin-intro" class="ieee-content"><h2>I. Introducción</h2>
+<p>Este documento describe de manera detallada el proyecto "Temperatura sin Termómetro", un sistema embebido que permite medir la temperatura y la humedad ambiental sin necesidad de un termómetro convencional de mercurio o alcohol, utilizando un sensor digital DHT22 (AM2302) conectado al microcontrolador ESP32. Los resultados son procesados y mostrados digitalmente en una pantalla OLED de 0.96 pulgadas mediante el protocolo I2C y también a través del Monitor Serial.</p>
+<p>Este proyecto introduce conceptos fundamentales de <strong>comunicación I2C</strong>, <strong>lectura de sensores digitales de un solo hilo (1-Wire propietario)</strong>, <strong>manejo de pantallas gráficas monocromáticas</strong> y <strong>procesamiento de magnitudes ambientales</strong>.</p></div>
+<div id="temp-sin-obj" class="ieee-content"><h2>II. Objetivo del Proyecto</h2>
+<p>Implementar un sistema de monitoreo ambiental utilizando el microcontrolador ESP32 que mida temperatura y humedad con un sensor DHT22 y las presente en una pantalla OLED, demostrando el uso de:</p>
+<ul>
+    <li>Lectura de sensores digitales mediante protocolo propietario de un hilo (DHT22).</li>
+    <li>Comunicación I2C para el control de una pantalla OLED SSD1306.</li>
+    <li>Uso de librerías externas de hardware (<code>Adafruit_GFX</code>, <code>Adafruit_SSD1306</code>, <code>DHT</code>).</li>
+    <li>Manejo de errores en la lectura de sensores (verificación <code>isnan()</code>).</li>
+    <li>Salida dual de datos: Monitor Serial y pantalla OLED gráfica.</li>
+</ul></div>
+<div id="temp-sin-mat" class="ieee-content"><h2>III. Materiales Necesarios</h2>
+<div class="table-wrap"><table class="data-table"><thead><tr><th style="text-align:center; width:60px">Aspecto</th><th>Cant.</th><th>Componente</th><th>Especificación</th></tr></thead><tbody>
+<tr><td style="text-align:center"><i class="fas fa-microchip" style="font-size:1.5em; color:var(--accent-cyan)"></i></td><td>1</td><td>ESP32 Dev Module</td><td>Microcontrolador dual-core con Wi-Fi/Bluetooth</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-temperature-low" style="font-size:1.5em; color:var(--accent-cyan)"></i></td><td>1</td><td>Sensor DHT22 (AM2302)</td><td>Rango: -40 a 80 °C, precisión $\pm 0.5$ °C. Humedad: 0-100% HR $\pm 2$%</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-lightbulb" style="font-size:1.5em; color:#ff4444"></i></td><td>1</td><td>Pantalla OLED 0.96"</td><td>Controlador SSD1306, 128x64 px, interfaz I2C</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-border-all" style="font-size:1.5em; color:#ccc"></i></td><td>1</td><td>Protoboard</td><td>Placa de pruebas de 830 puntos</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-random" style="font-size:1.5em; color:var(--accent-green)"></i></td><td>Varios</td><td>Cables jumper</td><td>Macho-macho para conexiones</td></tr>
+<tr><td style="text-align:center"><i class="fab fa-usb" style="font-size:1.5em; color:#999"></i></td><td>1</td><td>Cable USB</td><td>Para programación y alimentación</td></tr>
+</tbody></table></div></div>
+<div id="temp-sin-esq" class="ieee-content"><h2>IV. Esquema de Conexión</h2>
+<p>El sensor DHT22 se conecta mediante un bus digital al pin GPIO4. La pantalla OLED de 0.96 pulgadas con controlador SSD1306 utiliza el protocolo I2C para la comunicación, requiriendo únicamente dos líneas de datos (SDA y SCL) además de la alimentación. Sus pines son: GND, VDD (3.3V), SCK (reloj I2C en GPIO22) y SDA (datos I2C en GPIO21).</p>
+<div class="figure"><img src="Esquemas/Temperatura_esq.jpeg" alt="Esquema" loading="lazy"><div class="figure-caption">Esquema de conexión del circuito en Fritzing</div></div>
+<h3>Diagrama de Conexiones</h3>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>Componente</th><th>Pin</th><th>ESP32 GPIO</th></tr></thead><tbody>
+<tr><td>DHT22</td><td>OUT (Datos)</td><td>GPIO4</td></tr>
+<tr><td>DHT22</td><td>VCC (+)</td><td>3.3V</td></tr>
+<tr><td>DHT22</td><td>GND (-)</td><td>GND</td></tr>
+<tr><td>OLED SSD1306</td><td>SDA</td><td>GPIO21</td></tr>
+<tr><td>OLED SSD1306</td><td>SCK (SCL)</td><td>GPIO22</td></tr>
+<tr><td>OLED SSD1306</td><td>VDD</td><td>3.3V</td></tr>
+<tr><td>OLED SSD1306</td><td>GND</td><td>GND</td></tr>
+</tbody></table></div></div>
+<div id="temp-sin-code" class="ieee-content"><h2>V. Código Fuente</h2>
+<details>
+<summary>📄 Mostrar código fuente completo (Arduino)</summary>
+<div class="code-block"><span class="code-title">Temperatura_sin_termometro.ino</span><code><span class="com">#include &lt;Wire.h&gt;</span>
+<span class="com">#include &lt;Adafruit_GFX.h&gt;</span>
+<span class="com">#include &lt;Adafruit_SSD1306.h&gt;</span>
+<span class="com">#include &lt;DHT.h&gt;</span>
+
+<span class="com">// Configuración de la OLED</span>
+<span class="com">#define SCREEN_WIDTH 128</span>
+<span class="com">#define SCREEN_HEIGHT 64</span>
+<span class="com">#define OLED_RESET    -1</span>
+
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &amp;Wire, OLED_RESET);
+
+<span class="com">// Configuración del DHT</span>
+<span class="com">#define DHTPIN 4        // Pin D4 del ESP32 = GPIO 4</span>
+<span class="com">#define DHTTYPE DHT22</span>
+
+DHT dht(DHTPIN, DHTTYPE);
+
+<span class="kw">void</span> <span class="fn">setup</span>() {
+  Serial.<span class="fn">begin</span>(<span class="num">115200</span>);
+  Wire.<span class="fn">begin</span>(<span class="num">21</span>, <span class="num">22</span>); <span class="com">// SDA=21, SCL=22</span>
+
+  <span class="com">// Inicia pantalla OLED (dirección I2C: 0x3C o 0x7A)</span>
+  <span class="kw">if</span> (!display.<span class="fn">begin</span>(SSD1306_SWITCHCAPVCC, <span class="num">0x7A</span>)) {
+    Serial.<span class="fn">println</span>(<span class="str">"No se encontró la pantalla OLED"</span>);
+    <span class="kw">while</span> (<span class="type">true</span>);
+  }
+
+  dht.<span class="fn">begin</span>();
+
+  <span class="com">// Pantalla de inicio</span>
+  display.<span class="fn">clearDisplay</span>();
+  display.<span class="fn">setTextColor</span>(SSD1306_WHITE);
+  display.<span class="fn">setTextSize</span>(<span class="num">1</span>);
+  display.<span class="fn">setCursor</span>(<span class="num">0</span>, <span class="num">0</span>);
+  display.<span class="fn">println</span>(<span class="str">"ESP32 + DHT + OLED"</span>);
+  display.<span class="fn">println</span>(<span class="str">"Iniciando..."</span>);
+  display.<span class="fn">display</span>();
+  <span class="fn">delay</span>(<span class="num">2000</span>);
+}
+
+<span class="kw">void</span> <span class="fn">loop</span>() {
+  <span class="fn">delay</span>(<span class="num">2000</span>); <span class="com">// Tiempo de muestreo del DHT22</span>
+
+  <span class="kw">float</span> humedad = dht.<span class="fn">readHumidity</span>();
+  <span class="kw">float</span> temperatura = dht.<span class="fn">readTemperature</span>();
+
+  <span class="kw">if</span> (<span class="fn">isnan</span>(humedad) || <span class="fn">isnan</span>(temperatura)) {
+    Serial.<span class="fn">println</span>(<span class="str">"Error al leer el sensor DHT"</span>);
+    display.<span class="fn">clearDisplay</span>();
+    display.<span class="fn">setCursor</span>(<span class="num">0</span>, <span class="num">0</span>);
+    display.<span class="fn">println</span>(<span class="str">"Error sensor DHT"</span>);
+    display.<span class="fn">display</span>();
+    <span class="kw">return</span>;
+  }
+
+  Serial.<span class="fn">print</span>(<span class="str">"Temperatura: "</span>); Serial.<span class="fn">print</span>(temperatura); Serial.<span class="fn">println</span>(<span class="str">" C"</span>);
+  Serial.<span class="fn">print</span>(<span class="str">"Humedad: "</span>); Serial.<span class="fn">print</span>(humedad); Serial.<span class="fn">println</span>(<span class="str">" %"</span>);
+
+  display.<span class="fn">clearDisplay</span>();
+  display.<span class="fn">setTextSize</span>(<span class="num">1</span>);
+  display.<span class="fn">setCursor</span>(<span class="num">0</span>, <span class="num">0</span>);
+  display.<span class="fn">println</span>(<span class="str">"Lectura ambiental"</span>);
+
+  display.<span class="fn">setTextSize</span>(<span class="num">2</span>);
+  display.<span class="fn">setCursor</span>(<span class="num">0</span>, <span class="num">20</span>);
+  display.<span class="fn">print</span>(temperatura, <span class="num">1</span>); display.<span class="fn">println</span>(<span class="str">" C"</span>);
+
+  display.<span class="fn">setCursor</span>(<span class="num">0</span>, <span class="num">45</span>);
+  display.<span class="fn">print</span>(humedad, <span class="num">1</span>); display.<span class="fn">println</span>(<span class="str">" %"</span>);
+  display.<span class="fn">display</span>();
+}</code></div>
+</details>
+<h3>Análisis del Código</h3>
+<ul>
+    <li><strong>Librerías de Adafruit:</strong> <code>Adafruit_GFX.h</code> proporciona las primitivas de dibujo (texto, formas) y <code>Adafruit_SSD1306.h</code> es el driver I2C de la pantalla OLED. Ambas usan <code>Wire.h</code> para gestionar los pines SDA/SCL.</li>
+    <li><strong>Inicialización I2C:</strong> <code>display.begin(SSD1306_SWITCHCAPVCC, 0x7A)</code> establece la conexión I2C con la OLED (la dirección hexadecimal depende del fabricante, en este caso 0x7A).</li>
+    <li><strong>Función <code>isnan()</code>:</strong> Es vital comprobar la integridad de las lecturas analógicas-digitales (Not-A-Number) en caso de que un cable se desconecte o el sensor falle.</li>
+    <li><strong>Doble Buffer Gráfico:</strong> La librería Adafruit no dibuja de inmediato. Requiere modificar todo en memoria RAM primero (<code>setCursor</code>, <code>print</code>) y luego enviar el frame I2C de golpe con <code>display.display()</code>.</li>
+</ul></div>
+<div id="temp-sin-func" class="ieee-content"><h2>VI. Principio de Funcionamiento</h2>
+<h3>Comunicación con el Sensor DHT22 (1-Wire)</h3>
+<p>El DHT22 utiliza un protocolo propietario de un solo hilo (<em>single-wire</em>) para transmitir datos. El ESP32 envía una señal de inicio (pulso bajo de 1ms). El sensor responde transmitiendo 40 bits serialmente: 16 bits de humedad, 16 bits de temperatura y 8 bits de checksum. El código de la librería de Adafruit decodifica los anchos de pulso en microsegundos y valida el checksum.</p>
+<h3>Comunicación I2C con la Pantalla OLED</h3>
+<p>El protocolo I2C (<em>Inter-Integrated Circuit</em>) utiliza dos líneas compartidas. El ESP32 actúa como <em>maestro</em> y la pantalla OLED como <em>esclavo</em>. Los comandos y datos de los 128x64 píxeles se envían mediante tramas I2C que incluyen condición de inicio, dirección del esclavo (0x7A), control y datos.</p>
+<h3>Conversión Interna Termistor (NTC)</h3>
+<p>El sensor DHT22 contiene internamente un termistor NTC (<em>Negative Temperature Coefficient</em>) y un sensor capacitivo de humedad. El termistor varía su resistencia no linealmente de acuerdo a la temperatura, regido por la Ecuación de Steinhart-Hart. El circuito interno de fábrica realiza la linealización y la digitalización entregando directamente los grados Celsius.</p></div>
+<div id="temp-sin-fotos" class="ieee-content"><h2>VII. Fotografías del Montaje</h2><div class="figure-grid"><div class="figure"><img src="Imagenes/Temperatura_sin_termometro_imgs/Temperatura_sin_termometro.jpeg" alt="Foto del proyecto Temperatura DHT22" loading="lazy"><div class="figure-caption">Montaje físico: Sensor DHT22 leyendo el ambiente y la pantalla OLED mostrando la temperatura y humedad.</div></div></div></div>
+<div id="temp-sin-sim" class="ieee-content"><h2>VIII. Simulación</h2>
+<div class="sim-container" id="simThermo"><div class="sim-title">Simulación: Interfaz OLED y Sensor Digital</div><div class="sim-canvas"><canvas></canvas></div>
+<div class="sim-controls"><div class="sim-control"><label>Temperatura (°C)</label><input type="range" class="thermo-slider" min="0" max="40" value="25" step="0.5"><span class="sim-val">25</span></div></div></div></div>
+<div id="temp-sin-proc" class="ieee-content"><h2>IX. Proceso de Creación</h2>
+<ol>
+    <li><strong>Diseño de Arquitectura de Comunicación:</strong> Se planificó un esquema centralizado donde el ESP32 recolecta mediante 1-Wire y reporta mediante UART (USB) y I2C simultáneamente.</li>
+    <li><strong>Instalación del Ecosistema Adafruit:</strong> Instalación de librerías para gráficos rasterizados y parsing digital del DHT desde el Library Manager del IDE de Arduino.</li>
+    <li><strong>Manejo de Tiempos del DHT22:</strong> La hoja de datos del DHT22 exige 2 segundos mínimos entre muestras consecutivas; por eso el bloque <code>loop()</code> integra un <code>delay(2000)</code> para evitar sobresaturación del IC interno.</li>
+    <li><strong>Diseño de Interfaz OLED:</strong> Se distribuyó el frame de 128x64 px en 3 filas lógicas. Texto pequeño (size 1) para el encabezado y texto mediano/grande (size 2) para magnitudes, asegurando legibilidad a distancia.</li>
+</ol>
+</div>
+<div id="temp-sin-conc" class="ieee-content"><h2>X. Conclusiones</h2><ul>
+<li>El proyecto demuestra cómo obtener mediciones ambientales precisas utilizando componentes electrónicos digitales de bajo costo, sin requerir lectura de termistores manuales con ADC y calibración.</li>
+<li>El sensor DHT22 proporciona lecturas pre-calibradas muy confiables ($\pm 0.5$ °C), con una complejidad de lectura encapsulada impecablemente por la librería de software.</li>
+<li>La pantalla OLED SSD1306 permite una visualización autónoma de los datos, eliminando la dependencia del Monitor Serial del computador una vez cargado el firmware (el sistema se vuelve portable).</li>
+<li>El bus de comunicación I2C simplifica el diseño de hardware al requerir solo dos líneas de datos (SDA, SCL) para controlar un panel de 8192 píxeles, dejando más pines disponibles para sensores.</li>
+<li>El robusto manejo de excepciones mediante comprobación de <code>NaN</code> garantiza que el sistema no presente falsos positivos si el sensor sufre una falla de conectividad o daño.</li>
+</ul></div>
+<div id="temp-sin-eqs" class="ieee-content"><h2>XI. Ecuaciones</h2>
+<div class="table-wrap"><table class="data-table eq-summary-table"><thead><tr><th>Ecuación</th><th>Descripción</th><th>Referencia</th></tr></thead><tbody>
+<tr><td>$R(T) = R_0 \cdot e^{\beta\left(\frac{1}{T} - \frac{1}{T_0}\right)}$</td><td>Ecuación de Steinhart-Hart NTC</td><td><a href="#temp-sin-func">Ir a sección</a></td></tr>
+<tr><td>$T=T_{raw}/10$ , $RH=H_{raw}/10$</td><td>Conversión interna DHT22 a decimales</td><td><a href="#temp-sin-func">Ir a sección</a></td></tr>
+</tbody></table></div></div></div></div></section>
+<section id="temp-con" class="section" data-project-name="Temperatura con Termómetro (OLED)"><div class="project-layout"><aside class="project-sidebar"><div class="project-sidebar-title">Contenido</div><a href="#temp-con-intro">Introducción</a><a href="#temp-con-obj">Objetivo</a><a href="#temp-con-mat">Materiales</a><a href="#temp-con-esq">Esquema</a><a href="#temp-con-code">Código</a><a href="#temp-con-func">Funcionamiento</a><a href="#temp-con-fotos">Fotografías</a><a href="#temp-con-proc">Proceso</a><a href="#temp-con-diff">Diferencias</a><a href="#temp-con-conc">Conclusiones</a><a href="#temp-con-eqs">Ecuaciones</a></aside><div class="project-content"><div class="project-header"><h1>Temperatura con Termómetro (OLED)</h1><div class="project-meta"><span>Plataforma: ESP32 Dev Module</span><span>Profesor: Msc. Nestor Fabio Montoya Palacios</span></div></div>
+<div id="temp-con-intro" class="ieee-content"><h2>I. Introducción</h2>
+<p>Este documento describe de manera detallada el proyecto "Temperatura con Termómetro", una evolución del proyecto básico de lectura de temperatura que incorpora un <strong>termómetro gráfico animado</strong> en la pantalla OLED. El sistema utiliza un sensor digital DHT22 (AM2302) conectado a un microcontrolador ESP32, con los resultados mostrados en una pantalla OLED de 0.96 pulgadas mediante una representación visual que incluye un termómetro clásico con nivel de "mercurio" proporcional a la temperatura medida.</p>
+<p>La diferencia fundamental con respecto al proyecto "Temperatura sin Termómetro" es la adición de <strong>gráficos vectoriales programáticos</strong> en la pantalla OLED: un tubo rectangular con bulbo circular cuyo relleno varía dinámicamente, marcas de escala laterales, y un layout mejorado que combina la representación gráfica a la izquierda con los valores numéricos a la derecha.</p>
+<p>Este proyecto introduce conceptos avanzados de <strong>programación gráfica en pantallas OLED</strong>, <strong>geometría computacional para interfaces embebidas</strong>, <strong>mapeo de valores físicos a representaciones visuales</strong> y <strong>diseño de interfaces de usuario en sistemas con recursos limitados</strong>.</p></div>
+<div id="temp-con-obj" class="ieee-content"><h2>II. Objetivo del Proyecto</h2>
+<p>Implementar un sistema de monitoreo ambiental con representación gráfica utilizando el microcontrolador ESP32 que mida temperatura y humedad con un sensor DHT22 y las presente en una pantalla OLED con un termómetro visual animado, demostrando el uso de:</p>
+<ul>
+    <li>Lectura de sensores digitales mediante protocolo propietario de un hilo (DHT22).</li>
+    <li>Comunicación I2C para el control de una pantalla OLED SSD1306.</li>
+    <li>Librerías gráficas de Adafruit (<code>Adafruit_GFX</code>, <code>Adafruit_SSD1306</code>).</li>
+    <li>Primitivas de dibujo: rectángulos, círculos, líneas horizontales y rellenos.</li>
+    <li>Mapeo lineal de magnitudes físicas a coordenadas de píxeles.</li>
+    <li>Manejo de errores con memoria del último valor válido.</li>
+    <li>Diseño de layout para pantallas de resolución limitada (128x64 px).</li>
+</ul></div>
+<div id="temp-con-mat" class="ieee-content"><h2>III. Materiales Necesarios</h2>
+<div class="table-wrap"><table class="data-table"><thead><tr><th style="text-align:center; width:60px">Aspecto</th><th>Cant.</th><th>Componente</th><th>Especificación</th></tr></thead><tbody>
+<tr><td style="text-align:center"><i class="fas fa-microchip" style="font-size:1.5em; color:var(--accent-cyan)"></i></td><td>1</td><td>ESP32 Dev Module</td><td>Microcontrolador con Wi-Fi/Bluetooth</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-temperature-low" style="font-size:1.5em; color:var(--accent-cyan)"></i></td><td>1</td><td>Sensor DHT22 (AM2302)</td><td>Rango: -40 a 80 °C, precisión $\pm 0.5$ °C</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-lightbulb" style="font-size:1.5em; color:#ff4444"></i></td><td>1</td><td>Pantalla OLED 0.96"</td><td>SSD1306, 128x64 px, interfaz I2C</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-border-all" style="font-size:1.5em; color:#ccc"></i></td><td>1</td><td>Protoboard</td><td>Placa de pruebas de 830 puntos</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-random" style="font-size:1.5em; color:var(--accent-green)"></i></td><td>Varios</td><td>Cables jumper</td><td>Macho-macho para conexiones</td></tr>
+<tr><td style="text-align:center"><i class="fab fa-usb" style="font-size:1.5em; color:#999"></i></td><td>1</td><td>Cable USB Micro-B</td><td>Para programación y alimentación</td></tr>
+</tbody></table></div></div>
+<div id="temp-con-esq" class="ieee-content"><h2>IV. Esquema de Conexión</h2>
+<p>El sensor DHT22 se conecta al pin GPIO4, y la pantalla OLED se comunica mediante el bus I2C (SDA en GPIO21 y SCL en GPIO22).</p>
+<div class="figure"><img src="Esquemas/Temperatura_esq.jpeg" alt="Esquema" loading="lazy"><div class="figure-caption">Esquema de conexión del circuito (Fritzing)</div></div>
+<h3>Diagrama de Conexiones</h3>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>Componente</th><th>Pin</th><th>ESP32 GPIO</th></tr></thead><tbody>
+<tr><td>DHT22</td><td>+ (VCC)</td><td>3.3V</td></tr>
+<tr><td>DHT22</td><td>OUT (datos)</td><td>GPIO4</td></tr>
+<tr><td>DHT22</td><td>- (GND)</td><td>GND</td></tr>
+<tr><td>OLED SSD1306</td><td>GND</td><td>GND</td></tr>
+<tr><td>OLED SSD1306</td><td>VDD</td><td>3.3V</td></tr>
+<tr><td>OLED SSD1306</td><td>SCK (SCL)</td><td>GPIO22</td></tr>
+<tr><td>OLED SSD1306</td><td>SDA</td><td>GPIO21</td></tr>
+</tbody></table></div></div>
+<div id="temp-con-code" class="ieee-content"><h2>V. Código Fuente</h2>
+<details>
+<summary>📄 Mostrar código fuente completo (Arduino)</summary>
+<div class="code-block"><span class="code-title">ESP32_DHT22_OLED_ConTermometro.ino</span><code><span class="com">#include &lt;Wire.h&gt;</span>
+<span class="com">#include &lt;Adafruit_GFX.h&gt;</span>
+<span class="com">#include &lt;Adafruit_SSD1306.h&gt;</span>
+<span class="com">#include &lt;DHT.h&gt;</span>
+
+<span class="com">#define ANCHO 128</span>
+<span class="com">#define ALTO 64</span>
+<span class="com">#define DIR_OLED 0x3C</span>
+<span class="com">#define PIN_DHT 4</span>
+<span class="com">#define T_MIN 0.0</span>
+<span class="com">#define T_MAX 40.0</span>
+
+<span class="com">#define INTERVALO_MS 2000</span>
+
+Adafruit_SSD1306 display(ANCHO, ALTO, &amp;Wire, -1);
+DHT dht(PIN_DHT, DHT22);
+
+<span class="kw">float</span> ultimaT = NAN;
+<span class="kw">float</span> ultimaH = NAN;
+
+<span class="kw">void</span> <span class="fn">dibujarTermometro</span>(<span class="kw">float</span> tempC) {
+  <span class="com">// Recorte de rango</span>
+  <span class="kw">if</span> (tempC &lt; T_MIN) tempC = T_MIN;
+  <span class="kw">if</span> (tempC &gt; T_MAX) tempC = T_MAX;
+
+  <span class="com">// Dimensiones y posiciones</span>
+  <span class="kw">int</span> x_tubo = <span class="num">4</span>;
+  <span class="kw">int</span> y_tubo = <span class="num">4</span>;
+  <span class="kw">int</span> ancho = <span class="num">10</span>;
+  <span class="kw">int</span> alto_tubo = <span class="num">42</span>;
+  <span class="kw">int</span> r_bulbo = <span class="num">7</span>;
+  <span class="kw">int</span> cx = x_tubo + ancho/<span class="num">2</span>;
+  <span class="kw">int</span> cy = y_tubo + alto_tubo + r_bulbo - <span class="num">1</span>;
+
+  <span class="com">// Dibuja el contorno exterior</span>
+  display.<span class="fn">drawRect</span>(x_tubo, y_tubo, ancho, alto_tubo, SSD1306_WHITE);
+  display.<span class="fn">drawCircle</span>(cx, cy, r_bulbo, SSD1306_WHITE);
+
+  <span class="com">// Dibuja marcas de escala laterales</span>
+  display.<span class="fn">drawFastHLine</span>(x_tubo + ancho, y_tubo, <span class="num">4</span>, SSD1306_WHITE);                   <span class="com">// Máximo</span>
+  display.<span class="fn">drawFastHLine</span>(x_tubo + ancho, y_tubo + alto_tubo/<span class="num">2</span>, <span class="num">3</span>, SSD1306_WHITE);     <span class="com">// Medio</span>
+  display.<span class="fn">drawFastHLine</span>(x_tubo + ancho, y_tubo + alto_tubo, <span class="num">4</span>, SSD1306_WHITE);       <span class="com">// Mínimo</span>
+
+  <span class="com">// Dibuja el bulbo siempre lleno</span>
+  display.<span class="fn">fillCircle</span>(cx, cy, r_bulbo - <span class="num">1</span>, SSD1306_WHITE);
+
+  <span class="com">// Cálculo del nivel proporcional</span>
+  <span class="kw">float</span> prop = (tempC - T_MIN) / (T_MAX - T_MIN);
+  <span class="kw">int</span> nivel = prop * alto_tubo;
+  <span class="kw">int</span> y_nivel = y_tubo + alto_tubo - nivel;
+
+  <span class="com">// Dibuja la columna central ("mercurio")</span>
+  display.<span class="fn">fillRect</span>(x_tubo + <span class="num">2</span>, y_nivel, ancho - <span class="num">4</span>, nivel, SSD1306_WHITE);
+}
+
+<span class="kw">void</span> <span class="fn">mostrarDatos</span>(<span class="kw">float</span> t, <span class="kw">float</span> h) {
+  display.<span class="fn">clearDisplay</span>();
+  <span class="fn">dibujarTermometro</span>(t);
+
+  <span class="com">// Textos a la derecha del termómetro</span>
+  display.<span class="fn">setTextSize</span>(<span class="num">1</span>);
+  display.<span class="fn">setTextColor</span>(SSD1306_WHITE);
+
+  display.<span class="fn">setCursor</span>(<span class="num">30</span>, <span class="num">4</span>);
+  display.<span class="fn">print</span>(<span class="str">"Temperatura:"</span>);
+
+  display.<span class="fn">setTextSize</span>(<span class="num">2</span>);
+  display.<span class="fn">setCursor</span>(<span class="num">30</span>, <span class="num">16</span>);
+  display.<span class="fn">print</span>(t, <span class="num">1</span>);
+  display.<span class="fn">print</span>((<span class="kw">char</span>)<span class="num">248</span>); <span class="com">// Símbolo de grados en CP437</span>
+  display.<span class="fn">print</span>(<span class="str">"C"</span>);
+
+  display.<span class="fn">setTextSize</span>(<span class="num">1</span>);
+  display.<span class="fn">setCursor</span>(<span class="num">30</span>, <span class="num">38</span>);
+  display.<span class="fn">print</span>(<span class="str">"Humedad:"</span>);
+
+  display.<span class="fn">setTextSize</span>(<span class="num">2</span>);
+  display.<span class="fn">setCursor</span>(<span class="num">30</span>, <span class="num">50</span>);
+  display.<span class="fn">print</span>(h, <span class="num">1</span>);
+  display.<span class="fn">print</span>(<span class="str">" %"</span>);
+
+  display.<span class="fn">display</span>();
+}
+
+<span class="kw">void</span> <span class="fn">setup</span>() {
+  Serial.<span class="fn">begin</span>(<span class="num">115200</span>);
+  Wire.<span class="fn">begin</span>(<span class="num">21</span>, <span class="num">22</span>);
+
+  <span class="kw">if</span> (!display.<span class="fn">begin</span>(SSD1306_SWITCHCAPVCC, DIR_OLED)) {
+    Serial.<span class="fn">println</span>(<span class="str">"Fallo OLED"</span>);
+    <span class="kw">while</span> (<span class="type">true</span>);
+  }
+
+  dht.<span class="fn">begin</span>();
+
+  display.<span class="fn">clearDisplay</span>();
+  display.<span class="fn">setTextSize</span>(<span class="num">1</span>);
+  display.<span class="fn">setTextColor</span>(SSD1306_WHITE);
+  display.<span class="fn">setCursor</span>(<span class="num">10</span>, <span class="num">20</span>);
+  display.<span class="fn">print</span>(<span class="str">"Termo-Higrometro"</span>);
+  display.<span class="fn">setCursor</span>(<span class="num">30</span>, <span class="num">40</span>);
+  display.<span class="fn">print</span>(<span class="str">"Iniciando..."</span>);
+  display.<span class="fn">display</span>();
+  <span class="fn">delay</span>(<span class="num">2000</span>);
+}
+
+<span class="kw">void</span> <span class="fn">loop</span>() {
+  <span class="fn">delay</span>(INTERVALO_MS);
+  <span class="kw">float</span> h = dht.<span class="fn">readHumidity</span>();
+  <span class="kw">float</span> t = dht.<span class="fn">readTemperature</span>();
+
+  <span class="kw">if</span> (<span class="fn">isnan</span>(h) || <span class="fn">isnan</span>(t)) {
+    Serial.<span class="fn">println</span>(<span class="str">"Error lectura DHT22"</span>);
+    <span class="com">// No borra la pantalla, usa el último valor válido si lo hay</span>
+  } <span class="kw">else</span> {
+    ultimaT = t;
+    ultimaH = h;
+    Serial.<span class="fn">print</span>(<span class="str">"T:"</span>); Serial.<span class="fn">print</span>(t); Serial.<span class="fn">print</span>(<span class="str">"C H:"</span>); Serial.<span class="fn">println</span>(h);
+  }
+
+  <span class="kw">if</span> (!<span class="fn">isnan</span>(ultimaT) &amp;&amp; !<span class="fn">isnan</span>(ultimaH)) {
+    <span class="fn">mostrarDatos</span>(ultimaT, ultimaH);
+  }
+}</code></div>
+</details>
+<h3>Análisis del Código</h3>
+<ul>
+    <li><strong>Librerías Incluidas:</strong> Utiliza <code>Wire.h</code> para I2C, <code>Adafruit_GFX.h</code> para las primitivas (rectángulos, círculos, relleno) y <code>Adafruit_SSD1306.h</code> como driver gráfico. El DHT22 usa <code>DHT.h</code>.</li>
+    <li><strong>Constantes de Configuración:</strong> OLED de 128x64px en la dirección 0x3C, el rango de la temperatura visual (<code>T_MIN = 0.0</code> y <code>T_MAX = 40.0</code>) y el pin de datos GPIO4.</li>
+    <li><strong>Función <code>dibujarTermometro()</code>:</strong> Crea la visualización dinámica recortando el rango, estructurando el tubo mediante rectángulos, y calculando la altura del relleno "mercurio" por interpolación en base al valor mapeado.</li>
+    <li><strong>Función <code>mostrarDatos()</code>:</strong> Combina el gráfico con textos y el carácter 248 (°) según el set de caracteres CP437, formateando a tamaño de fuente 1 y 2.</li>
+    <li><strong>Último Valor Válido:</strong> Guarda las lecturas en <code>ultimaT</code> y <code>ultimaH</code>. Si falla un ciclo (NaN), ignora el error temporal manteniendo la lectura visual intacta, proporcionando mayor robustez.</li>
+</ul></div>
+<div id="temp-con-func" class="ieee-content"><h2>VI. Principio de Funcionamiento</h2>
+<h3>Comunicación con el Sensor DHT22 (1-Wire)</h3>
+<p>El DHT22 utiliza un protocolo propietario de un solo hilo (<em>single-wire</em>). El ESP32 envía una señal de inicio (pulso bajo de 1ms). El DHT22 responde transmitiendo 40 bits serialmente donde la duración del pulso alto diferencia los "0" y los "1".</p>
+<h3>Comunicación I2C con la Pantalla OLED</h3>
+<p>El protocolo I2C utiliza las líneas compartidas SDA (GPIO21) y SCL (GPIO22) operando con la pantalla en la dirección maestra 0x3C. La gráfica es construida sobre la RAM local para luego actualizar el hardware completo al llamar a <code>display.display()</code>.</p>
+<h3>Renderizado Gráfico del Termómetro</h3>
+<p>El termómetro se renderiza utilizando primitivas gráficas por interpolación lineal. La matemática detalla cómo se simula visualmente la escala ascendente de temperatura invertida respecto a los ejes de la OLED, creando el "mercurio":</p>
+<div class="equation-block"><span class="equation-label">(1)</span>$$y_{\text{nivel}} = y_{\text{tubo}} + \text{alto\_tubo} - \left\lfloor \frac{T - T_{\min}}{T_{\max} - T_{\min}} \times \text{alto\_tubo} \right\rfloor$$</div>
+<p>Esto significa que a mayor temperatura, el nivel $y_{\text{nivel}}$ es menor (sube en la pantalla).</p></div>
+<div id="temp-con-fotos" class="ieee-content"><h2>VII. Fotografías del Montaje</h2><div class="figure-grid"><div class="figure"><img src="Imagenes/Temperatrua_Con_termometro_imgs/Temperatrua_con_termometro_img1.jpeg" alt="Vista general del montaje" loading="lazy"><div class="figure-caption">Vista general del montaje con ESP32, DHT22 y pantalla OLED.</div></div><div class="figure"><img src="Imagenes/Temperatrua_Con_termometro_imgs/Temperatrua_Con_termometro_img2.jpeg" alt="Detalle de la pantalla OLED" loading="lazy"><div class="figure-caption">Detalle de la pantalla OLED mostrando el termómetro gráfico y los datos en tiempo real.</div></div></div></div>
+<div id="temp-con-proc" class="ieee-content"><h2>VIII. Proceso de Creación</h2>
+<ol>
+    <li><strong>Selección de componentes:</strong> Se reutilizó el hardware del proyecto base demostrando que las mejoras son netamente a nivel de software.</li>
+    <li><strong>Diseño del layout gráfico:</strong> Se distribuyó horizontalmente: los primeros 22 píxeles para el termómetro gráfico y el resto para el bloque de valores numéricos grandes.</li>
+    <li><strong>Implementación Vectorial:</strong> Se utilizaron las primitivas geométricas (<code>drawRect()</code>, <code>drawCircle()</code>, <code>fillCircle()</code>, <code>fillRect()</code>) mapeando la temperatura en pixeles en base a límites predefinidos (0-40 °C).</li>
+    <li><strong>Mejora del manejo de errores:</strong> Se modificó el código base introduciendo el caché en memoria para ignorar lecturas basura (NaN) impidiendo pantallas vacías momentáneas.</li>
+</ol>
+</div>
+<div id="temp-con-diff" class="ieee-content"><h2>IX. Diferencias con el Proyecto Base</h2>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>Característica</th><th>Sin Termómetro</th><th>Con Termómetro</th></tr></thead><tbody>
+<tr><td>Representación visual</td><td>Solo texto</td><td>Termómetro gráfico + texto</td></tr>
+<tr><td>Dirección I2C</td><td>0x7A</td><td>0x3C</td></tr>
+<tr><td>Manejo de errores</td><td>Muestra error visual</td><td>Patrón "Último valor válido"</td></tr>
+<tr><td>Layout pantalla</td><td>Texto centrado</td><td>Gráfico izq. + texto der.</td></tr>
+<tr><td>Funciones gráficas</td><td>Ninguna</td><td>drawRect, fillCircle, etc.</td></tr>
+<tr><td>Rango de escala</td><td>No aplica</td><td>0--40 °C configurable</td></tr>
+</tbody></table></div></div>
+<div id="temp-con-conc" class="ieee-content"><h2>X. Conclusiones</h2><ul>
+<li>El proyecto demuestra cómo crear interfaces gráficas informativas en pantallas OLED limitadas combinando íconos escalables geométricos y grandes bloques numéricos.</li>
+<li>La función <code>dibujarTermometro()</code> ilustra un buen ejemplo de mapeo lineal de magnitudes físicas a coordenadas de píxeles, un pilar esencial en telemetría de sistemas embebidos.</li>
+<li>El patrón de "último valor válido" en conjunto con la comprobación <code>NaN</code> robustecen inmensamente el sistema al descartar lecturas ruidosas originadas por latencias del pin digital 1-Wire.</li>
+<li>Se evidencia que una mejora visual gigantesca de UI (User Interface) puede obtenerse exclusivamente con algoritmos de software eficientes, usando la librería estandarizada GFX y conservando exactamente los mismos componentes de hardware.</li>
+</ul></div>
+<div id="temp-con-eqs" class="ieee-content"><h2>XI. Ecuaciones</h2>
+<div class="table-wrap"><table class="data-table eq-summary-table"><thead><tr><th>Ecuación</th><th>Descripción</th><th>Referencia</th></tr></thead><tbody>
+<tr><td>$y_{\text{nivel}} = y_{\text{tubo}} + \text{alto\_tubo} - \left\lfloor \frac{T - T_{\min}}{T_{\max} - T_{\min}} \times \text{alto\_tubo} \right\rfloor$</td><td>Interpolación a Píxeles</td><td><a href="#temp-con-func">Ir a sección</a></td></tr>
+</tbody></table></div></div></div></div></section>
+<section id="armonico" class="section" data-project-name="Movimiento Armónico Simple"><div class="project-layout"><aside class="project-sidebar"><div class="project-sidebar-title">Contenido</div><a href="#armonico-intro">Introducción</a><a href="#armonico-obj">Objetivo</a><a href="#armonico-mat">Materiales</a><a href="#armonico-esq">Esquema</a><a href="#armonico-code">Código</a><a href="#armonico-func">Funcionamiento</a><a href="#armonico-fotos">Fotografías</a><a href="#armonico-proc">Proceso</a><a href="#armonico-sim">Simulación</a><a href="#armonico-conc">Conclusiones</a><a href="#armonico-eqs">Ecuaciones</a></aside><div class="project-content"><div class="project-header"><h1>Movimiento Armónico Simple</h1><div class="project-meta"><span>Plataforma: ESP32 Dev Module</span><span>Profesor: Msc. Nestor Fabio Montoya Palacios</span></div></div>
+<div id="armonico-intro" class="ieee-content"><h2>I. Introducción</h2>
+<p>Este documento describe el proyecto "Movimiento Armónico Simple con Pantalla OLED", una aplicación educativa que combina física y electrónica digital con el microcontrolador ESP32. El sistema simula y visualiza en tiempo real el <strong>Movimiento Armónico Simple (MHS)</strong> — con opción de amortiguamiento — sobre una pantalla OLED SSD1306 de 128x64 píxeles conectada por I2C.</p>
+<p>El usuario puede modificar interactivamente los parámetros de la onda (amplitud, frecuencia, fase y coeficiente de amortiguamiento) a través del <strong>Monitor Serial</strong>, observando instantáneamente el efecto sobre la gráfica dibujada en la pantalla OLED.</p></div>
+<div id="armonico-obj" class="ieee-content"><h2>II. Objetivo del Proyecto</h2>
+<p>Implementar un simulador visual e interactivo de Movimiento Armónico Simple utilizando el microcontrolador ESP32 y una pantalla OLED SSD1306, demostrando:</p>
+<ul>
+    <li>La representación gráfica en tiempo real de funciones sinusoidales sobre un display OLED de 128x64 píxeles.</li>
+    <li>El control interactivo de los cuatro parámetros fundamentales del MHS: amplitud ($A$), frecuencia ($f$), fase ($\varphi$) y amortiguamiento ($\beta$).</li>
+    <li>La comunicación I2C entre el ESP32 y periféricos mediante la librería Wire.</li>
+    <li>El procesamiento de comandos textuales a través del puerto serial.</li>
+</ul></div>
+<div id="armonico-mat" class="ieee-content"><h2>III. Materiales Necesarios</h2>
+<div class="table-wrap"><table class="data-table"><thead><tr><th style="text-align:center; width:60px">Aspecto</th><th>Cant.</th><th>Componente</th><th>Especificación</th></tr></thead><tbody>
+<tr><td style="text-align:center"><i class="fas fa-microchip" style="font-size:1.5em; color:var(--accent-cyan)"></i></td><td>1</td><td>ESP32 Dev Module</td><td>Microcontrolador dual-core con Wi-Fi/Bluetooth</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-lightbulb" style="font-size:1.5em; color:#ff4444"></i></td><td>1</td><td>Pantalla OLED SSD1306</td><td>128x64 px, interfaz I2C, 0.96"</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-border-all" style="font-size:1.5em; color:#ccc"></i></td><td>1</td><td>Protoboard</td><td>Placa de pruebas de 830 puntos</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-random" style="font-size:1.5em; color:var(--accent-green)"></i></td><td>4</td><td>Cables jumper</td><td>Hembra-hembra para conexión I2C</td></tr>
+<tr><td style="text-align:center"><i class="fab fa-usb" style="font-size:1.5em; color:#999"></i></td><td>1</td><td>Cable USB</td><td>Para programación y alimentación</td></tr>
+</tbody></table></div></div>
+<div id="armonico-esq" class="ieee-content"><h2>IV. Esquema de Conexión</h2>
+<p>El circuito es minimalista: únicamente se conecta la pantalla OLED SSD1306 al ESP32 mediante el bus I2C (4 cables). No se requieren componentes adicionales como resistencias ni sensores.</p>
+<div class="figure"><img src="Esquemas/Armonico_esq.jpeg" alt="Esquema" loading="lazy"><div class="figure-caption">Esquema de conexión del circuito (Fritzing)</div></div>
+<h3>Diagrama de Conexiones</h3>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>OLED SSD1306</th><th>Función</th><th>ESP32 GPIO</th></tr></thead><tbody>
+<tr><td>GND</td><td>Tierra</td><td>GND</td></tr>
+<tr><td>VDD (VCC)</td><td>Alimentación</td><td>3.3V</td></tr>
+<tr><td>SCK (SCL)</td><td>Reloj I2C</td><td>GPIO22</td></tr>
+<tr><td>SDA</td><td>Datos I2C</td><td>GPIO21</td></tr>
+</tbody></table></div></div>
+<div id="armonico-code" class="ieee-content"><h2>V. Código Fuente</h2>
+<details>
+<summary>📄 Mostrar código fuente completo (Arduino)</summary>
+<div class="code-block"><span class="code-title">Armonico.ino</span><code><span class="com">#include &lt;Wire.h&gt;</span>
+<span class="com">#include &lt;Adafruit_GFX.h&gt;</span>
+<span class="com">#include &lt;Adafruit_SSD1306.h&gt;</span>
+<span class="com">#include &lt;math.h&gt;</span>
+
+<span class="com">#define SCREEN_WIDTH  128</span>
+<span class="com">#define SCREEN_HEIGHT  64</span>
+<span class="com">#define OLED_RESET     -1</span>
+<span class="com">#define OLED_ADDR    0x3C</span>
+
+<span class="com">#define PIN_SDA 21</span>
+<span class="com">#define PIN_SCL 22</span>
+
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &amp;Wire, OLED_RESET);
+
+<span class="kw">float</span> amplitud    = <span class="num">25.0</span>;   <span class="com">// píxeles</span>
+<span class="kw">float</span> frecuencia  = <span class="num">1.0</span>;    <span class="com">// Hz</span>
+<span class="kw">float</span> fase        = <span class="num">0.0</span>;    <span class="com">// radianes</span>
+<span class="kw">float</span> amort       = <span class="num">0.0</span>;    <span class="com">// coeficiente de amortiguamiento</span>
+
+<span class="kw">float</span> tiempoOffset = <span class="num">0.0</span>;
+<span class="kw">unsigned long</span> tAnterior = <span class="num">0</span>;
+String inputBuffer = <span class="str">""</span>;
+
+<span class="kw">void</span> <span class="fn">setup</span>() {
+  Serial.<span class="fn">begin</span>(<span class="num">115200</span>);
+  Wire.<span class="fn">begin</span>(PIN_SDA, PIN_SCL);
+
+  <span class="kw">if</span> (!display.<span class="fn">begin</span>(SSD1306_SWITCHCAPVCC, OLED_ADDR)) {
+    Serial.<span class="fn">println</span>(<span class="str">"ERROR OLED"</span>);
+    <span class="kw">while</span> (<span class="type">true</span>);
+  }
+
+  display.<span class="fn">clearDisplay</span>();
+  display.<span class="fn">setTextSize</span>(<span class="num">1</span>);
+  display.<span class="fn">setTextColor</span>(SSD1306_WHITE);
+  display.<span class="fn">setCursor</span>(<span class="num">10</span>, <span class="num">20</span>);
+  display.<span class="fn">println</span>(<span class="str">"  MHS ESP32"</span>);
+  display.<span class="fn">display</span>();
+  <span class="fn">delay</span>(<span class="num">1500</span>);
+  tAnterior = <span class="fn">millis</span>();
+}
+
+<span class="kw">void</span> <span class="fn">loop</span>() {
+  <span class="fn">procesarSerial</span>();
+
+  <span class="kw">unsigned long</span> ahora = <span class="fn">millis</span>();
+  <span class="kw">float</span> dt = (ahora - tAnterior) / <span class="num">1000.0</span>;
+  tAnterior = ahora;
+  tiempoOffset += dt;
+
+  <span class="kw">static unsigned long</span> ultimoDibujo = <span class="num">0</span>;
+  <span class="kw">if</span> (ahora - ultimoDibujo &gt;= <span class="num">33</span>) {
+    ultimoDibujo = ahora;
+    <span class="fn">dibujarGrafica</span>();
+  }
+}
+
+<span class="kw">void</span> <span class="fn">procesarSerial</span>() {
+  <span class="kw">while</span> (Serial.<span class="fn">available</span>()) {
+    <span class="kw">char</span> c = Serial.<span class="fn">read</span>();
+    <span class="kw">if</span> (c == <span class="str">'\n'</span> || c == <span class="str">'\r'</span>) {
+      <span class="kw">if</span> (inputBuffer.<span class="fn">length</span>() &gt; <span class="num">0</span>) {
+        inputBuffer.<span class="fn">trim</span>();
+        inputBuffer.<span class="fn">toUpperCase</span>();
+
+        <span class="kw">if</span> (inputBuffer == <span class="str">"R"</span>) {
+          amplitud = <span class="num">25.0</span>; frecuencia = <span class="num">1.0</span>; fase = <span class="num">0.0</span>; amort = <span class="num">0.0</span>; tiempoOffset = <span class="num">0.0</span>;
+        } <span class="kw">else if</span> (inputBuffer.<span class="fn">startsWith</span>(<span class="str">"A:"</span>)) {
+          amplitud = inputBuffer.<span class="fn">substring</span>(<span class="num">2</span>).<span class="fn">toFloat</span>();
+        } <span class="kw">else if</span> (inputBuffer.<span class="fn">startsWith</span>(<span class="str">"F:"</span>)) {
+          frecuencia = inputBuffer.<span class="fn">substring</span>(<span class="num">2</span>).<span class="fn">toFloat</span>(); tiempoOffset = <span class="num">0.0</span>;
+        } <span class="kw">else if</span> (inputBuffer.<span class="fn">startsWith</span>(<span class="str">"P:"</span>)) {
+          fase = inputBuffer.<span class="fn">substring</span>(<span class="num">2</span>).<span class="fn">toFloat</span>();
+        } <span class="kw">else if</span> (inputBuffer.<span class="fn">startsWith</span>(<span class="str">"B:"</span>)) {
+          amort = inputBuffer.<span class="fn">substring</span>(<span class="num">2</span>).<span class="fn">toFloat</span>(); tiempoOffset = <span class="num">0.0</span>;
+        }
+        inputBuffer = <span class="str">""</span>;
+      }
+    } <span class="kw">else</span> {
+      inputBuffer += c;
+    }
+  }
+}
+
+<span class="kw">float</span> <span class="fn">calcY</span>(<span class="kw">float</span> t) {
+  <span class="kw">float</span> omega = <span class="num">2.0</span> * PI * frecuencia;
+  <span class="kw">float</span> decay = <span class="fn">exp</span>(-amort * t);
+  <span class="kw">return</span> amplitud * decay * <span class="fn">sin</span>(omega * t + fase);
+}
+
+<span class="kw">void</span> <span class="fn">dibujarGrafica</span>() {
+  display.<span class="fn">clearDisplay</span>();
+  <span class="kw">int</span> cx = SCREEN_HEIGHT / <span class="num">2</span>;
+  display.<span class="fn">drawFastHLine</span>(<span class="num">0</span>, cx, SCREEN_WIDTH, SSD1306_WHITE);
+  display.<span class="fn">drawFastVLine</span>(<span class="num">4</span>, <span class="num">0</span>, SCREEN_HEIGHT, SSD1306_WHITE);
+
+  display.<span class="fn">setTextSize</span>(<span class="num">1</span>);
+  display.<span class="fn">setCursor</span>(<span class="num">30</span>, <span class="num">1</span>);
+  display.<span class="fn">print</span>(<span class="str">"A:"</span>); display.<span class="fn">print</span>((<span class="kw">int</span>)amplitud);
+  display.<span class="fn">print</span>(<span class="str">" f:"</span>); display.<span class="fn">print</span>(frecuencia, <span class="num">1</span>);
+
+  <span class="kw">float</span> periodo  = <span class="num">1.0</span> / frecuencia;
+  <span class="kw">float</span> ventana  = <span class="num">2.0</span> * periodo;
+  <span class="kw">int</span> pixStart   = <span class="num">6</span>;
+  <span class="kw">int</span> pixEnd     = SCREEN_WIDTH - <span class="num">2</span>;
+  <span class="kw">int</span> numPix     = pixEnd - pixStart;
+
+  <span class="kw">int</span> yPrev = <span class="num">0</span>;
+  <span class="kw">for</span> (<span class="kw">int</span> px = <span class="num">0</span>; px &lt; numPix; px++) {
+    <span class="kw">float</span> tPlot = tiempoOffset + (<span class="kw">float</span>)px / numPix * ventana;
+    <span class="kw">float</span> yVal  = <span class="fn">calcY</span>(tPlot);
+    <span class="kw">int</span> yScreen = cx - (<span class="kw">int</span>)yVal;
+    yScreen = <span class="fn">constrain</span>(yScreen, <span class="num">1</span>, SCREEN_HEIGHT - <span class="num">1</span>);
+    <span class="kw">int</span> xScreen = pixStart + px;
+
+    <span class="kw">if</span> (px == <span class="num">0</span>) {
+      display.<span class="fn">drawPixel</span>(xScreen, yScreen, SSD1306_WHITE);
+    } <span class="kw">else</span> {
+      <span class="kw">int</span> y1 = yPrev, y2 = yScreen;
+      <span class="kw">if</span> (y1 &gt; y2) { <span class="kw">int</span> tmp = y1; y1 = y2; y2 = tmp; }
+      <span class="kw">for</span> (<span class="kw">int</span> yy = y1; yy &lt;= y2; yy++) display.<span class="fn">drawPixel</span>(xScreen, yy, SSD1306_WHITE);
+    }
+    yPrev = yScreen;
+  }
+
+  <span class="kw">float</span> yActual = <span class="fn">calcY</span>(tiempoOffset);
+  <span class="kw">int</span> yDot = cx - (<span class="kw">int</span>)yActual;
+  yDot = <span class="fn">constrain</span>(yDot, <span class="num">2</span>, SCREEN_HEIGHT - <span class="num">2</span>);
+  display.<span class="fn">fillCircle</span>(pixStart, yDot, <span class="num">2</span>, SSD1306_WHITE);
+
+  display.<span class="fn">setCursor</span>(<span class="num">90</span>, SCREEN_HEIGHT - <span class="num">9</span>);
+  display.<span class="fn">print</span>(<span class="str">"y="</span>); display.<span class="fn">print</span>(yActual, <span class="num">1</span>);
+
+  <span class="kw">if</span> (amort &gt; <span class="num">0.01</span>) {
+    display.<span class="fn">setCursor</span>(<span class="num">7</span>, SCREEN_HEIGHT - <span class="num">9</span>);
+    display.<span class="fn">print</span>(<span class="str">"b:"</span>); display.<span class="fn">print</span>(amort, <span class="num">2</span>);
+  }
+  display.<span class="fn">display</span>();
+}</code></div>
+</details>
+<h3>Análisis del Código</h3>
+<ul>
+    <li><strong>Librerías y Hardware:</strong> Utiliza <code>Wire.h</code> para I2C, <code>Adafruit_GFX.h</code> para el dibujado, y <code>Adafruit_SSD1306.h</code>. La OLED se controla con <code>display.begin(SSD1306_SWITCHCAPVCC, 0x3C)</code>.</li>
+    <li><strong>Renderizado a 30 FPS:</strong> El bucle principal lee un offset de tiempo global y la pantalla se refresca cada $\sim$33ms, calculando siempre un tramo temporal (ventana) para simular el desplazamiento visual fluido.</li>
+    <li><strong>Conexión de Puntos:</strong> Para que la curva no se vea fragmentada, entre un punto (X1, Y1) y (X2, Y2) se dibuja una línea vertical interpolada en vez de un solo píxel suelto.</li>
+    <li><strong>Parser de Comandos:</strong> <code>procesarSerial()</code> lee constantemente y busca patrones como <code>A:</code> o <code>F:</code>, utilizando <code>inputBuffer.substring(2).toFloat()</code> para alterar las variables del MHS en vivo.</li>
+</ul></div>
+<div id="armonico-func" class="ieee-content"><h2>VI. Principio de Funcionamiento</h2>
+<h3>Movimiento Armónico Simple (MHS)</h3>
+<p>El MHS es un movimiento periódico en el que la posición de una partícula varía sinusoidalmente con el tiempo. La ecuación general es:</p>
+<div class="equation-block"><span class="equation-label">(1)</span>$$y(t) = A \sin(2\pi f t + \varphi)$$</div>
+<p>Donde $A$ es la amplitud, $f$ es la frecuencia en Hz, y $\varphi$ es la fase inicial en radianes.</p>
+<h3>Oscilación Amortiguada</h3>
+<p>En sistemas reales, la energía se disipa por fricción. La ecuación del MHS amortiguado introduce un factor de decaimiento exponencial:</p>
+<div class="equation-block"><span class="equation-label">(2)</span>$$y(t) = A \, e^{-\beta t} \sin(2\pi f t + \varphi)$$</div>
+<p>Donde $\beta \geq 0$ es el coeficiente de amortiguamiento. Si $\beta = 0$, la oscilación es perpetua. Si $\beta > 0$, la onda decae gradualmente.</p></div>
+<div id="armonico-fotos" class="ieee-content"><h2>VII. Fotografías del Montaje</h2><div class="figure-grid"><div class="figure"><img src="Imagenes/Armonico_imgs/Armonico_img13.jpeg" alt="Vista general" loading="lazy"><div class="figure-caption">Vista general: ESP32 conectado a OLED dibujando onda sinusoidal.</div></div><div class="figure"><img src="Imagenes/Armonico_imgs/Armonico_img2.jpeg" alt="Amplitud" loading="lazy"><div class="figure-caption">MHS con A=25px, f=1.0Hz: onda sinusoidal completa.</div></div><div class="figure"><img src="Imagenes/Armonico_imgs/Armonico_img7.jpeg" alt="Frecuencia" loading="lazy"><div class="figure-caption">MHS con A=15px, f=2.0Hz: frecuencia duplicada (más oscilaciones).</div></div><div class="figure"><img src="Imagenes/Armonico_imgs/Armonico_img5.jpeg" alt="Amortiguamiento" loading="lazy"><div class="figure-caption">Oscilación amortiguada ($\beta=0.50$): la amplitud decrece exponencialmente.</div></div><div class="figure"><img src="Imagenes/Armonico_imgs/Armonico_img12.jpeg" alt="Comandos seriales" loading="lazy"><div class="figure-caption">Comandos seriales ingresados en el IDE Arduino para ajustar variables en tiempo real.</div></div><div class="figure"><img src="Imagenes/Armonico_imgs/Armonico_img1.jpeg" alt="Vista adicional 1" loading="lazy"><div class="figure-caption">Vista adicional del montaje.</div></div><div class="figure"><img src="Imagenes/Armonico_imgs/Armonico_img3.jpeg" alt="Vista adicional 3" loading="lazy"><div class="figure-caption">Detalle del circuito.</div></div><div class="figure"><img src="Imagenes/Armonico_imgs/Armonico_img4.jpeg" alt="Vista adicional 4" loading="lazy"><div class="figure-caption">Funcionamiento del MHS.</div></div><div class="figure"><img src="Imagenes/Armonico_imgs/Armonico_img6.jpeg" alt="Vista adicional 6" loading="lazy"><div class="figure-caption">Detalle de oscilación.</div></div><div class="figure"><img src="Imagenes/Armonico_imgs/Armonico_img8.jpeg" alt="Vista adicional 8" loading="lazy"><div class="figure-caption">Interacción de parámetros.</div></div><div class="figure"><img src="Imagenes/Armonico_imgs/Armonico_img9.jpeg" alt="Vista adicional 9" loading="lazy"><div class="figure-caption">Comportamiento en pantalla OLED.</div></div><div class="figure"><img src="Imagenes/Armonico_imgs/Armonico_img10.jpeg" alt="Vista adicional 10" loading="lazy"><div class="figure-caption">Ajuste de variables.</div></div><div class="figure"><img src="Imagenes/Armonico_imgs/Armonico_img11.jpeg" alt="Vista adicional 11" loading="lazy"><div class="figure-caption">Demostración extendida.</div></div></div></div>
+<div id="armonico-proc" class="ieee-content"><h2>VIII. Proceso de Creación</h2>
+<ol>
+    <li><strong>Diseño del circuito:</strong> Se estableció el uso exclusivo de la pantalla OLED SSD1306 comunicada por I2C (pines 21 y 22) para un enfoque centrado en matemáticas y algoritmos de renderizado.</li>
+    <li><strong>Programación Gráfica:</strong> Se desarrolló la función <code>calcY()</code> y <code>dibujarGrafica()</code> que mapea una ventana temporal móvil (2 períodos) a los 128 píxeles horizontales de la pantalla.</li>
+    <li><strong>Implementación Serial:</strong> Se incorporó un parser de caracteres capaz de leer instrucciones paramétricas como <code>A:25</code> o <code>F:2.5</code> asincrónicamente con la gráfica.</li>
+    <li><strong>Optimización Visual:</strong> Se introdujo un algoritmo de relleno vertical para las curvas de la onda, logrando que el seno luzca suave a pesar de la baja resolución de la OLED.</li>
+</ol></div>
+<div id="armonico-sim" class="ieee-content"><h2>IX. Simulación</h2>
+<div class="sim-container" id="simMHS"><div class="sim-title">Simulación: Movimiento Armónico</div><div class="sim-canvas"><canvas></canvas></div>
+<div class="sim-controls">
+<div class="sim-control"><label>Amplitud</label><input type="range" class="mhs-amp" min="5" max="30" value="25"><span class="sim-val">25</span></div>
+<div class="sim-control"><label>Frecuencia</label><input type="range" class="mhs-freq" min="0.2" max="5" value="1" step="0.1"><span class="sim-val">1</span></div>
+<div class="sim-control"><label>Fase</label><input type="range" class="mhs-phase" min="0" max="6.28" value="0" step="0.1"><span class="sim-val">0</span></div>
+<div class="sim-control"><label>Amortiguamiento</label><input type="range" class="mhs-damp" min="0" max="2" value="0" step="0.05"><span class="sim-val">0</span></div>
+</div></div></div>
+<div id="armonico-conc" class="ieee-content"><h2>X. Conclusiones</h2><ul>
+<li>El proyecto demuestra la simulación visual de un fenómeno físico fundamental (MHS) sobre hardware embebido de bajo costo, logrando una representación gráfica fluida a 30 FPS.</li>
+<li>La implementación directa de la ecuación de amortiguamiento permite observar en tiempo real el efecto de cada parámetro sobre la forma de la onda (decayendo su envolvente).</li>
+<li>La técnica de renderizado punto a punto con interpolación vertical (llenado) es esencial para pantallas primitivas; de no usarse, curvas rápidas quedarían punteadas y difíciles de visualizar.</li>
+<li>Este proyecto sienta las bases para construir instrumentación virtual como osciloscopios digitales o analizadores de espectro en interfaces limitadas.</li>
+</ul></div>
+<div id="armonico-eqs" class="ieee-content"><h2>XI. Ecuaciones</h2>
+<div class="table-wrap"><table class="data-table eq-summary-table"><thead><tr><th>Ecuación</th><th>Descripción</th><th>Referencia</th></tr></thead><tbody>
+<tr><td>$y(t)=A\sin(2\pi ft+\varphi)$</td><td>Movimiento Armónico Simple Ideal</td><td><a href="#armonico-func">Ir a sección</a></td></tr>
+<tr><td>$y(t)=Ae^{-\beta t}\sin(2\pi ft+\varphi)$</td><td>Movimiento Armónico Amortiguado</td><td><a href="#armonico-func">Ir a sección</a></td></tr>
+</tbody></table></div></div></div></div></section>
+
+<section id="dist-pantalla" class="section" data-project-name="Sensor de Distancia con Pantalla"><div class="project-layout"><aside class="project-sidebar"><div class="project-sidebar-title">Contenido</div><a href="#dist-pantalla-intro">Introducción</a><a href="#dist-pantalla-obj">Objetivo</a><a href="#dist-pantalla-mat">Materiales</a><a href="#dist-pantalla-esq">Esquema</a><a href="#dist-pantalla-code">Código</a><a href="#dist-pantalla-func">Funcionamiento</a><a href="#dist-pantalla-fotos">Fotografías</a><a href="#dist-pantalla-vid">Video</a><a href="#dist-pantalla-proc">Proceso</a><a href="#dist-pantalla-concept">Conceptos Clave</a><a href="#dist-pantalla-conc">Conclusiones</a><a href="#dist-pantalla-eqs">Ecuaciones</a></aside><div class="project-content"><div class="project-header"><h1>Sensor de Distancia Ultrasónico con Pantalla OLED</h1><div class="project-meta"><span>Plataforma: ESP32 Dev Module</span><span>Profesor: Msc. Nestor Fabio Montoya Palacios</span></div></div>
+<div id="dist-pantalla-intro" class="ieee-content"><h2>I. Introducción</h2>
+<p>Este documento describe el proyecto "Sensor de Distancia Ultrasónico con Pantalla OLED", en el cual se utiliza un microcontrolador <strong>ESP32</strong> junto con un sensor ultrasónico <strong>HC-SR04</strong> para medir la distancia a objetos cercanos. La distancia medida se muestra simultáneamente en dos interfaces: el <strong>monitor serial</strong> del computador (a través del puerto USB) y una <strong>pantalla OLED SSD1306</strong> de 128x64 píxeles conectada mediante el protocolo de comunicación <strong>I2C</strong>.</p>
+<p>El sensor HC-SR04 emite pulsos ultrasónicos a una frecuencia de 40 kHz y mide el tiempo que tarda el eco en regresar tras rebotar en un objeto. A partir de este tiempo, el microcontrolador calcula la distancia utilizando la velocidad del sonido en el aire. Este principio físico, conocido como <strong>eco-localización</strong>, es el mismo que emplean los murciélagos y los sistemas de sonar marítimo.</p></div>
+<div id="dist-pantalla-obj" class="ieee-content"><h2>II. Objetivo del Proyecto</h2>
+<p>Implementar un sistema de medición de distancia por ultrasonido que:</p>
+<ul>
+    <li>Utilice el sensor HC-SR04 para medir distancias en un rango de 2 a 400 cm.</li>
+    <li>Calcule la distancia en centímetros a partir del tiempo de vuelo de la onda ultrasónica.</li>
+    <li>Muestre la distancia medida en el <strong>monitor serial</strong> del Arduino IDE a 115 200 baudios.</li>
+    <li>Visualice la distancia en tiempo real en una <strong>pantalla OLED SSD1306</strong> de 0.96 pulgadas.</li>
+    <li>Actualice las lecturas cada 500 ms para una visualización fluida.</li>
+</ul></div>
+<div id="dist-pantalla-mat" class="ieee-content"><h2>III. Materiales Necesarios</h2>
+<div class="table-wrap"><table class="data-table"><thead><tr><th style="text-align:center; width:60px">Aspecto</th><th>Cant.</th><th>Componente</th><th>Especificación</th></tr></thead><tbody>
+<tr><td style="text-align:center"><i class="fas fa-microchip" style="font-size:1.5em; color:var(--accent-cyan)"></i></td><td>1</td><td>ESP32 Dev Module</td><td>Microcontrolador dual-core con Wi-Fi/Bluetooth</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-ruler" style="font-size:1.5em; color:var(--accent-gold)"></i></td><td>1</td><td>Sensor HC-SR04</td><td>Sensor ultrasónico de distancia (2-400 cm)</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-lightbulb" style="font-size:1.5em; color:#ff4444"></i></td><td>1</td><td>Pantalla OLED SSD1306</td><td>Display 128x64 px, I2C, 0.96"</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-border-all" style="font-size:1.5em; color:#ccc"></i></td><td>1</td><td>Protoboard</td><td>Placa de pruebas de 830 puntos</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-random" style="font-size:1.5em; color:var(--accent-green)"></i></td><td>Varios</td><td>Cables jumper</td><td>Macho-macho y macho-hembra</td></tr>
+<tr><td style="text-align:center"><i class="fab fa-usb" style="font-size:1.5em; color:#999"></i></td><td>1</td><td>Cable USB</td><td>Para programación y alimentación</td></tr>
+</tbody></table></div></div>
+<div id="dist-pantalla-esq" class="ieee-content"><h2>IV. Esquema de Conexión</h2>
+<p>El circuito conecta el sensor HC-SR04 y la pantalla OLED SSD1306 al ESP32. El sensor utiliza dos pines digitales (GPIO2 para Trig y GPIO4 para Echo), mientras que la pantalla OLED se comunica por el bus I2C estándar del ESP32 (GPIO21 para SDA y GPIO22 para SCL). Ambos dispositivos se alimentan con 3.3V del ESP32 (el HC-SR04 también puede funcionar con 5V).</p>
+<div class="figure"><img src="Esquemas/Sensor_de_distancia_con_pantalla_esq.jpeg" alt="Esquema" loading="lazy"><div class="figure-caption">Esquema de conexión del circuito en Fritzing - ESP32 con HC-SR04 y pantalla OLED</div></div>
+<h3>Diagrama de Conexiones</h3>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>Componente</th><th>Pin</th><th>ESP32 GPIO</th></tr></thead><tbody>
+<tr><td>HC-SR04</td><td>VCC</td><td>3.3V (o 5V)</td></tr>
+<tr><td>HC-SR04</td><td>Trig</td><td>GPIO2</td></tr>
+<tr><td>HC-SR04</td><td>Echo</td><td>GPIO4</td></tr>
+<tr><td>HC-SR04</td><td>GND</td><td>GND</td></tr>
+<tr><td>OLED SSD1306</td><td>VCC</td><td>3.3V</td></tr>
+<tr><td>OLED SSD1306</td><td>GND</td><td>GND</td></tr>
+<tr><td>OLED SSD1306</td><td>SDA</td><td>GPIO21 (I2C SDA)</td></tr>
+<tr><td>OLED SSD1306</td><td>SCL</td><td>GPIO22 (I2C SCL)</td></tr>
+</tbody></table></div></div>
+<div id="dist-pantalla-code" class="ieee-content"><h2>V. Código Fuente</h2>
+<p>A continuación se presenta el código completo del proyecto, que combina la lectura del sensor ultrasónico con la visualización en pantalla OLED mediante las librerías de Adafruit.</p>
+<div class="code-block"><span class="code-title">Sensor_de_distacia_con_pantalla.ino</span><code><span class="com">#include &lt;Wire.h&gt;</span>
+<span class="com">#include &lt;Adafruit_GFX.h&gt;</span>
+<span class="com">#include &lt;Adafruit_SSD1306.h&gt;</span>
+
+<span class="com">#define SCREEN_WIDTH 128</span>
+<span class="com">#define SCREEN_HEIGHT 64</span>
+<span class="com">#define OLED_RESET -1</span>
+
+<span class="kw">const int</span> trigPin = <span class="num">2</span>;
+<span class="kw">const int</span> echoPin = <span class="num">4</span>;
+
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &amp;Wire, OLED_RESET);
+
+<span class="kw">void</span> <span class="fn">setup</span>() {
+  Serial.<span class="fn">begin</span>(<span class="num">115200</span>);
+  <span class="kw">if</span>(!display.<span class="fn">begin</span>(SSD1306_SWITCHCAPVCC, <span class="num">0x3C</span>)) {
+    Serial.<span class="fn">println</span>(<span class="str">"Fallo OLED"</span>);
+    <span class="kw">while</span>(<span class="type">true</span>);
+  }
+  display.<span class="fn">clearDisplay</span>();
+  <span class="fn">pinMode</span>(trigPin, <span class="type">OUTPUT</span>);
+  <span class="fn">pinMode</span>(echoPin, <span class="type">INPUT</span>);
+}
+
+<span class="kw">void</span> <span class="fn">loop</span>() {
+  <span class="fn">digitalWrite</span>(trigPin, <span class="type">LOW</span>);
+  <span class="fn">delayMicroseconds</span>(<span class="num">2</span>);
+  <span class="fn">digitalWrite</span>(trigPin, <span class="type">HIGH</span>);
+  <span class="fn">delayMicroseconds</span>(<span class="num">10</span>);
+  <span class="fn">digitalWrite</span>(trigPin, <span class="type">LOW</span>);
+
+  <span class="kw">long</span> duration = <span class="fn">pulseIn</span>(echoPin, <span class="type">HIGH</span>);
+  <span class="kw">float</span> distance = duration / <span class="num">58.4</span>;
+
+  Serial.<span class="fn">print</span>(<span class="str">"Distancia: "</span>);
+  Serial.<span class="fn">print</span>(distance);
+  Serial.<span class="fn">println</span>(<span class="str">" cm"</span>);
+
+  display.<span class="fn">clearDisplay</span>();
+  display.<span class="fn">setTextSize</span>(<span class="num">2</span>);
+  display.<span class="fn">setTextColor</span>(SSD1306_WHITE);
+  display.<span class="fn">setCursor</span>(<span class="num">0</span>, <span class="num">0</span>);
+  display.<span class="fn">println</span>(<span class="str">"Distancia:"</span>);
+  display.<span class="fn">print</span>(distance);
+  display.<span class="fn">println</span>(<span class="str">" cm"</span>);
+  display.<span class="fn">display</span>();
+
+  <span class="fn">delay</span>(<span class="num">500</span>);
+}</code></div>
+<h3>Análisis del Código</h3>
+<ul>
+    <li><strong>Librerías Utilizadas:</strong> <code>Wire.h</code> para I2C, <code>Adafruit_GFX.h</code> para las primitivas gráficas y <code>Adafruit_SSD1306.h</code> para la pantalla OLED.</li>
+    <li><strong>setup():</strong> Inicializa la comunicación serial, la pantalla OLED en la dirección 0x3C y configura los pines Trig y Echo.</li>
+    <li><strong>loop():</strong> Genera un pulso de 10 $\mu$s en Trig. Usa <code>pulseIn()</code> para medir la duración del eco y calcula la distancia con <code>t/58.4</code>. Luego actualiza el monitor serial y la pantalla OLED.</li>
+</ul></div>
+<div id="dist-pantalla-func" class="ieee-content"><h2>VI. Principio de Funcionamiento</h2>
+<h3>El Sensor Ultrasónico HC-SR04</h3>
+<p>El HC-SR04 utiliza ondas ultrasónicas (sonido inaudible a 40 kHz) para medir distancias. El sensor emite un pulso, y el sonido viaja hasta un objeto, rebota y regresa al sensor (eco). La distancia se calcula basándose en la velocidad del sonido en el aire y el <strong>tiempo de vuelo</strong> (Time of Flight, ToF).</p>
+<div class="equation-block"><span class="equation-label">(1)</span>$$d = \frac{v_s \times t}{2}$$</div>
+<p>Con la velocidad del sonido $v_s \approx 343 \text{ m/s} = 0.0343 \text{ cm/}\mu\text{s}$, sustituimos:</p>
+<div class="equation-block"><span class="equation-label">(2)</span>$$d \,[\text{cm}] = \frac{0.0343 \times t \,[\mu\text{s}]}{2} = \frac{t}{58.31} \approx \frac{t}{58.4}$$</div>
+<p>Que es la fórmula utilizada en el código.</p></div>
+<div id="dist-pantalla-fotos" class="ieee-content"><h2>VII. Fotografías del Montaje</h2><div class="figure-grid"><div class="figure"><img src="Imagenes/Sensor_de_distacia_con_pantalla_imgs/Sensor_de_distancia_con_pantalla_img1.jpeg" alt="Vista general del montaje" loading="lazy"><div class="figure-caption">Vista general del montaje: ESP32 conectado a la protoboard con el HC-SR04 y OLED.</div></div><div class="figure"><img src="Imagenes/Sensor_de_distacia_con_pantalla_imgs/Sensor_de_distancia_con_pantalla_img2.jpeg" alt="Vista en perspectiva" loading="lazy"><div class="figure-caption">Vista en perspectiva del sensor ultrasónico montado en la protoboard y la pantalla OLED.</div></div><div class="figure"><img src="Imagenes/Sensor_de_distacia_con_pantalla_imgs/Sensor_de_distancia_con_pantalla_img3.jpeg" alt="Detalle del ESP32" loading="lazy"><div class="figure-caption">Detalle del ESP32 conectado mostrando su funcionamiento.</div></div><div class="figure"><img src="Imagenes/Sensor_de_distacia_con_pantalla_imgs/Sensor_de_distancia_con_pantalla_img4.jpeg" alt="Vista lateral" loading="lazy"><div class="figure-caption">Vista lateral con lectura en el display en tiempo real.</div></div></div></div>
+<div id="dist-pantalla-vid" class="ieee-content"><h2>VIII. Videos de Funcionamiento</h2>
+<div class="video-wrap"><video controls preload="none"><source src="Videos/Sensor_de_distancia_con_pantalla_vid/Sensor_de_distancia_con_pantalla_Funcionamiento1.mp4" type="video/mp4"></video><div class="video-caption">Demostración principal del sistema midiendo distancias.</div></div>
+<div class="video-wrap"><video controls preload="none"><source src="Videos/Sensor_de_distancia_con_pantalla_vid/Sensor_de_distancia_con_pantalla_Funcionamiento2.mp4" type="video/mp4"></video><div class="video-caption">Prueba del rango de medición del sensor.</div></div>
+<div class="video-wrap"><video controls preload="none"><source src="Videos/Sensor_de_distancia_con_pantalla_vid/Sensor_de_distancia_con_pantalla_Funcionamiento3.mp4" type="video/mp4"></video><div class="video-caption">Verificación de lectura en pantalla OLED y Monitor Serial.</div></div>
+</div>
+<div id="dist-pantalla-proc" class="ieee-content"><h2>IX. Proceso de Creación</h2>
+<ol>
+    <li><strong>Montaje del sensor HC-SR04:</strong> Se conectó a la protoboard con pines Trig (GPIO2) y Echo (GPIO4) del ESP32 y se probó su lectura por puerto serial.</li>
+    <li><strong>Conexión de la pantalla OLED:</strong> Se agregó el display SSD1306 al bus I2C (SDA=GPIO21, SCL=GPIO22).</li>
+    <li><strong>Integración de Software:</strong> Se fusionó la lectura del pulso usando <code>pulseIn()</code> con las librerías <code>Adafruit_SSD1306</code> para imprimir el resultado convertido a centímetros.</li>
+    <li><strong>Ajustes finales:</strong> Configuración de <code>delay(500)</code> para lograr una actualización fluida de la pantalla.</li>
+</ol></div>
+<div id="dist-pantalla-concept" class="ieee-content"><h2>X. Conceptos Técnicos Clave</h2>
+<ul>
+    <li><strong>Velocidad del Sonido y Temperatura:</strong> A 20°C la velocidad es 343.4 m/s. El divisor 58.4 proporciona excelente precisión en rango de 15 a 25 °C.</li>
+    <li><strong>Función <code>pulseIn()</code>:</strong> Mide la duración de un pulso de nivel HIGH en microsegundos, usando el contador de ciclos del ESP32.</li>
+</ul></div>
+<div id="dist-pantalla-conc" class="ieee-content"><h2>XI. Conclusiones</h2><ul>
+<li>El proyecto demuestra la integración exitosa de un sensor ultrasónico HC-SR04 con una pantalla OLED SSD1306 controlados por el ESP32, logrando un sistema autónomo.</li>
+<li>La comunicación I2C permite añadir una interfaz visual con solo dos cables (SDA/SCL), optimizando los recursos del ESP32.</li>
+<li>La visualización dual (monitor serial y pantalla OLED) permite utilizar el dispositivo tanto para depuración en PC como módulo autónomo portátil.</li>
+<li>Las librerías Adafruit GFX facilitan presentar resultados visuales formidables de manera muy sencilla.</li>
+</ul></div>
+<div id="dist-pantalla-eqs" class="ieee-content"><h2>XII. Ecuaciones</h2>
+<div class="table-wrap"><table class="data-table eq-summary-table"><thead><tr><th>Ecuación</th><th>Descripción</th><th>Enlace</th></tr></thead><tbody>
+<tr><td>$d = \frac{v_s \times t}{2}$</td><td>Distancia por eco-localización</td><td><a href="#dist-pantalla-func">Ir a sección</a></td></tr>
+<tr><td>$d\,[\text{cm}] \approx \frac{t}{58.4}$</td><td>Cálculo de distancia en código</td><td><a href="#dist-pantalla-func">Ir a sección</a></td></tr>
+</tbody></table></div></div></div></div></section>
+
+<!-- SECCION MATERIAL -->
+<section id="material" class="section">
+<div class="material-section">
+<h1>Lista Consolidada de Materiales</h1>
+<div class="glass-card" style="padding: 24px; overflow-x: auto;">
+<table class="data-table material-visual-table">
+<thead>
+<tr><th style="width:80px;text-align:center">Aspecto</th><th>Componente</th><th>Cant. Total</th><th>Proyectos donde se utiliza</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align:center"><i class="fas fa-microchip" style="font-size:1.5em; color:var(--accent-cyan)"></i></td><td>ESP32 Dev Module</td><td>1</td><td>Todos</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-border-all" style="font-size:1.5em; color:#ccc"></i></td><td>Protoboard 830 puntos</td><td>1</td><td>Todos</td></tr>
+<tr><td style="text-align:center"><i class="fab fa-usb" style="font-size:1.5em; color:#999"></i></td><td>Cable USB (Micro USB o Tipo C)</td><td>1</td><td>Todos</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-random" style="font-size:1.5em; color:var(--accent-green)"></i></td><td>Cables Jumper (M-M, M-H)</td><td>Varios</td><td>Todos</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-lightbulb" style="font-size:1.5em; color:#ff4444"></i></td><td>LED (Varios colores)</td><td>1 - 3</td><td>On/Off, Potenciometro (variantes)</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-wave-square" style="font-size:1.5em; color:#eab308"></i></td><td>Resistencia 220 Ohm</td><td>1 - 3</td><td>On/Off, Potenciometro (variantes)</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-sliders-h" style="font-size:1.5em; color:#aaa"></i></td><td>Potenciometro 10k Ohm</td><td>1</td><td>Potenciometro, BT, WiFi, ThingSpeak</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-temperature-low" style="font-size:1.5em; color:var(--accent-cyan)"></i></td><td>Sensor DHT22</td><td>1</td><td>Temperatura (ambas variantes)</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-wave-square" style="font-size:1.5em; color:#eab308"></i></td><td>Resistencia 10k Ohm (Pull-up)</td><td>1</td><td>Temperatura (ambas variantes)</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-lightbulb" style="font-size:1.5em; color:#ff4444"></i></td><td>Pantalla OLED SSD1306 128x64</td><td>1</td><td>Temp. con termómetro, Mov. Armónico, Sensor de Distancia</td></tr>
+<tr><td style="text-align:center"><i class="fas fa-ruler" style="font-size:1.5em; color:var(--accent-gold)"></i></td><td>Sensor Ultrasónico HC-SR04</td><td>1</td><td>Sensor de Distancia</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</div><!-- Fin main-content -->
+
+<!-- ABOUT US SECTION -->
+<section id="sobre-nosotros" class="section" data-project-name="Sobre Nosotros">
+<div class="about-section">
+<div class="about-grid">
+<div class="glass-card about-card fade-in">
+<div class="about-icon"><i class="fas fa-users"></i></div>
+<div class="about-label">El Equipo</div>
+<h3>Desarrolladores</h3>
+<p>Miguel Angel Delgado Acevedo<br>Andres Felipe Bernal Torres<br>Deisy Patricia Angarita Daza<br>Juan Jose Perez Herrera</p>
+</div>
+<div class="glass-card about-card fade-in" style="animation-delay:0.2s">
+<div class="about-icon"><i class="fas fa-university"></i></div>
+<div class="about-label">Institucion</div>
+<h3>Universidad Tecnologica de Pereira</h3>
+<p>Programa de Ingenieria</p>
+</div>
+<div class="glass-card about-card fade-in" style="animation-delay:0.4s">
+<div class="about-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+<div class="about-label">Asignatura</div>
+<h3>Fisica 3</h3>
+<p>Profesor:<br>Msc. Nestor Fabio Montoya Palacios</p>
+</div>
+<div class="glass-card about-card fade-in" style="animation-delay:0.6s">
+<div class="about-icon"><i class="fas fa-globe"></i></div>
+<div class="about-label">Otros Proyectos</div>
+<h3>Paginas Web Relacionadas</h3>
+<p>
+<a href="https://mangelxmada.github.io/Cuaderno-Movimiento-Oscilatorio/" target="_blank" rel="noopener noreferrer" style="color: var(--accent-cyan); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; margin: 6px 0;"><i class="fas fa-wave-square"></i> Movimiento Oscilatorio</a><br>
+<a href="https://mangelxmada.github.io/Cuaderno-Movimiento-ondulatorio/" target="_blank" rel="noopener noreferrer" style="color: var(--accent-cyan); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; margin: 6px 0;"><i class="fas fa-water"></i> Movimiento Ondulatorio</a>
+</p>
+</div>
+</div>
+</div>
+</section>
+
+<footer class="footer">
+<p>&copy; 2026 - Portafolio de Proyectos de Electronica. Fisica 3.</p>
+</footer>
+
+<!-- IMAGE MODAL -->
+<div class="image-modal" id="imageModal">
+<span class="image-modal-close" id="imageModalClose">&times;</span>
+<img class="image-modal-content" id="imageModalImg">
+<div class="image-modal-caption" id="imageModalCaption"></div>
+</div>
+
+<script src="app.js"></script>
+<script src="chatbot.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+LICENCIA DE DERECHOS DE AUTOR Y TÉRMINOS DE USO
+
+CONTRATO DE LICENCIA DE OBRA PROTEGIDA BAJO LA LEGISLACIÓN COLOMBIANA DE DERECHOS DE AUTOR
+
+Autor/Titular de los Derechos Patrimoniales y Morales: Miguel Angel Delgado Acevedo
+Institución Académica: Universidad Tecnológica de Pereira (UTP)
+Fecha de vigencia: 2026
+
+I. DECLARACIÓN DE AUTORÍA Y MARCO LEGAL
+
+El presente documento (el "Portafolio de Electrónica ESP32 - Física 3", incluyendo de manera enunciativa pero no limitativa su código fuente, diagramas, esquemas, textos explicativos, interfaces gráficas y diseños) está protegido por las leyes de propiedad intelectual y derechos de autor vigentes en la República de Colombia. Esto incluye, en particular, la Ley 23 de 1982, la Decisión 351 de 1993 de la Comisión del Acuerdo de Cartagena (Régimen Común sobre Derecho de Autor y Derechos Conexos), la Ley 44 de 1993, y la Ley 1915 de 2018, así como los tratados internacionales ratificados por Colombia en la materia, tales como el Convenio de Berna y el Tratado de la OMPI sobre Derecho de Autor (WCT).
+
+II. USO DE INTELIGENCIA ARTIFICIAL EN EL PROCESO DE CREACIÓN
+
+Se declara expresa y legalmente que porciones sustanciales del código fuente, estructuración, redacción y diseño gráfico incluidos en este repositorio fueron desarrolladas, sugeridas, optimizadas o asistidas mediante el uso de herramientas de Inteligencia Artificial (IA) generativa. 
+
+No obstante lo anterior, y de conformidad con la doctrina y la jurisprudencia aplicable en materia de derechos de autor en la República de Colombia, el señor MIGUEL ANGEL DELGADO ACEVEDO ostenta la calidad inalienable de AUTOR y TITULAR EXCLUSIVO de la obra resultante en virtud de:
+
+1. El aporte intelectual sustancial en la concepción, diseño arquitectónico, curaduría, selección y disposición final de los contenidos (protección como obra compilada y derivada).
+2. La ejecución material, diseño de lógica y ensamble de los circuitos electrónicos físicos.
+3. El esfuerzo cognitivo y creativo aplicado en el proceso de "prompting" (ingeniería de instrucciones), iteración, revisión exhaustiva, corrección de errores y adaptación del código generado por la IA a los requisitos técnicos y académicos específicos de la asignatura "Física 3".
+
+La intervención de la Inteligencia Artificial se reconoce jurídicamente como una herramienta instrumental de asistencia. En consecuencia, la titularidad integral de la obra recae única y exclusivamente sobre Miguel Angel Delgado Acevedo.
+
+III. CONCESIÓN DE LICENCIA (USO ACADÉMICO Y NO COMERCIAL)
+
+Por medio del presente documento, el Autor otorga a cualquier tercero una licencia limitada, no exclusiva, intransferible, gratuita y revocable bajo las siguientes condiciones inexcusables:
+
+1. USO PERMITIDO: Se permite la copia, distribución, exhibición y uso de los materiales de este repositorio estrictamente para fines académicos, educativos, de investigación o de estudio personal, siempre que NO exista ningún propósito de lucro directo o indirecto.
+2. ATRIBUCIÓN OBLIGATORIA (DERECHO MORAL DE PATERNIDAD): Toda copia, reproducción o uso del material debe reconocer de manera clara, visible e inequívoca la autoría de Miguel Angel Delgado Acevedo y hacer mención al contexto académico original (Universidad Tecnológica de Pereira - Física 3). La omisión de este requisito constituye una vulneración al derecho moral inalienable amparado en el artículo 30 de la Ley 23 de 1982.
+3. PROHIBICIÓN DE USO COMERCIAL: Queda estrictamente prohibida la comercialización, venta, alquiler, integración en productos comerciales o cualquier forma de explotación económica de este proyecto o de sus partes.
+4. OBRAS DERIVADAS: La modificación sustancial del código o diseño para la creación de obras derivadas destinadas a la distribución pública requiere autorización expresa, previa y por escrito del Autor.
+
+IV. EXENCIÓN DE RESPONSABILIDAD Y GARANTÍAS
+
+El material, software, esquemas electrónicos y simulaciones se proporcionan "TAL CUAL" (AS IS), sin garantías de ningún tipo, ya sean expresas o implícitas, incluyendo pero no limitándose a garantías de comercialización, seguridad o idoneidad para un propósito particular. 
+
+Bajo ninguna circunstancia el Autor será legalmente responsable por daños directos, indirectos, incidentales, especiales, ejemplares o consecuentes (incluyendo daños a componentes electrónicos como microcontroladores ESP32, cortocircuitos, daños a equipos de cómputo, pérdida de datos o perjuicios físicos) que resulten del ensamblaje de los circuitos, errores de código o uso general de los materiales aquí contenidos. El uso, ensamblaje y ejecución de este material se realiza bajo la entera y exclusiva responsabilidad y riesgo del usuario.
+
+V. JURISDICCIÓN Y RESOLUCIÓN DE CONTROVERSIAS
+
+Cualquier disputa o controversia que surja de la interpretación, aplicación o vulneración de los términos de esta Licencia será sometida a las leyes de la República de Colombia. Todo usuario de este repositorio acepta la jurisdicción y competencia de los Jueces Civiles de la República de Colombia y/o de la Dirección Nacional de Derecho de Autor (DNDA) en ejercicio de sus funciones jurisdiccionales, renunciando a cualquier otro fuero que por su domicilio presente o futuro pudiera corresponderle.
+
+---------------------------------------------------------
+Firma de conformidad:
+Miguel Angel Delgado Acevedo
+Estudiante, Universidad Tecnológica de Pereira (UTP)
+República de Colombia
+2026

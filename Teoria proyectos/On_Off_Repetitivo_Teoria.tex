@@ -1,0 +1,196 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage[colorlinks=true, linkcolor=blue, urlcolor=blue]{hyperref}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+\title{\Huge\textbf{PROYECTO ESP32} \\ \Large On/Off Repetitivo \\ \vspace{0.5cm} \normalsize \textit{Parpadeo automático de un LED usando el microcontrolador ESP32}}
+\author{Miguel Angel Delagado Acevedo - Juan José Peres - Daisy - Andres Felipe}
+\date{2026 \\ \vspace{0.2cm} \small Plataforma: ESP32 Dev Module}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Introducción}
+Este documento describe de manera detallada el proyecto "On/Off Repetitivo", un circuito básico pero fundamental en el aprendizaje de la programación de microcontroladores. El proyecto consiste en hacer parpadear un LED conectado al pin GPIO 4 del ESP32, alternando entre estados de encendido y apagado con intervalos de 1 segundo.
+
+El ESP32 es un microcontrolador de bajo costo y alto rendimiento desarrollado por Espressif Systems. Cuenta con conectividad Wi-Fi y Bluetooth integrada, lo que lo convierte en una plataforma ideal tanto para proyectos educativos como para aplicaciones IoT profesionales.
+
+Este proyecto sirve como punto de partida para comprender conceptos clave como: configuración de pines GPIO, uso de funciones de tiempo (delay), comunicación serial para depuración, y el flujo básico de un programa Arduino (setup/loop).
+
+\section{Objetivo del Proyecto}
+Implementar un sistema de parpadeo automático de un LED utilizando el microcontrolador ESP32, demostrando el uso correcto de salidas digitales, la estructura de un programa Arduino, y la comunicación serial como herramienta de monitoreo.
+
+\section{Materiales Necesarios}
+\begin{table}[h!]
+\centering
+\begin{tabular}{cll}
+\toprule
+\textbf{Cant.} & \textbf{Componente} & \textbf{Especificación} \\
+\midrule
+1 & ESP32 Dev Module & Microcontrolador con Wi-Fi/Bluetooth \\
+1 & LED rojo (5mm) & LED difuso, $V_f \approx 2V$, $I_f \approx 20mA$ \\
+1 & Resistencia 220 $\Omega$ & 1/4W, tolerancia 5\% \\
+1 & Protoboard & Placa de pruebas de 830 puntos \\
+2 & Cables jumper & Macho-macho para conexiones \\
+1 & Cable USB Micro-B & Para programación y alimentación \\
+\bottomrule
+\end{tabular}
+\caption{Lista de materiales}
+\end{table}
+
+\section{Esquema de Conexión}
+El siguiente esquema, realizado en Fritzing, muestra las conexiones físicas del circuito. El LED rojo está conectado al pin D4 (GPIO4) del ESP32 a través de una resistencia limitadora de corriente de 220 $\Omega$. El cátodo del LED se conecta a la línea de tierra (GND) del ESP32.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.9\textwidth]{../Esquemas/On_Off_Repetitivo_esq/On_Off_Repetitivo_esq.jpeg}
+\caption{Esquema de conexión del circuito On/Off Repetitivo (Fritzing)}
+\end{figure}
+
+\subsection{Descripción de las Conexiones}
+\begin{enumerate}
+    \item Pin D4 (GPIO4) del ESP32 se conecta al ánodo (+) del LED mediante un cable jumper azul.
+    \item El cátodo (-) del LED se conecta a un extremo de la resistencia de 220 $\Omega$.
+    \item El otro extremo de la resistencia se conecta al bus de tierra (GND) de la protoboard.
+    \item El pin GND del ESP32 se conecta al bus de tierra de la protoboard con un cable negro.
+\end{enumerate}
+
+\section{Código Fuente}
+A continuación se presenta el código completo del proyecto con explicación detallada de cada sección:
+
+\subsection{Código Completo (On\_Off\_Repetitivo.ino)}
+\begin{lstlisting}[language=C++, title=On\_Off\_Repetitivo.ino]
+/*
+ * ====================================================
+ *  Parpadeo de un LED conectado al pin D4 del ESP32
+ *  Autor : Msc. Nestor Fabio Montoya Palacios
+ *  Fecha : 2026
+ *  Board : ESP32 Dev Module
+ * ====================================================
+ */
+
+// -- Configuracion ----------------------------------
+const int PIN_LED        = 4;     // Pin GPIO donde esta el LED
+const int TIEMPO_ENCENDIDO  = 1000;  // Tiempo encendido  (ms)
+const int TIEMPO_APAGADO    = 1000;  // Tiempo apagado    (ms)
+
+// -- Setup -------------------------------------------
+void setup() {
+  Serial.begin(115200);
+  Serial.println("==================================");
+  Serial.println("  Parpadeo de LED con el ESP32    ");
+  Serial.println("==================================");
+
+  // Establecemos el pin del LED como salida
+  pinMode(PIN_LED, OUTPUT);
+
+  // Apagamos el LED al iniciar
+  digitalWrite(PIN_LED, LOW);
+  Serial.println("> Sistema listo. Iniciando parpadeo...");
+}
+
+// -- Loop --------------------------------------------
+void loop() {
+  // Encendemos el LED
+  digitalWrite(PIN_LED, HIGH);
+  Serial.println("LED: ENCENDIDO");
+  delay(TIEMPO_ENCENDIDO);
+
+  // Apagamos el LED
+  digitalWrite(PIN_LED, LOW);
+  Serial.println("LED: APAGADO");
+  delay(TIEMPO_APAGADO);
+}
+\end{lstlisting}
+\textit{Nota: Se han modificado los caracteres especiales y emojis del código original para garantizar la compatibilidad con el compilador de \LaTeX.}
+
+\subsection{Análisis del Código}
+
+\subsubsection*{Sección de Configuración (Constantes)}
+Al inicio del programa se definen tres constantes que parametrizan el comportamiento del circuito:
+\begin{itemize}
+    \item \textbf{\texttt{PIN\_LED = 4}:} Define el pin GPIO 4 como salida para controlar el LED. En el ESP32, GPIO4 corresponde al pin físico D4.
+    \item \textbf{\texttt{TIEMPO\_ENCENDIDO = 1000}:} Tiempo en milisegundos que el LED permanecerá encendido (1 segundo).
+    \item \textbf{\texttt{TIEMPO\_APAGADO = 1000}:} Tiempo en milisegundos que el LED permanecerá apagado (1 segundo).
+\end{itemize}
+
+\subsubsection*{Función \texttt{setup()}}
+Esta función se ejecuta una sola vez al iniciar el ESP32:
+\begin{itemize}
+    \item \textbf{\texttt{Serial.begin(115200)}:} Inicializa la comunicación serial a 115200 baudios para monitorear el estado del LED desde el computador.
+    \item \textbf{\texttt{pinMode(PIN\_LED, OUTPUT)}:} Configura el pin GPIO4 como salida digital, permitiendo enviar señales HIGH o LOW para controlar el LED.
+    \item \textbf{\texttt{digitalWrite(PIN\_LED, LOW)}:} Asegura que el LED inicie en estado apagado.
+\end{itemize}
+
+\subsubsection*{Función \texttt{loop()}}
+Esta función se ejecuta en un ciclo infinito y contiene la lógica principal del parpadeo:
+\begin{enumerate}
+    \item \texttt{digitalWrite(PIN\_LED, HIGH)}: Enciende el LED enviando 3.3V al pin GPIO4.
+    \item \texttt{Serial.println()}: Imprime el estado actual del LED en el Monitor Serial.
+    \item \texttt{delay(TIEMPO\_ENCENDIDO)}: Pausa la ejecución por 1000ms (1 segundo).
+    \item \texttt{digitalWrite(PIN\_LED, LOW)}: Apaga el LED enviando 0V al pin.
+    \item \texttt{delay(TIEMPO\_APAGADO)}: Pausa por otro segundo antes de repetir el ciclo.
+\end{enumerate}
+
+\section{Principio de Funcionamiento}
+El circuito opera bajo el principio básico de control digital de un GPIO (General Purpose Input/Output). Cuando el ESP32 escribe un valor HIGH en el pin GPIO4, este entrega aproximadamente 3.3V, lo cual permite que la corriente fluya a través del LED y la resistencia, encendiendo el LED.
+
+La resistencia de 220 $\Omega$ cumple la función crítica de limitar la corriente que circula por el LED. Sin esta resistencia, la corriente excesiva dañaría el LED. El cálculo de la corriente es:
+
+\begin{equation}
+I = \frac{V_{gpio} - V_{led}}{R} = \frac{3.3\text{ V} - 2.0\text{ V}}{220\,\Omega} \approx 5.9\text{ mA}
+\end{equation}
+
+Este valor está dentro del rango seguro de operación tanto para el LED (máx 20mA) como para el pin del ESP32 (máx 40mA por pin).
+
+\section{Video de Funcionamiento}
+El proyecto incluye un video demostrativo (\texttt{On\_Off\_Repetitivo\_Funcionamiento.mp4}) que muestra el circuito en operación. En el video se puede observar el LED parpadeando con intervalos regulares de 1 segundo, confirmando el correcto funcionamiento del código y las conexiones del circuito.
+
+\textit{Nota: El archivo de video se encuentra en la carpeta \texttt{Videos/On\_Off\_Repetitivo\_vid/} del proyecto.}
+
+\section{Conclusiones}
+\begin{itemize}
+    \item El proyecto demuestra el uso correcto de los pines GPIO del ESP32 como salidas digitales para controlar dispositivos externos.
+    \item La comunicación serial permite monitorear en tiempo real el estado del sistema, facilitando la depuración.
+    \item El uso de constantes para definir pines y tiempos hace el código modular y fácil de modificar.
+    \item La resistencia limitadora es esencial para proteger tanto el LED como el microcontrolador.
+    \item Este proyecto constituye la base para circuitos más complejos como semáforos, indicadores de estado, y sistemas de alerta visual.
+\end{itemize}
+
+\end{document}
